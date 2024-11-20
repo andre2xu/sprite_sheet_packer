@@ -3,7 +3,7 @@ from PySide6 import QtWidgets, QtCore
 
 # GUI components
 import components.shared as shared
-from components.Menubar import Menubar
+from components.MainWindow import Menubar
 
 
 
