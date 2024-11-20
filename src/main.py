@@ -3,7 +3,7 @@ from PySide6 import QtWidgets, QtCore
 
 # GUI components
 import components.shared as shared
-from components.MainWindow import Menubar
+from components.MainWindow import Menubar, Workspace
 
 
 
@@ -16,7 +16,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         central_widget.addWidgets([
             Menubar(),
-            QtWidgets.QLabel('Workspace')
+            Workspace()
         ])
 
         self.setCentralWidget(central_widget)
