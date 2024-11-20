@@ -12,6 +12,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow, self).__init__()
 
         central_widget = shared.VerticalBoxLayout()
+        central_widget.lyt.setSpacing(0)
         central_widget.lyt.setContentsMargins(0,0,0,0)
 
         central_widget.addWidgets([
