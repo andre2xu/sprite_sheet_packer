@@ -6,7 +6,7 @@ from PySide6.QtWidgets import QSizePolicy
 
 class Menubar(components.shared.HorizontalBoxLayout):
     def __init__(self):
-        super().__init__()
+        super(Menubar, self).__init__()
 
         file_button = QtWidgets.QPushButton('File')
         file_button.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
