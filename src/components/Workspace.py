@@ -9,6 +9,14 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
 
         self.addWidgets([QtWidgets.QLabel('Sprite Sheet Preview')])
 
+        self.setStyleSheet(
+            """
+            QWidget {
+                background-color: #242629;
+            }
+            """
+        )
+
 
 
 class SpritesManager(components.shared.VerticalBoxLayout):
