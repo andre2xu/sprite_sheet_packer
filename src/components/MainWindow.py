@@ -2,6 +2,9 @@ import components.shared
 from PySide6 import QtWidgets, QtCore
 from PySide6.QtWidgets import QSizePolicy
 
+# GUI components
+from components.Workspace import SpriteSheetPreview, SpritesManager
+
 
 
 class Menubar(components.shared.HorizontalBoxLayout):
@@ -43,3 +46,17 @@ class Menubar(components.shared.HorizontalBoxLayout):
         )
 
         self.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum)) # menubar height will only be enough to fit its contents
+
+
+
+class Workspace(components.shared.HorizontalBoxLayout):
+    def __init__(self):
+        super(Workspace, self).__init__()
+
+        self.lyt.setSpacing(0)
+        self.lyt.setContentsMargins(0,0,0,0)
+
+        self.addWidgets([
+            SpriteSheetPreview(),
+            SpritesManager()
+        ])
