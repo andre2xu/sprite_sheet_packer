@@ -26,7 +26,6 @@ class Controls(components.shared.HorizontalBoxLayout):
             """
             QWidget {
                 border-top: 3px solid #242629;
-                border-bottom: 3px solid #242629;
             }
 
             QWidget QPushButton {
