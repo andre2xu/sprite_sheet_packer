@@ -38,3 +38,58 @@ class Controls(components.shared.HorizontalBoxLayout):
         )
 
         self.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+
+
+
+class SpritesList(components.shared.VerticalBoxLayout):
+    def __init__(self):
+        super(SpritesList, self).__init__()
+
+        vertical_list = components.shared.VerticallyScrollableWidget()
+        vertical_list.setWidgetResizable(True)
+        vertical_list.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        vertical_list.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+
+        list_items = [
+            QtWidgets.QLabel('Sprite 1'),
+            QtWidgets.QLabel('Sprite 2'),
+            QtWidgets.QLabel('Sprite 3')
+        ]
+
+        for i in range(len(list_items)):
+            li = list_items[i]
+            li.setContentsMargins(0,0,0,0)
+            li.setCursor(QtCore.Qt.CursorShape.OpenHandCursor)
+
+        vertical_list.lytw.addWidgets(list_items)
+        vertical_list.lytw.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+        vertical_list.lytw.lyt.setContentsMargins(0,0,0,0)
+        vertical_list.lytw.lyt.setSpacing(0)
+
+        vertical_list.setStyleSheet(
+            """
+            QScrollArea {
+                border: none;
+                background-color: #212124;
+            }
+
+            QScrollArea QWidget {
+                background-color: #212124;
+                border: none;
+            }
+
+            QScrollArea QWidget QLabel {
+                border: 1px solid #37393c;
+                background-color: #2c2e30;
+                border-bottom: none;
+                padding: 20px 10px;
+            }
+
+            QScrollArea QWidget QLabel::hover {
+                background-color: #3b4045;
+            }
+            """
+        )
+        list_items[-1].setStyleSheet("""border-bottom: 1px solid #37393c;""")
+
+        self.lyt.addWidget(vertical_list)
