@@ -3,7 +3,7 @@ from PySide6 import QtWidgets
 from PySide6.QtWidgets import QSizePolicy
 
 # GUI components
-from components.SpritesManager import Controls
+from components.SpritesManager import Controls, SpritesList
 
 
 
@@ -29,7 +29,7 @@ class SpritesManager(components.shared.VerticalBoxLayout):
 
         self.addWidgets([
             Controls(),
-            QtWidgets.QLabel('Sprites Layer Tree')
+            SpritesList()
         ])
 
         self.setStyleSheet(
