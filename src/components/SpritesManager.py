@@ -53,7 +53,14 @@ class SpritesList(components.shared.VerticalBoxLayout):
         list_items = [
             QtWidgets.QLabel('Sprite 1'),
             QtWidgets.QLabel('Sprite 2'),
-            QtWidgets.QLabel('Sprite 3')
+            QtWidgets.QLabel('Sprite 3'),
+            QtWidgets.QLabel('Sprite 4'),
+            QtWidgets.QLabel('Sprite 5'),
+            QtWidgets.QLabel('Sprite 6'),
+            QtWidgets.QLabel('Sprite 7'),
+            QtWidgets.QLabel('Sprite 8'),
+            QtWidgets.QLabel('Sprite 9'),
+            QtWidgets.QLabel('Sprite 10'),
         ]
 
         for i in range(len(list_items)):
