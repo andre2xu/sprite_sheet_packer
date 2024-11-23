@@ -95,6 +95,26 @@ class SpritesList(components.shared.VerticalBoxLayout):
             QScrollArea QWidget QLabel::hover {
                 background-color: #3b4045;
             }
+
+            QScrollBar {
+                background-color: #212124;
+                border: 1px solid #37393c;
+            }
+
+            QScrollBar::handle:vertical {
+                background-color: #656769;
+                border: 1px solid gray;
+                border-radius: 2px;
+            }
+
+            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+                width: 0px;
+                height: 0px;
+            }
+
+            QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+                background-color: #37393c;
+            }
             """
         )
         list_items[-1].setStyleSheet("""border-bottom: 1px solid #37393c;""")
