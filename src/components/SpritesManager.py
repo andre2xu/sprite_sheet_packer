@@ -45,55 +45,44 @@ class SpritesList(components.shared.VerticalBoxLayout):
     def __init__(self):
         super(SpritesList, self).__init__()
 
-        vertical_list = components.shared.VerticallyScrollableWidget()
-        vertical_list.setWidgetResizable(True)
+        vertical_list = QtWidgets.QListWidget()
+        vertical_list_layout = QtWidgets.QVBoxLayout()
+
+        vertical_list.setLayout(vertical_list_layout)
         vertical_list.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         vertical_list.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
 
         list_items = [
-            QtWidgets.QLabel('Sprite 1'),
-            QtWidgets.QLabel('Sprite 2'),
-            QtWidgets.QLabel('Sprite 3'),
-            QtWidgets.QLabel('Sprite 4'),
-            QtWidgets.QLabel('Sprite 5'),
-            QtWidgets.QLabel('Sprite 6'),
-            QtWidgets.QLabel('Sprite 7'),
-            QtWidgets.QLabel('Sprite 8'),
-            QtWidgets.QLabel('Sprite 9'),
-            QtWidgets.QLabel('Sprite 10'),
+            QtWidgets.QListWidgetItem('Sprite 1'),
+            QtWidgets.QListWidgetItem('Sprite 2'),
+            QtWidgets.QListWidgetItem('Sprite 3'),
+            QtWidgets.QListWidgetItem('Sprite 4'),
+            QtWidgets.QListWidgetItem('Sprite 5'),
+            QtWidgets.QListWidgetItem('Sprite 6'),
+            QtWidgets.QListWidgetItem('Sprite 7'),
+            QtWidgets.QListWidgetItem('Sprite 8'),
+            QtWidgets.QListWidgetItem('Sprite 9'),
+            QtWidgets.QListWidgetItem('Sprite 10'),
         ]
 
         for i in range(len(list_items)):
-            li = list_items[i]
-            li.setContentsMargins(0,0,0,0)
-            li.setCursor(QtCore.Qt.CursorShape.OpenHandCursor)
-
-        vertical_list.lytw.addWidgets(list_items)
-        vertical_list.lytw.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
-        vertical_list.lytw.lyt.setContentsMargins(0,0,0,0)
-        vertical_list.lytw.lyt.setSpacing(0)
+            vertical_list.addItem(list_items[i])
 
         vertical_list.setStyleSheet(
             """
-            QScrollArea {
-                border: none;
-                background-color: #212124;
-            }
-
-            QScrollArea QWidget {
-                background-color: #212124;
-                border: none;
-            }
-
-            QScrollArea QWidget QLabel {
-                border: 1px solid #37393c;
+            QListWidget::item {
+                border-bottom: 1px solid #37393c;
                 background-color: #2c2e30;
-                border-bottom: none;
                 padding: 20px 10px;
             }
 
-            QScrollArea QWidget QLabel::hover {
+            QListWidget::item:hover {
                 background-color: #3b4045;
+            }
+
+            QScrollArea {
+                border: none;
+                background-color: #212124;
             }
 
             QScrollBar {
@@ -117,6 +106,5 @@ class SpritesList(components.shared.VerticalBoxLayout):
             }
             """
         )
-        list_items[-1].setStyleSheet("""border-bottom: 1px solid #37393c;""")
 
         self.lyt.addWidget(vertical_list)
