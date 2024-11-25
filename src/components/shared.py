@@ -36,25 +36,3 @@ class HorizontalBoxLayout(Layout):
 class VerticalBoxLayout(Layout):
     def __init__(self):
         super(VerticalBoxLayout, self).__init__(QtWidgets.QVBoxLayout())
-
-
-
-# SCROLLABLE WIDGETS
-class ScrollableWidget(QtWidgets.QScrollArea):
-    def __init__(self, layoutWidget: Layout):
-        super(ScrollableWidget, self).__init__()
-
-        self.lytw = layoutWidget
-        self.setWidget(layoutWidget)
-
-    def addWidgets(self, widgets: list):
-        for i in range(len(widgets)):
-            self.lytw.lyt.addWidget(widgets[i])
-
-class HorizontallyScrollableWidget(ScrollableWidget):
-    def __init__(self):
-        super(HorizontallyScrollableWidget, self).__init__(HorizontalBoxLayout())
-
-class VerticallyScrollableWidget(ScrollableWidget):
-    def __init__(self):
-        super(VerticallyScrollableWidget, self).__init__(VerticalBoxLayout())
