@@ -4,6 +4,66 @@ from PySide6.QtWidgets import QSizePolicy
 
 
 
+class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
+    def __init__(self):
+        super(SpritesListItemDelegate, self).__init__()
+
+    def paint(self, painter, option, index):
+        painter.save()
+
+        icon = index.data(QtCore.Qt.DecorationRole)
+        text = index.data(QtCore.Qt.DisplayRole)
+
+        if icon:
+            # draw icon
+            icon_size = option.decorationSize
+
+            icon_rect = QtCore.QRect(
+                option.rect.x() + 20, # start 20px from the left side of list item widget
+                option.rect.y() + ((option.rect.height() - icon_size.height()) // 2), # center vertically in the list item widget
+                icon_size.width(),
+                icon_size.height()
+            )
+
+            painter.drawPixmap(icon_rect, icon.pixmap(icon_size))
+
+            # create custom text position
+            icon_right_margin = 10
+
+            text_rect = QtCore.QRect(
+                option.rect.x() + (icon_rect.x() + icon_size.width() + icon_right_margin), # start on the right of the icon (with space in-between)
+                option.rect.y(), # center vertically in the list item widget
+                option.rect.width() - (icon_size.width() + icon_right_margin),
+                option.rect.height()
+            )
+        else:
+            text_rect = option.rect # use default position if there's no icon
+
+        # draw text
+        painter.drawText(
+            text_rect,
+            QtCore.Qt.AlignmentFlag.AlignLeft | QtCore.Qt.AlignmentFlag.AlignVCenter,
+            text
+        )
+
+        # draw border-bottom
+        border_color = QtGui.QColor('#37393c')
+
+        painter.setPen(QtCore.Qt.PenStyle.SolidLine)
+        painter.setPen(border_color)
+        painter.setBrush(border_color)
+
+        painter.drawLine(
+            option.rect.left(),
+            option.rect.bottom(),
+            option.rect.right(),
+            option.rect.bottom()
+        )
+
+        painter.restore()
+
+
+
 class Controls(components.shared.HorizontalBoxLayout):
     def __init__(self):
         super(Controls, self).__init__()
@@ -51,6 +111,7 @@ class SpritesList(components.shared.VerticalBoxLayout):
         vertical_list.setLayout(vertical_list_layout)
         vertical_list.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         vertical_list.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        vertical_list.setItemDelegate(SpritesListItemDelegate())
 
         list_items = [
             QtWidgets.QListWidgetItem('Sprite 1'),
@@ -73,6 +134,7 @@ class SpritesList(components.shared.VerticalBoxLayout):
 
             vertical_list.addItem(li)
 
+        # NOTE: the 'QListWidget::item' styles aren't used since the custom list item delegate overrides them but they should be kept for reference and as fallback
         vertical_list.setStyleSheet(
             """
             QListWidget::item {
