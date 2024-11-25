@@ -1,5 +1,5 @@
-import components.shared
-from PySide6 import QtWidgets, QtCore
+import components.shared, pathlib
+from PySide6 import QtWidgets, QtCore, QtGui
 from PySide6.QtWidgets import QSizePolicy
 
 
@@ -65,8 +65,13 @@ class SpritesList(components.shared.VerticalBoxLayout):
             QtWidgets.QListWidgetItem('Sprite 10'),
         ]
 
+        default_sprite_list_item_icon = QtGui.QIcon(f'{pathlib.Path(__file__).parent.resolve()}/../../local/default_sprite_icon.png')
+
         for i in range(len(list_items)):
-            vertical_list.addItem(list_items[i])
+            li = list_items[i]
+            li.setIcon(default_sprite_list_item_icon)
+
+            vertical_list.addItem(li)
 
         vertical_list.setStyleSheet(
             """
