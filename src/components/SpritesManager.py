@@ -9,6 +9,12 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
     def __init__(self):
         super(SpritesListItemDelegate, self).__init__()
 
+    def editorEvent(self, event, model, option, index):
+        if event.type() == event.Type.MouseMove:
+            option.widget.viewport().setCursor(QtCore.Qt.CursorShape.OpenHandCursor)
+
+        return super().editorEvent(event, model, option, index)
+
     def paint(self, painter, option, index):
         painter.save()
 
