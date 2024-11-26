@@ -1,7 +1,7 @@
 import sys
 from PySide6 import QtWidgets, QtCore
 
-# GUI components
+### GUI COMPONENTS ###
 import components.shared as shared
 from components.MainWindow import Menubar, Workspace
 

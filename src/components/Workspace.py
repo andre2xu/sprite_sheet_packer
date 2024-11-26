@@ -2,7 +2,7 @@ import components.shared
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QSizePolicy
 
-# GUI components
+### GUI COMPONENTS ###
 from components.SpritesManager import Controls, SpritesList
 
 

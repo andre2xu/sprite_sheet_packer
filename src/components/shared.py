@@ -2,7 +2,7 @@ from PySide6 import QtWidgets, QtGui
 
 
 
-# LAYOUTS
+### LAYOUTS ###
 class Layout(QtWidgets.QWidget):
     def __init__(self, layout: QtWidgets.QLayout):
         super(Layout, self).__init__()
