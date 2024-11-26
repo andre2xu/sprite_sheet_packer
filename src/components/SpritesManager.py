@@ -1,6 +1,9 @@
-import components.shared, pathlib
+import pathlib
 from PySide6 import QtWidgets, QtCore, QtGui
 from PySide6.QtWidgets import QSizePolicy
+
+### GUI COMPONENTS ###
+import components.shared
 
 
 

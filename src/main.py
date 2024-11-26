@@ -2,7 +2,7 @@ import sys
 from PySide6 import QtWidgets, QtCore
 
 ### GUI COMPONENTS ###
-import components.shared as shared
+import components.shared
 from components.MainWindow import Menubar, Workspace
 
 
@@ -11,7 +11,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        central_widget = shared.VerticalBoxLayout()
+        central_widget = components.shared.VerticalBoxLayout()
         central_widget.lyt.setSpacing(0)
         central_widget.lyt.setContentsMargins(0,0,0,0)
 
