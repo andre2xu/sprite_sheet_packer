@@ -19,7 +19,7 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
             icon_size = option.decorationSize
 
             icon_rect = QtCore.QRect(
-                option.rect.x() + 20, # start 20px from the left side of list item widget
+                option.rect.x() + 10, # start 20px from the left side of list item widget
                 option.rect.y() + ((option.rect.height() - icon_size.height()) // 2), # center vertically in the list item widget
                 icon_size.width(),
                 icon_size.height()
@@ -32,7 +32,7 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
 
             text_rect = QtCore.QRect(
                 option.rect.x() + (icon_rect.x() + icon_size.width() + icon_right_margin), # start on the right of the icon (with space in-between)
-                option.rect.y(), # center vertically in the list item widget
+                option.rect.y() - 2, # center vertically in the list item widget
                 option.rect.width() - (icon_size.width() + icon_right_margin),
                 option.rect.height()
             )
