@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QSizePolicy
 
 
 
+### DELEGATES ###
 class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
     def __init__(self):
         super(SpritesListItemDelegate, self).__init__()
@@ -71,6 +72,10 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
 
 
 
+
+
+
+### COMPONENTS ###
 class Controls(components.shared.HorizontalBoxLayout):
     def __init__(self):
         super(Controls, self).__init__()
