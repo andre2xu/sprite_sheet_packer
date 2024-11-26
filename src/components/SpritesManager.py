@@ -11,6 +11,13 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
     def paint(self, painter, option, index):
         painter.save()
 
+        if option.state & QtWidgets.QStyle.StateFlag.State_Selected:
+            # highlight background when a list item is clicked
+            painter.fillRect(option.rect, QtGui.QColor('#3b4045'))
+        else:
+            # default background
+            painter.fillRect(option.rect, QtGui.QColor('#313335'))
+
         icon = index.data(QtCore.Qt.DecorationRole)
         text = index.data(QtCore.Qt.DisplayRole)
 
