@@ -132,7 +132,7 @@ class SpritesList(components.shared.VerticalBoxLayout):
         vertical_list.setLayout(vertical_list_layout)
         vertical_list.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         vertical_list.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        vertical_list.setItemDelegate(SpritesListItemDelegate())
+        vertical_list.setItemDelegate(SpritesListItemDelegate()) # use custom styling on the list items
 
         list_items = [
             QtWidgets.QListWidgetItem('Sprite 1'),
