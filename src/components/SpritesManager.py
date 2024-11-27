@@ -133,6 +133,9 @@ class SpritesList(components.shared.VerticalBoxLayout):
         vertical_list.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         vertical_list.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         vertical_list.setItemDelegate(SpritesListItemDelegate()) # use custom styling on the list items
+        vertical_list.setMovement(QtWidgets.QListWidget.Movement.Free) # allow list items to be moved
+        vertical_list.setDragEnabled(True) # allow dragging
+        vertical_list.setDragDropMode(QtWidgets.QListWidget.DragDropMode.InternalMove) # move list item instead of copying after it's dragged and dropped
 
         list_items = [
             QtWidgets.QListWidgetItem('Sprite 1'),
