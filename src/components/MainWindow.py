@@ -10,11 +10,9 @@ class Menubar(QtWidgets.QMenuBar):
     def __init__(self):
         super(Menubar, self).__init__()
 
-        min_menu_width = 200
-
         # FILE MENU
         file_menu = self.addMenu('&File')
-        file_menu.setMinimumWidth(min_menu_width)
+        file_menu.setMinimumWidth(250)
 
         file_menu_new_sheet = file_menu.addAction('&New sheet...')
         file_menu_new_sheet.setShortcut('Ctrl+N')
@@ -35,7 +33,7 @@ class Menubar(QtWidgets.QMenuBar):
 
         # HELP MENU
         help_menu = self.addMenu('&Help')
-        help_menu.setMinimumWidth(min_menu_width)
+        help_menu.setMinimumWidth(180)
 
         help_menu_tutorial = help_menu.addAction('&Tutorial')
         help_menu.addSeparator()
