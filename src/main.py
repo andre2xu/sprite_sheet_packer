@@ -16,11 +16,12 @@ class MainWindow(QtWidgets.QMainWindow):
         central_widget.lyt.setContentsMargins(0,0,0,0)
 
         central_widget.addWidgets([
-            Menubar(),
             Workspace()
         ])
-
         self.setCentralWidget(central_widget)
+
+        self.setMenuBar(Menubar())
+
         self.setMinimumSize(QtCore.QSize(800, 500))
         self.setWindowTitle('Sprite Sheet Packer')
 

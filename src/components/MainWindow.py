@@ -1,5 +1,4 @@
-from PySide6 import QtWidgets, QtCore
-from PySide6.QtWidgets import QSizePolicy
+from PySide6 import QtWidgets
 
 ### GUI COMPONENTS ###
 import components.shared
@@ -7,45 +6,31 @@ from components.Workspace import SpriteSheetPreview, SpritesManager
 
 
 
-class Menubar(components.shared.HorizontalBoxLayout):
+class Menubar(QtWidgets.QMenuBar):
     def __init__(self):
         super(Menubar, self).__init__()
 
-        file_button = QtWidgets.QPushButton('File')
-        file_button.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
-        file_button.setStyleSheet("""margin-left: 5px;""")
-        file_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
-
-        help_button = QtWidgets.QPushButton('Help')
-        help_button.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
-        help_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
-
-        self.addWidgets([
-            file_button,
-            help_button
-        ])
-        self.lyt.addStretch(0) # move all widgets to the left of the menubar
-        self.lyt.setSpacing(0) # remove space in-between widgets
+        self.addMenu('File')
+        self.addMenu('Help')
 
         self.setStyleSheet(
             """
-            QWidget {
+            QMenuBar {
                 background-color: #2f3133;
+                padding: 8px 10px;
             }
 
-            QWidget QPushButton {
+            QMenuBar::item {
                 border: none;
                 padding: 3px 10px;
             }
 
-            QWidget QPushButton::hover {
+            QMenuBar::item:selected {
                 background-color: #404244;
                 border-radius: 5px;
             }
             """
         )
-
-        self.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum)) # menubar height will only be enough to fit its contents
 
 
 
