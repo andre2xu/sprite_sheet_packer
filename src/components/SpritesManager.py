@@ -36,7 +36,7 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
             icon_size = option.decorationSize
 
             icon_rect = QtCore.QRect(
-                option.rect.x() + 10, # start 20px from the left side of list item widget
+                option.rect.x() + 20, # left side of list item widget + offset
                 option.rect.y() + ((option.rect.height() - icon_size.height()) // 2), # center vertically in the list item widget
                 icon_size.width(),
                 icon_size.height()
@@ -45,7 +45,7 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
             painter.drawPixmap(icon_rect, icon.pixmap(icon_size))
 
             # create custom text position
-            icon_right_margin = 10
+            icon_right_margin = 15
 
             text_rect = QtCore.QRect(
                 option.rect.x() + (icon_rect.x() + icon_size.width() + icon_right_margin), # start on the right of the icon (with space in-between)
