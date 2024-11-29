@@ -7,7 +7,7 @@ import components.shared
 
 
 
-### DELEGATES ###
+### CUSTOM STYLING ###
 class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
     def __init__(self):
         super(SpritesListItemDelegate, self).__init__()
