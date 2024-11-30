@@ -12,8 +12,21 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
     def __init__(self):
         super(SpriteSheetPreview, self).__init__()
 
+        # SCROLL AREA
+        scroll_area = QtWidgets.QScrollArea()
+        scroll_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        scroll_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        scroll_area.setWidgetResizable(True)
+        self.lyt.addWidget(scroll_area)
+
         # PREVIEW BUTTONS
-        ssp_buttons = components.shared.HorizontalBoxLayout()
+        ssp_buttons = QtWidgets.QWidget(self) # overlay button container on top of scroll area (this works because the scroll area is a child widget of the SSP's layout, while the button container is a child widget of the SSP itself like the layout)
+        ssp_buttons.setObjectName('SSPB') # id for styling
+        ssp_buttons.setMinimumWidth(200)
+        ssp_buttons.move(10,10) # move down diagonally right (i.e. increase space between buttons and menubar + left edge of window)
+
+        sspb_lyt = QtWidgets.QHBoxLayout(ssp_buttons)
+        sspb_lyt.setContentsMargins(0,0,0,0)
 
         ICONS_FOLDER_PATH = f'{pathlib.Path(__file__).parent.resolve()}/../../local/icons'
 
@@ -35,18 +48,9 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
             b.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
             b.setToolTipDuration(1000 * 3)
 
-        ssp_buttons.addWidgets(preview_buttons)
-        ssp_buttons.lyt.addStretch(0)
-
-        ssp_buttons.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
-        ssp_buttons.setObjectName('SSPB')
+            sspb_lyt.addWidget(b)
 
         # INITIALIZATION
-        self.addWidgets([
-            ssp_buttons,
-            QtWidgets.QLabel('Sprite Sheet')
-        ])
-
         self.lyt.setContentsMargins(0,0,0,0)
         self.lyt.setSpacing(0)
 
@@ -56,11 +60,19 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
                 background-color: #242629;
             }
 
+            QScrollArea {
+                background-color: #242629;
+                border: none;
+            }
+
+            #SSPB {
+                background-color: none;
+            }
+
             #SSPB QPushButton {
                 border-radius: none;
                 padding: 5px 10px;
                 background-color: #656769;
-                margin-left: 5px;
             }
 
             #SSPB QPushButton:pressed {
