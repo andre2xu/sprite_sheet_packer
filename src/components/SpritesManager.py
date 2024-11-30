@@ -150,7 +150,7 @@ class SpritesList(components.shared.VerticalBoxLayout):
             QtWidgets.QListWidgetItem('Sprite 10'),
         ]
 
-        default_sprite_list_item_icon = QtGui.QIcon(f'{pathlib.Path(__file__).parent.resolve()}/../../local/default_sprite_icon.png')
+        default_sprite_list_item_icon = QtGui.QIcon(f'{pathlib.Path(__file__).parent.resolve()}/../../local/icons/default_sprite_icon.png')
 
         for i in range(len(list_items)):
             li = list_items[i]
