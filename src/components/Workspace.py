@@ -1,4 +1,5 @@
-from PySide6 import QtWidgets, QtCore
+import pathlib
+from PySide6 import QtWidgets, QtCore, QtGui
 from PySide6.QtWidgets import QSizePolicy
 
 ### GUI COMPONENTS ###
@@ -14,11 +15,13 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
         # PREVIEW BUTTONS
         ssp_buttons = components.shared.HorizontalBoxLayout()
 
+        ICONS_FOLDER_PATH = f'{pathlib.Path(__file__).parent.resolve()}/../../local/icons'
+
         preview_buttons = [
-            QtWidgets.QPushButton('[ ]'),
+            QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_icon.png'), ''),
             QtWidgets.QPushButton('</>'),
-            QtWidgets.QPushButton('-'),
-            QtWidgets.QPushButton('+')
+            QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_zoom_out_icon.png'), ''),
+            QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_zoom_in_icon.png'), '')
         ]
 
         for i in range(len(preview_buttons)):
