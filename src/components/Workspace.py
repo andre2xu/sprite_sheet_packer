@@ -24,10 +24,16 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
             QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_zoom_in_icon.png'), '')
         ]
 
+        preview_buttons[0].setToolTip('Preview Sprite Sheet')
+        preview_buttons[1].setToolTip('Preview Data Sheet')
+        preview_buttons[2].setToolTip('Zoom Out')
+        preview_buttons[3].setToolTip('Zoom In')
+
         for i in range(len(preview_buttons)):
             b = preview_buttons[i]
             b.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
             b.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+            b.setToolTipDuration(1000 * 3)
 
         ssp_buttons.addWidgets(preview_buttons)
         ssp_buttons.lyt.addStretch(0)
