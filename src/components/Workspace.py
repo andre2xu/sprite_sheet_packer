@@ -1,4 +1,4 @@
-from PySide6 import QtWidgets
+from PySide6 import QtWidgets, QtCore
 from PySide6.QtWidgets import QSizePolicy
 
 ### GUI COMPONENTS ###
@@ -11,12 +11,51 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
     def __init__(self):
         super(SpriteSheetPreview, self).__init__()
 
-        self.addWidgets([QtWidgets.QLabel('Sprite Sheet Preview')])
+        # PREVIEW BUTTONS
+        ssp_buttons = components.shared.HorizontalBoxLayout()
+
+        preview_buttons = [
+            QtWidgets.QPushButton('[ ]'),
+            QtWidgets.QPushButton('</>'),
+            QtWidgets.QPushButton('-'),
+            QtWidgets.QPushButton('+')
+        ]
+
+        for i in range(len(preview_buttons)):
+            b = preview_buttons[i]
+            b.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
+            b.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+
+        ssp_buttons.addWidgets(preview_buttons)
+        ssp_buttons.lyt.addStretch(0)
+
+        ssp_buttons.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+        ssp_buttons.setObjectName('SSPB')
+
+        # INITIALIZATION
+        self.addWidgets([
+            ssp_buttons,
+            QtWidgets.QLabel('Sprite Sheet')
+        ])
+
+        self.lyt.setContentsMargins(0,0,0,0)
+        self.lyt.setSpacing(0)
 
         self.setStyleSheet(
             """
             QWidget {
                 background-color: #242629;
+            }
+
+            #SSPB QPushButton {
+                border-radius: none;
+                padding: 5px 10px;
+                background-color: #656769;
+                margin-left: 5px;
+            }
+
+            #SSPB QPushButton:pressed {
+                background-color: #55595d;
             }
             """
         )
