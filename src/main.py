@@ -16,6 +16,7 @@ class MainWindow(QtWidgets.QMainWindow):
         central_widget.lyt.setContentsMargins(0,0,0,0)
 
         self.workspace = Workspace(self)
+        self.workspace.sprite_sheet_preview.scrollable_area.displayImage(f'{pathlib.Path(__file__).parent.resolve()}/../local/packed.png')
 
         central_widget.addWidgets([
             self.workspace
@@ -30,10 +31,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def resizeEvent(self, event):
         super().resizeEvent(event)
 
-        # rescale the sprite sheet preview's scrollable area body and re-position the image
-        ssp_scrollable_area = self.workspace.sprite_sheet_preview.scrollable_area
-        ssp_scrollable_area.rescaleScrollableAreaBody()
-        ssp_scrollable_area.displayImage(f'{pathlib.Path(__file__).parent.resolve()}/../local/packed.png')
+        # rescale the sprite sheet preview's scrollable area body
+        self.workspace.sprite_sheet_preview.scrollable_area.rescaleScrollableAreaBody()
 
 
 
