@@ -51,34 +51,23 @@ class ScrollableArea(QtWidgets.QScrollArea):
 
         self.scroll_area_body = QtWidgets.QWidget()
         self.scroll_area_body.setStyleSheet('background-color: red;')
-
-        self.rescaleScrollableAreaBody()
-
         self.setWidget(self.scroll_area_body)
+
+        self.image_widget = QtWidgets.QLabel(self.scroll_area_body)
 
     def rescaleScrollableAreaBody(self):
         self.scroll_area_body.resize(self.width() * 2, self.height() * 2) # make the scrollable area's body widget twice its size so that the scrollbars appear
 
-    def displayImage(self, imagePath: str):
-        # clear scroll area body
-        sab_child_widgets = self.scroll_area_body.children()
-
-        for i in range(len(sab_child_widgets)):
-            sab_child_widgets[i].deleteLater()
-
-        # create an image widget
-        self.image_widget = QtWidgets.QLabel(self.scroll_area_body)
-        self.image_widget.setPixmap(QtGui.QPixmap(imagePath))
-        self.image_widget.setScaledContents(True)
-
-        # move the image to the center of the scroll area body
         centerX = self.scroll_area_body.width() // 2
         centerY = self.scroll_area_body.height() // 2
-        self.image_widget.move(centerX - (self.image_widget.width() * 2), centerY - (self.image_widget.height() * 2))
+        self.image_widget.move(centerX - (self.image_widget.width() // 2), centerY - (self.image_widget.height() // 2))
 
-        # scroll to the image
         horizontal_scrollbar = self.horizontalScrollBar()
         vertical_scrollbar = self.verticalScrollBar()
 
         horizontal_scrollbar.setValue(horizontal_scrollbar.maximum() // 2)
         vertical_scrollbar.setValue(vertical_scrollbar.maximum() // 2)
+
+    def displayImage(self, imagePath: str):
+        self.image_widget.clear()
+        self.image_widget.setPixmap(QtGui.QPixmap(imagePath))
