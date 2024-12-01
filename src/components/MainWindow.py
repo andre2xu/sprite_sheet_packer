@@ -88,7 +88,10 @@ class Workspace(components.shared.HorizontalBoxLayout):
         self.lyt.setSpacing(0)
         self.lyt.setContentsMargins(0,0,0,0)
 
+        self.sprite_sheet_preview = SpriteSheetPreview(self)
+        self.sprites_manager = SpritesManager(self)
+
         self.addWidgets([
-            SpriteSheetPreview(self),
-            SpritesManager(self)
+            self.sprite_sheet_preview,
+            self.sprites_manager
         ])
