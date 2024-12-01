@@ -51,9 +51,13 @@ class ScrollableArea(QtWidgets.QScrollArea):
 
         self.scroll_area_body = QtWidgets.QWidget()
         self.scroll_area_body.setStyleSheet('background-color: red;')
-        self.scroll_area_body.resize(self.width() * 2, self.height() * 2) # make the scrollable area's body widget twice its size so that the scrollbars appear
+
+        self.rescaleScrollableAreaBody()
 
         self.setWidget(self.scroll_area_body)
+
+    def rescaleScrollableAreaBody(self):
+        self.scroll_area_body.resize(self.width() * 2, self.height() * 2) # make the scrollable area's body widget twice its size so that the scrollbars appear
 
     def displayImage(self, imagePath: str):
         # clear scroll area body
