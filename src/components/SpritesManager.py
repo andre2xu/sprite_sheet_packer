@@ -86,8 +86,8 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
 
 ### COMPONENTS ###
 class Controls(components.shared.HorizontalBoxLayout):
-    def __init__(self):
-        super(Controls, self).__init__()
+    def __init__(self, parent=None):
+        super(Controls, self).__init__(parent)
 
         add_sprites_btn = QtWidgets.QPushButton('Add Sprites')
         add_sprites_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
@@ -123,8 +123,8 @@ class Controls(components.shared.HorizontalBoxLayout):
 
 
 class SpritesList(components.shared.VerticalBoxLayout):
-    def __init__(self):
-        super(SpritesList, self).__init__()
+    def __init__(self, parent=None):
+        super(SpritesList, self).__init__(parent)
 
         vertical_list = QtWidgets.QListWidget()
         vertical_list_layout = QtWidgets.QVBoxLayout()

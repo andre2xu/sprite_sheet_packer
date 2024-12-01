@@ -7,8 +7,8 @@ from components.Workspace import SpriteSheetPreview, SpritesManager
 
 
 class Menubar(QtWidgets.QMenuBar):
-    def __init__(self):
-        super(Menubar, self).__init__()
+    def __init__(self, parent=None):
+        super(Menubar, self).__init__(parent)
 
         # FILE MENU
         file_menu = self.addMenu('&File')
@@ -82,13 +82,13 @@ class Menubar(QtWidgets.QMenuBar):
 
 
 class Workspace(components.shared.HorizontalBoxLayout):
-    def __init__(self):
-        super(Workspace, self).__init__()
+    def __init__(self, parent=None):
+        super(Workspace, self).__init__(parent)
 
         self.lyt.setSpacing(0)
         self.lyt.setContentsMargins(0,0,0,0)
 
         self.addWidgets([
-            SpriteSheetPreview(),
-            SpritesManager()
+            SpriteSheetPreview(self),
+            SpritesManager(self)
         ])

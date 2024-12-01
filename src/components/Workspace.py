@@ -9,8 +9,8 @@ from components.SpritesManager import Controls, SpritesList
 
 
 class SpriteSheetPreview(components.shared.VerticalBoxLayout):
-    def __init__(self):
-        super(SpriteSheetPreview, self).__init__()
+    def __init__(self, parent=None):
+        super(SpriteSheetPreview, self).__init__(parent)
 
         # SCROLL AREA
         scroll_area = QtWidgets.QScrollArea()
@@ -104,12 +104,12 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
 
 
 class SpritesManager(components.shared.VerticalBoxLayout):
-    def __init__(self):
-        super(SpritesManager, self).__init__()
+    def __init__(self, parent=None):
+        super(SpritesManager, self).__init__(parent)
 
         self.addWidgets([
-            Controls(),
-            SpritesList()
+            Controls(self),
+            SpritesList(self)
         ])
 
         self.setStyleSheet(
