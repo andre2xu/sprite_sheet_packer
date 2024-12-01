@@ -56,6 +56,12 @@ class ScrollableArea(QtWidgets.QScrollArea):
 
         self.image_widget = QtWidgets.QLabel(' ', self.scroll_area_body)
 
+        # re-scroll to the center if the scrollable distances change (e.g. when image is changed)
+        self.horizontalScrollRangeChanged = False
+        self.verticalScrollRangeChanged = False
+        self.horizontalScrollBar().rangeChanged.connect(lambda: self.scrollRangeChangedHorizontally())
+        self.verticalScrollBar().rangeChanged.connect(lambda: self.scrollRangeChangedVertically())
+
     def rescaleScrollableAreaBody(self):
         self.scroll_area_body.resize(self.width() * 2, self.height() * 2) # make the scrollable area's body widget twice its size so that the scrollbars appear
 
@@ -63,14 +69,35 @@ class ScrollableArea(QtWidgets.QScrollArea):
         centerY = self.scroll_area_body.height() // 2
         self.image_widget.move(centerX - (self.image_widget.width() // 2), centerY - (self.image_widget.height() // 2))
 
-        horizontal_scrollbar = self.horizontalScrollBar()
-        vertical_scrollbar = self.verticalScrollBar()
-
-        horizontal_scrollbar.setValue(horizontal_scrollbar.maximum() // 2)
-        vertical_scrollbar.setValue(vertical_scrollbar.maximum() // 2)
+        self.scrollToCenter()
 
     def displayImage(self, imagePath: str):
         self.image_widget.clear()
         self.image_widget.setText('') # remove placeholder text
         self.image_widget.setPixmap(QtGui.QPixmap(imagePath))
         self.image_widget.adjustSize() # ensure the widget's size data matches the dimensions of the rendered image
+
+        self.horizontalScrollRangeChanged = True
+        self.verticalScrollRangeChanged = True
+
+    def scrollRangeChangedHorizontally(self):
+        if self.horizontalScrollRangeChanged:
+            self.scrollToHorizontalCenter()
+            self.horizontalScrollRangeChanged = False
+
+    def scrollRangeChangedVertically(self):
+        if self.verticalScrollRangeChanged:
+            self.scrollToVerticalCenter()
+            self.verticalScrollRangeChanged = False
+
+    def scrollToCenter(self):
+        self.scrollToHorizontalCenter()
+        self.scrollToVerticalCenter()
+
+    def scrollToHorizontalCenter(self):
+        horizontal_scrollbar = self.horizontalScrollBar()
+        horizontal_scrollbar.setValue(horizontal_scrollbar.maximum() // 2)
+
+    def scrollToVerticalCenter(self):
+        vertical_scrollbar = self.verticalScrollBar()
+        vertical_scrollbar.setValue(vertical_scrollbar.maximum() // 2)
