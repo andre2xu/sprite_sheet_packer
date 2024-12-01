@@ -1,4 +1,4 @@
-import sys
+import sys, pathlib
 from PySide6 import QtWidgets, QtCore
 
 ### GUI COMPONENTS ###
@@ -15,8 +15,10 @@ class MainWindow(QtWidgets.QMainWindow):
         central_widget.lyt.setSpacing(0)
         central_widget.lyt.setContentsMargins(0,0,0,0)
 
+        self.workspace = Workspace(self)
+
         central_widget.addWidgets([
-            Workspace(self)
+            self.workspace
         ])
         self.setCentralWidget(central_widget)
 
@@ -24,6 +26,14 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.setMinimumSize(QtCore.QSize(800, 500))
         self.setWindowTitle('Sprite Sheet Packer')
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+
+        # rescale the sprite sheet preview's scrollable area body and re-position the image
+        ssp_scrollable_area = self.workspace.sprite_sheet_preview.scrollable_area
+        ssp_scrollable_area.rescaleScrollableAreaBody()
+        ssp_scrollable_area.displayImage(f'{pathlib.Path(__file__).parent.resolve()}/../local/packed.png')
 
 
 
