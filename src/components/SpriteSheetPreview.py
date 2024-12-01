@@ -51,7 +51,6 @@ class ScrollableArea(QtWidgets.QScrollArea):
 
         self.scroll_area_body = QtWidgets.QWidget()
         self.scroll_area_body.setMinimumSize(self.width() * 2, self.height() * 2)
-        self.scroll_area_body.setStyleSheet('background-color: red;')
         self.setWidget(self.scroll_area_body)
 
         self.image_widget = QtWidgets.QLabel(' ', self.scroll_area_body)
