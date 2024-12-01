@@ -73,3 +73,4 @@ class ScrollableArea(QtWidgets.QScrollArea):
         self.image_widget.clear()
         self.image_widget.setText('') # remove placeholder text
         self.image_widget.setPixmap(QtGui.QPixmap(imagePath))
+        self.image_widget.adjustSize() # ensure the widget's size data matches the dimensions of the rendered image
