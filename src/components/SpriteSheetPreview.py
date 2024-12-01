@@ -49,22 +49,32 @@ class ScrollableArea(QtWidgets.QScrollArea):
         self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         self.setWidgetResizable(False) # make the scrollable area resize according to its body widget, not the other way around
 
-        scroll_area_body = QtWidgets.QWidget()
-        scroll_area_body.setStyleSheet('background-color: red;')
-        scroll_area_body.resize(self.width() * 2, self.height() * 2) # make the scrollable area's body widget twice its size so that the scrollbars appear
-        self.setWidget(scroll_area_body)
+        self.scroll_area_body = QtWidgets.QWidget()
+        self.scroll_area_body.setStyleSheet('background-color: red;')
+        self.scroll_area_body.resize(self.width() * 2, self.height() * 2) # make the scrollable area's body widget twice its size so that the scrollbars appear
 
-        # create a placeholder sprite sheet
-        self.sprite_sheet = QtWidgets.QLabel(scroll_area_body)
-        self.sprite_sheet.setPixmap(QtGui.QPixmap(f'{pathlib.Path(__file__).parent.resolve()}/../../local/packed.png'))
-        self.sprite_sheet.setScaledContents(True)
+        self.setWidget(self.scroll_area_body)
 
-        # move sprite sheet to the center of the scrollable area body & scroll to it
-        sab_center_distanceX = scroll_area_body.width() // 2
-        sab_center_distanceY = scroll_area_body.height() // 2
-        self.sprite_sheet.move(sab_center_distanceX - (self.sprite_sheet.width() * 2), sab_center_distanceY - (self.sprite_sheet.height() * 2))
+    def displayImage(self, imagePath: str):
+        # clear scroll area body
+        sab_child_widgets = self.scroll_area_body.children()
 
-        sa_hscrollbar = self.horizontalScrollBar()
-        sa_vscrollbar = self.verticalScrollBar()
-        sa_hscrollbar.setValue(sa_hscrollbar.maximum() // 2)
-        sa_vscrollbar.setValue(sa_vscrollbar.maximum() // 2)
+        for i in range(len(sab_child_widgets)):
+            sab_child_widgets[i].deleteLater()
+
+        # create an image widget
+        self.image_widget = QtWidgets.QLabel(self.scroll_area_body)
+        self.image_widget.setPixmap(QtGui.QPixmap(imagePath))
+        self.image_widget.setScaledContents(True)
+
+        # move the image to the center of the scroll area body
+        centerX = self.scroll_area_body.width() // 2
+        centerY = self.scroll_area_body.height() // 2
+        self.image_widget.move(centerX - (self.image_widget.width() * 2), centerY - (self.image_widget.height() * 2))
+
+        # scroll to the image
+        horizontal_scrollbar = self.horizontalScrollBar()
+        vertical_scrollbar = self.verticalScrollBar()
+
+        horizontal_scrollbar.setValue(horizontal_scrollbar.maximum() // 2)
+        vertical_scrollbar.setValue(vertical_scrollbar.maximum() // 2)
