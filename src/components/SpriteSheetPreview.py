@@ -9,7 +9,7 @@ class PreviewButtons(QtWidgets.QWidget):
         super(PreviewButtons, self).__init__(parent)
 
         self.setObjectName('SSPB') # id for styling
-        self.setMinimumWidth(200)
+        self.setMinimumWidth(300)
         self.move(10,10) # move down diagonally right (i.e. increase space between buttons and the menubar as well as the left edge of window)
 
         layout = QtWidgets.QHBoxLayout(self)
@@ -21,6 +21,7 @@ class PreviewButtons(QtWidgets.QWidget):
         self.preview_data_sheet_button = QtWidgets.QPushButton('</>')
         self.zoom_out_button = QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_zoom_out_icon.png'), '')
         self.zoom_in_button = QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_zoom_in_icon.png'), '')
+        self.zoom_reset_button = QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_zoom_reset_icon.png'), '')
         self.zoomValueDisplay = QtWidgets.QLabel('100%')
 
         preview_buttons = [
@@ -28,6 +29,7 @@ class PreviewButtons(QtWidgets.QWidget):
             self.preview_data_sheet_button,
             self.zoom_out_button,
             self.zoom_in_button,
+            self.zoom_reset_button,
             self.zoomValueDisplay
         ]
 
