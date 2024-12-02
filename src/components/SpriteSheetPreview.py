@@ -98,6 +98,9 @@ class ScrollableArea(QtWidgets.QScrollArea):
         self.horizontal_scroll_range_changed = True
         self.vertical_scroll_range_changed = True
 
+        # reset zoom
+        self.setZoom(1)
+
     def setZoom(self, zoomFactor):
         """
         HOW ZOOM WORKS:
