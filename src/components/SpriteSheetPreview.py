@@ -36,6 +36,7 @@ class PreviewButtons(QtWidgets.QWidget):
         # add a tooltip to each of the buttons
         self.preview_sprite_sheet_button.setToolTip('Preview Sprite Sheet')
         self.preview_data_sheet_button.setToolTip('Preview Data Sheet')
+        self.zoom_reset_button.setToolTip('Reset Zoom')
         self.zoom_out_button.setToolTip('Zoom Out')
         self.zoom_in_button.setToolTip('Zoom In')
 
