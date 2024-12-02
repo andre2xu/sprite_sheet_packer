@@ -58,7 +58,12 @@ class ScrollableArea(QtWidgets.QScrollArea):
         self.scroll_area_body.setMinimumSize(self.width() * 2, self.height() * 2)
         self.setWidget(self.scroll_area_body)
 
+        self.original_sab_width = self.scroll_area_body.width()
+        self.original_sab_height = self.scroll_area_body.height()
+
         self.image_widget = QtWidgets.QLabel(' ', self.scroll_area_body)
+        self.original_image_width = None
+        self.original_image_height = None
 
         # re-scroll to the center if the scrollable distances change (e.g. when image is changed)
         self.horizontal_scroll_range_changed = False
@@ -82,6 +87,11 @@ class ScrollableArea(QtWidgets.QScrollArea):
         self.image_widget.adjustSize() # ensure the widget's size data matches the dimensions of the rendered image
         self.image_widget.setScaledContents(True) # scale pixmap with image
 
+        # update saved dimensions
+        self.original_image_width = self.image_widget.width()
+        self.original_image_height = self.image_widget.height()
+
+        # allow the 'QScrollBar.rangeChanged' slots to fire
         self.horizontal_scroll_range_changed = True
         self.vertical_scroll_range_changed = True
 
@@ -104,17 +114,17 @@ class ScrollableArea(QtWidgets.QScrollArea):
         Also, the zoom factor is not limited to the values shown. These are just the values commonly seen in other software.
         """
 
-        scaled_size = self.image_widget.size()
-        scaled_size.scale(self.image_widget.width() * zoomFactor, self.image_widget.height() * zoomFactor, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+        if self.original_image_width != None and self.original_image_height != None:
+            new_size = QtCore.QSize(self.original_image_width * zoomFactor, self.original_image_height * zoomFactor)
 
-        self.image_widget.resize(scaled_size)
+            self.image_widget.setFixedSize(new_size)
 
-        if zoomFactor > 1:
-            # set a fixed size to resize the scrollbars as well
-            self.scroll_area_body.setFixedSize(
-                self.scroll_area_body.width() * zoomFactor,
-                self.scroll_area_body.height() * zoomFactor
-            )
+            if zoomFactor > 1:
+                # set a fixed size to resize the scrollbars as well
+                self.scroll_area_body.setFixedSize(
+                    self.original_sab_width * zoomFactor,
+                    self.original_sab_height * zoomFactor
+                )
 
     def scrollRangeChangedHorizontally(self):
         if self.horizontal_scroll_range_changed:
