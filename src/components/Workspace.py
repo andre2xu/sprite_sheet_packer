@@ -61,7 +61,7 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
     def zoomIn(self):
         new_zoom_value = round(self.image_zoom + 0.25, 2)
 
-        if new_zoom_value < 4.1:
+        if new_zoom_value < 8.1:
             self.image_zoom = new_zoom_value
             self.scrollable_area.setZoom(self.image_zoom)
             self.scrollable_area.scrollToCenter() # scrolling to the center is done here instead of inside the 'setZoom' method because this is a slot
