@@ -14,7 +14,11 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
         self.scrollable_area = ScrollableArea()
         self.lyt.addWidget(self.scrollable_area)
 
-        PreviewButtons(self)
+        self.preview_buttons = PreviewButtons(self)
+
+        self.image_zoom = 1
+        self.preview_buttons.zoom_out_button.clicked.connect(self.zoomOut)
+        self.preview_buttons.zoom_in_button.clicked.connect(self.zoomIn)
 
         self.lyt.setContentsMargins(0,0,0,0)
         self.lyt.setSpacing(0)
@@ -45,6 +49,20 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
             }
             """
         )
+
+    def zoomOut(self):
+        new_zoom_value = round(self.image_zoom - 0.25, 2)
+
+        if new_zoom_value >= 0.1:
+            self.image_zoom = new_zoom_value
+            self.scrollable_area.setZoom(self.image_zoom)
+
+    def zoomIn(self):
+        new_zoom_value = round(self.image_zoom + 0.25, 2)
+
+        if new_zoom_value < 4.1:
+            self.image_zoom = new_zoom_value
+            self.scrollable_area.setZoom(self.image_zoom)
 
 
 
