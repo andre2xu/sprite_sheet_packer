@@ -74,9 +74,7 @@ class ScrollableArea(QtWidgets.QScrollArea):
     def rescaleScrollableAreaBody(self):
         self.scroll_area_body.resize(self.width() * 2, self.height() * 2) # make the scrollable area's body widget twice its size so that the scrollbars appear
 
-        centerX = self.scroll_area_body.width() // 2
-        centerY = self.scroll_area_body.height() // 2
-        self.image_widget.move(centerX - (self.image_widget.width() // 2), centerY - (self.image_widget.height() // 2))
+        self.centerImage()
 
         self.scrollToCenter()
 
@@ -100,6 +98,11 @@ class ScrollableArea(QtWidgets.QScrollArea):
 
         # reset zoom
         self.setZoom(1)
+
+    def centerImage(self):
+        centerX = self.scroll_area_body.width() // 2
+        centerY = self.scroll_area_body.height() // 2
+        self.image_widget.move(centerX - (self.image_widget.width() // 2), centerY - (self.image_widget.height() // 2))
 
     def setZoom(self, zoomFactor):
         """
