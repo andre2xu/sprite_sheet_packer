@@ -135,6 +135,9 @@ class ScrollableArea(QtWidgets.QScrollArea):
                     self.original_sab_height * zoomFactor
                 )
 
+            # re-position image in the center (I didn't scroll to center here because I consider it a non-zoom effect)
+            self.centerImage()
+
     def scrollRangeChangedHorizontally(self):
         if self.horizontal_scroll_range_changed:
             self.scrollToHorizontalCenter()
