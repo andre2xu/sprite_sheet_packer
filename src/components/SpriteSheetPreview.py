@@ -75,9 +75,38 @@ class ScrollableArea(QtWidgets.QScrollArea):
         self.image_widget.setText('') # remove placeholder text
         self.image_widget.setPixmap(QtGui.QPixmap(imagePath))
         self.image_widget.adjustSize() # ensure the widget's size data matches the dimensions of the rendered image
+        self.image_widget.setScaledContents(True) # scale pixmap with image
 
         self.horizontalScrollRangeChanged = True
         self.verticalScrollRangeChanged = True
+
+    def setZoom(self, zoomFactor):
+        """
+        HOW ZOOM WORKS:
+
+        Zoom=200%, img * 2, sab * 2
+        Zoom=175%, img * 1.75, sab * 1.75
+        Zoom=150%, img * 1.5, sab * 1.5
+        Zoom=125%, img * 1.25, sab * 1.25
+        Zoom=100%, img * 1, sab * 1
+        Zoom=75%, img * 0.75
+        Zoom=50%, img * 0.5
+        Zoom=25%, img * 0.25
+
+        Note that the scroll area body only scales with the image when the zoom factor is over 1 (i.e. over 100%). This is a minimum threshold that prevents it from getting smaller than the scroll area
+        """
+
+        scaled_size = self.image_widget.size()
+        scaled_size.scale(self.image_widget.width() * zoomFactor, self.image_widget.height() * zoomFactor, QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+
+        self.image_widget.resize(scaled_size)
+
+        if zoomFactor > 1:
+            # set a fixed size to resize the scrollbars as well
+            self.scroll_area_body.setFixedSize(
+                self.scroll_area_body.width() * zoomFactor,
+                self.scroll_area_body.height() * zoomFactor
+            )
 
     def scrollRangeChangedHorizontally(self):
         if self.horizontalScrollRangeChanged:
