@@ -83,6 +83,7 @@ class ScrollableArea(QtWidgets.QScrollArea):
     def setZoom(self, zoomFactor):
         """
         HOW ZOOM WORKS:
+        Zoom is given as a decimal not a percentage, e.g. 50% = 0.5, 125% = 1.25, etc.
 
         Zoom=200%, img * 2, sab * 2
         Zoom=175%, img * 1.75, sab * 1.75
@@ -93,7 +94,9 @@ class ScrollableArea(QtWidgets.QScrollArea):
         Zoom=50%, img * 0.5
         Zoom=25%, img * 0.25
 
-        Note that the scroll area body only scales with the image when the zoom factor is over 1 (i.e. over 100%). This is a minimum threshold that prevents it from getting smaller than the scroll area
+        Note that the scroll area body only scales with the image when the zoom factor is over 1 (i.e. over 100%). This is a minimum threshold that prevents it from getting smaller than the scroll area.
+
+        Also, the zoom factor is not limited to the values shown. These are just the values commonly seen in other software.
         """
 
         scaled_size = self.image_widget.size()
