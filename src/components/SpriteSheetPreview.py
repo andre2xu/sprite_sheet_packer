@@ -21,12 +21,14 @@ class PreviewButtons(QtWidgets.QWidget):
         self.preview_data_sheet_button = QtWidgets.QPushButton('</>')
         self.zoom_out_button = QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_zoom_out_icon.png'), '')
         self.zoom_in_button = QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_zoom_in_icon.png'), '')
+        self.zoomValueDisplay = QtWidgets.QLabel('100%')
 
         preview_buttons = [
             self.preview_sprite_sheet_button,
             self.preview_data_sheet_button,
             self.zoom_out_button,
-            self.zoom_in_button
+            self.zoom_in_button,
+            self.zoomValueDisplay
         ]
 
         # add a tooltip to each of the buttons

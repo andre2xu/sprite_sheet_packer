@@ -58,6 +58,8 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
             self.scrollable_area.setZoom(self.image_zoom)
             self.scrollable_area.scrollToCenter() # scrolling to the center is done here instead of inside the 'setZoom' method because this is a slot
 
+            self.preview_buttons.zoomValueDisplay.setText(f'{round(new_zoom_value * 100)}%')
+
     def zoomIn(self):
         new_zoom_value = round(self.image_zoom + 0.25, 2)
 
@@ -65,6 +67,8 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
             self.image_zoom = new_zoom_value
             self.scrollable_area.setZoom(self.image_zoom)
             self.scrollable_area.scrollToCenter() # scrolling to the center is done here instead of inside the 'setZoom' method because this is a slot
+
+            self.preview_buttons.zoomValueDisplay.setText(f'{round(new_zoom_value * 100)}%')
 
 
 
