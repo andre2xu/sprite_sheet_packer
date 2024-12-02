@@ -61,8 +61,8 @@ class ScrollableArea(QtWidgets.QScrollArea):
         self.image_widget = QtWidgets.QLabel(' ', self.scroll_area_body)
 
         # re-scroll to the center if the scrollable distances change (e.g. when image is changed)
-        self.horizontalScrollRangeChanged = False
-        self.verticalScrollRangeChanged = False
+        self.horizontal_scroll_range_changed = False
+        self.vertical_scroll_range_changed = False
         self.horizontalScrollBar().rangeChanged.connect(lambda: self.scrollRangeChangedHorizontally())
         self.verticalScrollBar().rangeChanged.connect(lambda: self.scrollRangeChangedVertically())
 
@@ -82,8 +82,8 @@ class ScrollableArea(QtWidgets.QScrollArea):
         self.image_widget.adjustSize() # ensure the widget's size data matches the dimensions of the rendered image
         self.image_widget.setScaledContents(True) # scale pixmap with image
 
-        self.horizontalScrollRangeChanged = True
-        self.verticalScrollRangeChanged = True
+        self.horizontal_scroll_range_changed = True
+        self.vertical_scroll_range_changed = True
 
     def setZoom(self, zoomFactor):
         """
@@ -117,14 +117,14 @@ class ScrollableArea(QtWidgets.QScrollArea):
             )
 
     def scrollRangeChangedHorizontally(self):
-        if self.horizontalScrollRangeChanged:
+        if self.horizontal_scroll_range_changed:
             self.scrollToHorizontalCenter()
-            self.horizontalScrollRangeChanged = False
+            self.horizontal_scroll_range_changed = False
 
     def scrollRangeChangedVertically(self):
-        if self.verticalScrollRangeChanged:
+        if self.vertical_scroll_range_changed:
             self.scrollToVerticalCenter()
-            self.verticalScrollRangeChanged = False
+            self.vertical_scroll_range_changed = False
 
     def scrollToCenter(self):
         self.scrollToHorizontalCenter()
