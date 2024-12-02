@@ -81,9 +81,12 @@ class ScrollableArea(QtWidgets.QScrollArea):
         self.scrollToCenter()
 
     def displayImage(self, imagePath: str):
+        pixmap = QtGui.QPixmap(imagePath)
+
         self.image_widget.clear()
         self.image_widget.setText('') # remove placeholder text
-        self.image_widget.setPixmap(QtGui.QPixmap(imagePath))
+        self.image_widget.setPixmap(pixmap)
+        self.image_widget.setFixedSize(pixmap.size()) # make the label widget match the pixmap's dimensions
         self.image_widget.adjustSize() # ensure the widget's size data matches the dimensions of the rendered image
         self.image_widget.setScaledContents(True) # scale pixmap with image
 
