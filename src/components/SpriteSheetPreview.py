@@ -17,18 +17,23 @@ class PreviewButtons(QtWidgets.QWidget):
 
         ICONS_FOLDER_PATH = f'{pathlib.Path(__file__).parent.resolve()}/../../local/icons'
 
+        self.preview_sprite_sheet_button = QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_icon.png'), '')
+        self.preview_data_sheet_button = QtWidgets.QPushButton('</>')
+        self.zoom_out_button = QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_zoom_out_icon.png'), '')
+        self.zoom_in_button = QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_zoom_in_icon.png'), '')
+
         preview_buttons = [
-            QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_icon.png'), ''),
-            QtWidgets.QPushButton('</>'),
-            QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_zoom_out_icon.png'), ''),
-            QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_zoom_in_icon.png'), '')
+            self.preview_sprite_sheet_button,
+            self.preview_data_sheet_button,
+            self.zoom_out_button,
+            self.zoom_in_button
         ]
 
         # add a tooltip to each of the buttons
-        preview_buttons[0].setToolTip('Preview Sprite Sheet')
-        preview_buttons[1].setToolTip('Preview Data Sheet')
-        preview_buttons[2].setToolTip('Zoom Out')
-        preview_buttons[3].setToolTip('Zoom In')
+        self.preview_sprite_sheet_button.setToolTip('Preview Sprite Sheet')
+        self.preview_data_sheet_button.setToolTip('Preview Data Sheet')
+        self.zoom_out_button.setToolTip('Zoom Out')
+        self.zoom_in_button.setToolTip('Zoom In')
 
         # configure the buttons & add them to the container
         for i in range(len(preview_buttons)):
