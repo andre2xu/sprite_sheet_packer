@@ -59,7 +59,7 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
             self.scrollable_area.setZoom(self.image_zoom)
             self.scrollable_area.scrollToCenter()
 
-            self.preview_buttons.zoomValueDisplay.setText(f'{round(new_zoom_value * 100)}%')
+            self.preview_buttons.zoom_value_display.setText(f'{round(new_zoom_value * 100)}%')
 
     def zoomIn(self):
         new_zoom_value = round(self.image_zoom + 0.25, 2)
@@ -69,14 +69,14 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
             self.scrollable_area.setZoom(self.image_zoom)
             self.scrollable_area.scrollToCenter()
 
-            self.preview_buttons.zoomValueDisplay.setText(f'{round(new_zoom_value * 100)}%')
+            self.preview_buttons.zoom_value_display.setText(f'{round(new_zoom_value * 100)}%')
 
     def zoomReset(self):
         self.image_zoom = 1
         self.scrollable_area.setZoom(self.image_zoom)
         self.scrollable_area.scrollToCenter()
 
-        self.preview_buttons.zoomValueDisplay.setText('100%')
+        self.preview_buttons.zoom_value_display.setText('100%')
 
 
 
