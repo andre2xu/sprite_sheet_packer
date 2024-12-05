@@ -86,6 +86,105 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
 
 ### COMPONENTS ###
 class Controls(components.shared.HorizontalBoxLayout):
+    class SpriteInputChoiceDialog(QtWidgets.QDialog):
+        def __init__(self, parent = ..., f = ...):
+            super().__init__(parent, f)
+
+            layout = QtWidgets.QVBoxLayout()
+            layout.setContentsMargins(0,0,0,0)
+            layout.setSpacing(0)
+            self.setLayout(layout)
+
+            self.setFixedSize(350, 230)
+
+            self.setStyleSheet(
+                """
+                QDialog {
+                    background-color: transparent;
+                }
+
+                #DialogTitleBar {
+                    background-color: #2f2f36;
+                }
+
+                #DialogTitleBar QLabel {
+                    font-weight: bold;
+                    margin-left: 8px;
+                }
+
+                #DialogTitleBar QPushButton {
+                    color: #fff;
+                    padding: 3px 10px;
+                    border-radius: 0px;
+                    font-size: 15px;
+                }
+
+                #DialogTitleBar QPushButton:hover {
+                    background-color: red;
+                }
+
+                #DialogBody {
+                    background-color: #36363c;
+                }
+
+                #DialogBody QLabel {
+                    background-position: top center;
+                    background-repeat: none;
+                }
+
+                #DialogBody QLabel:hover {
+                    color: yellow;
+                }
+                """
+            )
+
+            # dialog title bar
+            title_bar = QtWidgets.QWidget()
+            title_bar.setObjectName('DialogTitleBar')
+            title_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+
+            self.close_button = QtWidgets.QPushButton('X')
+            self.close_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+            self.close_button.clicked.connect(self.close)
+
+            tb_lyt = QtWidgets.QHBoxLayout(title_bar)
+            tb_lyt.addWidget(QtWidgets.QLabel('Choose Your Input Type'))
+            tb_lyt.addStretch(0)
+            tb_lyt.addWidget(self.close_button)
+
+            layout.addWidget(title_bar)
+
+            # dialog body
+            body = QtWidgets.QWidget()
+            body.setObjectName('DialogBody')
+
+            icons_folder = f'{pathlib.Path(__file__).parent.parent.parent.resolve()}/local/icons'
+            icons_folder = icons_folder.replace('\\', '/')
+
+            self.sprite_sheet_option = QtWidgets.QLabel('Sheet')
+            self.sprite_sheet_option.setAlignment(QtCore.Qt.AlignmentFlag.AlignBottom | QtCore.Qt.AlignmentFlag.AlignHCenter)
+            self.sprite_sheet_option.setStyleSheet(
+                f"""
+                    margin: 25px 10px 16px 25px;
+                    background-image: url("{icons_folder}/sprite_input_sheet_option.png");
+                """
+            )
+
+            self.selection_option = QtWidgets.QLabel('Selection')
+            self.selection_option.setAlignment(QtCore.Qt.AlignmentFlag.AlignBottom | QtCore.Qt.AlignmentFlag.AlignHCenter)
+            self.selection_option.setStyleSheet(
+                f"""
+                    margin: 25px 25px 16px 10px;
+                    background-image: url("{icons_folder}/sprite_input_selection_option.png");
+                """
+            )
+
+            body_lyt = QtWidgets.QHBoxLayout(body)
+            body_lyt.addWidget(self.sprite_sheet_option)
+            body_lyt.addWidget(self.selection_option)
+
+            layout.addWidget(body)
+
     def __init__(self, parent=None):
         super(Controls, self).__init__(parent)
 
