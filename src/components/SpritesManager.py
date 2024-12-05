@@ -191,6 +191,7 @@ class Controls(components.shared.HorizontalBoxLayout):
         add_sprites_btn = QtWidgets.QPushButton('Add Sprites')
         add_sprites_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
         add_sprites_btn.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+        add_sprites_btn.clicked.connect(self.displaySpriteInputChoiceDialog)
 
         clear_all_sprites_btn = QtWidgets.QPushButton('Clear All')
         clear_all_sprites_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
@@ -218,6 +219,14 @@ class Controls(components.shared.HorizontalBoxLayout):
         )
 
         self.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+
+    def displaySpriteInputChoiceDialog(self):
+        main_window = self.parent().parent().parent().parent()
+
+        # create dialog
+        dialog = self.SpriteInputChoiceDialog(main_window, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
+
+        dialog.open()
 
 
 
