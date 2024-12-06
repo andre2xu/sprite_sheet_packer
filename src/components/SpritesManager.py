@@ -159,23 +159,33 @@ class Controls(components.shared.HorizontalBoxLayout):
             icons_folder = f'{pathlib.Path(__file__).parent.parent.parent.resolve()}/local/icons'
             icons_folder = icons_folder.replace('\\', '/')
 
-            self.sprite_sheet_option = QtWidgets.QLabel('Sheet')
-            self.sprite_sheet_option.setAlignment(QtCore.Qt.AlignmentFlag.AlignBottom | QtCore.Qt.AlignmentFlag.AlignHCenter)
-            self.sprite_sheet_option.setStyleSheet(
-                f"""
-                    margin: 25px 10px 16px 25px;
-                    background-image: url("{icons_folder}/sprite_input_sheet_option.png");
-                """
-            )
+            self.sprite_sheet_option = components.shared.VerticalBoxLayout()
+            self.sprite_sheet_option.lyt.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            self.sprite_sheet_option_image = QtWidgets.QLabel('')
+            self.sprite_sheet_option_image.setPixmap(QtGui.QPixmap(f'{icons_folder}/sprite_input_sheet_option.png'))
+            self.sprite_sheet_option_image.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            self.sprite_sheet_option_image.setScaledContents(True)
+            self.sprite_sheet_option_text = QtWidgets.QLabel('Sheet', self.sprite_sheet_option)
+            self.sprite_sheet_option_text.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            self.sprite_sheet_option_text.setStyleSheet("""margin-top: 10px;""")
+            self.sprite_sheet_option.addWidgets([
+                self.sprite_sheet_option_image,
+                self.sprite_sheet_option_text
+            ])
 
-            self.selection_option = QtWidgets.QLabel('Selection')
-            self.selection_option.setAlignment(QtCore.Qt.AlignmentFlag.AlignBottom | QtCore.Qt.AlignmentFlag.AlignHCenter)
-            self.selection_option.setStyleSheet(
-                f"""
-                    margin: 25px 25px 16px 10px;
-                    background-image: url("{icons_folder}/sprite_input_selection_option.png");
-                """
-            )
+            self.selection_option = components.shared.VerticalBoxLayout()
+            self.selection_option.lyt.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            self.selection_option_image = QtWidgets.QLabel('')
+            self.selection_option_image.setPixmap(QtGui.QPixmap(f'{icons_folder}/sprite_input_selection_option.png'))
+            self.selection_option_image.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            self.selection_option_image.setScaledContents(True)
+            self.selection_option_text = QtWidgets.QLabel('Selection', self.selection_option)
+            self.selection_option_text.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            self.selection_option_text.setStyleSheet("""margin-top: 10px;""")
+            self.selection_option.addWidgets([
+                self.selection_option_image,
+                self.selection_option_text
+            ])
 
             body_lyt = QtWidgets.QHBoxLayout(body)
             body_lyt.addWidget(self.sprite_sheet_option)
