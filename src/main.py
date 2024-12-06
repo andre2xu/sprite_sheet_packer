@@ -42,8 +42,15 @@ class MainWindow(QtWidgets.QMainWindow):
 
         if main_window_width > 1300 and main_window_height > 750:
             sprite_input_choice_dialog.setFixedSize(sprite_input_choice_dialog.original_width * 1.3, sprite_input_choice_dialog.original_height * 1.3)
+
+            new_sprite_input_option_image_size = QtCore.QSize(130, 130)
+            sprite_input_choice_dialog.sprite_sheet_option_image.setFixedSize(new_sprite_input_option_image_size)
+            sprite_input_choice_dialog.selection_option_image.setFixedSize(new_sprite_input_option_image_size)
         else:
             sprite_input_choice_dialog.setFixedSize(sprite_input_choice_dialog.original_width, sprite_input_choice_dialog.original_height)
+
+            sprite_input_choice_dialog.sprite_sheet_option_image.setFixedSize(sprite_input_choice_dialog.sprite_sheet_option_image.pixmap().size())
+            sprite_input_choice_dialog.selection_option_image.setFixedSize(sprite_input_choice_dialog.selection_option_image.pixmap().size())
 
 
 
