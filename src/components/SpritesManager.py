@@ -87,6 +87,34 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
 ### COMPONENTS ###
 class Controls(components.shared.HorizontalBoxLayout):
     class SpriteInputChoiceDialog(QtWidgets.QDialog):
+        class Option(components.shared.VerticalBoxLayout):
+            def __init__(self, parent=None):
+                super().__init__(parent)
+
+                self.setMouseTracking(True)
+
+            def enterEvent(self, event):
+                # change the text color when the mouse is hovering over
+                self.children()[1].setStyleSheet(
+                    """
+                        margin-top: 10px;
+                        color: yellow;
+                    """
+                )
+
+                return super().enterEvent(event)
+
+            def leaveEvent(self, event):
+                # reset the text color when the mouse is no longer hovering over the option
+                self.children()[1].setStyleSheet(
+                    """
+                        margin-top: 10px;
+                        color: white;
+                    """
+                )
+
+                return super().leaveEvent(event)
+
         def __init__(self, parent = ..., f = ...):
             super().__init__(parent, f)
 
@@ -159,7 +187,7 @@ class Controls(components.shared.HorizontalBoxLayout):
             icons_folder = f'{pathlib.Path(__file__).parent.parent.parent.resolve()}/local/icons'
             icons_folder = icons_folder.replace('\\', '/')
 
-            self.sprite_sheet_option = components.shared.VerticalBoxLayout()
+            self.sprite_sheet_option = self.Option()
             self.sprite_sheet_option.lyt.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
             self.sprite_sheet_option_image = QtWidgets.QLabel('')
             self.sprite_sheet_option_image.setPixmap(QtGui.QPixmap(f'{icons_folder}/sprite_input_sheet_option.png'))
@@ -173,7 +201,7 @@ class Controls(components.shared.HorizontalBoxLayout):
                 self.sprite_sheet_option_text
             ])
 
-            self.selection_option = components.shared.VerticalBoxLayout()
+            self.selection_option = self.Option()
             self.selection_option.lyt.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
             self.selection_option_image = QtWidgets.QLabel('')
             self.selection_option_image.setPixmap(QtGui.QPixmap(f'{icons_folder}/sprite_input_selection_option.png'))
