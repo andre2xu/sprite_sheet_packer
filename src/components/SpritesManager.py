@@ -133,10 +133,6 @@ class Controls(components.shared.HorizontalBoxLayout):
                     background-position: top center;
                     background-repeat: none;
                 }
-
-                #DialogBody QLabel:hover {
-                    color: yellow;
-                }
                 """
             )
 
