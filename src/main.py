@@ -31,8 +31,19 @@ class MainWindow(QtWidgets.QMainWindow):
     def resizeEvent(self, event):
         super().resizeEvent(event)
 
-        # rescale the sprite sheet preview's scrollable area body
+        main_window_width = self.width()
+        main_window_height = self.height()
+
+        # re-scale the sprite sheet preview's scrollable area body
         self.workspace.sprite_sheet_preview.scrollable_area.rescaleScrollableAreaBody()
+
+        # re-scale the sprite input choice dialog
+        sprite_input_choice_dialog = self.workspace.sprites_manager.controls.sprite_input_choice_dialog
+
+        if main_window_width > 1300 and main_window_height > 750:
+            sprite_input_choice_dialog.setFixedSize(sprite_input_choice_dialog.original_width * 1.3, sprite_input_choice_dialog.original_height * 1.3)
+        else:
+            sprite_input_choice_dialog.setFixedSize(sprite_input_choice_dialog.original_width, sprite_input_choice_dialog.original_height)
 
 
 

@@ -95,7 +95,9 @@ class Controls(components.shared.HorizontalBoxLayout):
             layout.setSpacing(0)
             self.setLayout(layout)
 
-            self.setFixedSize(350, 230)
+            self.original_width = 350
+            self.original_height = 230
+            self.setFixedSize(self.original_width, self.original_height)
 
             self.setStyleSheet(
                 """
