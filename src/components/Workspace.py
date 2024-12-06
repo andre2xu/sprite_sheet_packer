@@ -35,6 +35,25 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
                 border: none;
             }
 
+            QScrollBar {
+                background-color: #212124;
+            }
+
+            QScrollBar::handle {
+                background-color: #656769;
+                border: 1px solid gray;
+                border-radius: 2px;
+            }
+
+            QScrollBar::add-line, QScrollBar::sub-line {
+                width: 0px;
+                height: 0px;
+            }
+
+            QScrollBar::add-page, QScrollBar::sub-page {
+                background-color: #242629;
+            }
+
             #SSPB {
                 background-color: none;
             }
