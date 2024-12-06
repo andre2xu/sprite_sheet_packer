@@ -103,9 +103,12 @@ class SpritesManager(components.shared.VerticalBoxLayout):
     def __init__(self, parent=None):
         super(SpritesManager, self).__init__(parent)
 
+        self.controls = Controls(self)
+        self.sprites_list = SpritesList(self)
+
         self.addWidgets([
-            Controls(self),
-            SpritesList(self)
+            self.controls,
+            self.sprites_list
         ])
 
         self.setStyleSheet(
