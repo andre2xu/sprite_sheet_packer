@@ -8,8 +8,10 @@ from components.MainWindow import Menubar, Workspace
 
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self, parent=None):
+    def __init__(self, app, parent=None):
         super(MainWindow, self).__init__(parent)
+
+        self.app = app
 
         central_widget = components.shared.VerticalBoxLayout()
         central_widget.lyt.setSpacing(0)
@@ -57,7 +59,7 @@ class MainWindow(QtWidgets.QMainWindow):
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
 
-    main_window = MainWindow()
+    main_window = MainWindow(app)
     main_window.show()
 
     sys.exit(app.exec())
