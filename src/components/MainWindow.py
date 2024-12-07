@@ -10,6 +10,8 @@ class Menubar(QtWidgets.QMenuBar):
     def __init__(self, parent=None):
         super(Menubar, self).__init__(parent)
 
+        main_window = self.parent()
+
         # FILE MENU
         file_menu = self.addMenu('File')
         file_menu.setMinimumWidth(250)
@@ -28,7 +30,7 @@ class Menubar(QtWidgets.QMenuBar):
         file_menu_settings.setShortcut('Ctrl+K')
         file_menu.addSeparator()
         file_menu_exit = file_menu.addAction('Exit')
-        file_menu_exit.triggered.connect(lambda _: self.parent().app.quit())
+        file_menu_exit.triggered.connect(lambda _: main_window.app.quit())
 
         self.addMenu(file_menu)
 
