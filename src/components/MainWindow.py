@@ -1,7 +1,7 @@
-from PySide6 import QtWidgets
+from PySide6 import QtWidgets, QtCore
 
 ### GUI COMPONENTS ###
-import components.shared
+import components.shared, components.dialogs
 from components.Workspace import SpriteSheetPreview, SpritesManager
 
 
@@ -81,6 +81,11 @@ class Menubar(QtWidgets.QMenuBar):
             }
             """
         )
+
+        # FILE MENU > NEW SHEET ACTION
+        self.file_menu_new_sheet_dialog = components.dialogs.FileMenuNewSheetDialog(main_window, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
+
+        file_menu_new_sheet.triggered.connect(lambda _: self.file_menu_new_sheet_dialog.open())
 
 
 
