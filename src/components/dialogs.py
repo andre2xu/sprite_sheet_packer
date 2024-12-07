@@ -220,14 +220,13 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
         folder_name_field_container.lyt.setContentsMargins(0,0,0,0)
         folder_name_field_label = QtWidgets.QLabel('Project Name')
         folder_name_field_label.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
-        folder_name_field = QtWidgets.QLineEdit('')
-        folder_name_field.setText('New Sheet') # default name
+        self.folder_name_field = QtWidgets.QLineEdit('New Sheet')
 
         folder_name_field_container.lyt.addStretch(0)
 
         folder_name_field_container.addWidgets([
             folder_name_field_label,
-            folder_name_field
+            self.folder_name_field
         ])
 
         folder_name_field_container.lyt.addStretch(0)
@@ -261,15 +260,15 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
         folder_location_field_subcontainer.lyt.setSpacing(0)
         folder_location_field_subcontainer.lyt.setContentsMargins(0,0,0,0)
         folder_location_field_subcontainer.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
-        folder_location_field = QtWidgets.QLabel('/path/to/project')
-        folder_location_field.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
-        folder_location_field.setToolTip(folder_location_field.text())
+        self.folder_location_field = QtWidgets.QLabel('/path/to/project')
+        self.folder_location_field.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+        self.folder_location_field.setToolTip(self.folder_location_field.text())
         file_explorer_button = QtWidgets.QPushButton('Search')
         file_explorer_button.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Minimum))
         file_explorer_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
 
         folder_location_field_subcontainer.addWidgets([
-            folder_location_field,
+            self.folder_location_field,
             file_explorer_button
         ])
 
@@ -332,3 +331,10 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
         body_lyt.addWidget(submit_button)
 
         layout.addWidget(body)
+
+    def open(self):
+        # reset the default values of the fields
+        self.folder_name_field.setText('New Sheet')
+        self.folder_location_field.setText('/path/to/project')
+
+        super().open()
