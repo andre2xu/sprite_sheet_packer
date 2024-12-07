@@ -154,7 +154,7 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
         self.setLayout(layout)
 
         self.original_width = 310
-        self.original_height = 210
+        self.original_height = 300
         self.setFixedSize(self.original_width, self.original_height)
 
         self.setStyleSheet(
@@ -209,6 +209,126 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
         body = QtWidgets.QWidget()
         body.setObjectName('DialogBody')
 
-        body_lyt = QtWidgets.QHBoxLayout(body)
+        body_lyt = QtWidgets.QVBoxLayout(body)
+        body_lyt.setSpacing(0)
+        body_lyt.setContentsMargins(0,0,0,0)
+
+        folder_name_field_container = components.shared.VerticalBoxLayout()
+        folder_name_field_container.setObjectName('FolderNameFieldContainer')
+        folder_name_field_container.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+        folder_name_field_container.lyt.setSpacing(0)
+        folder_name_field_container.lyt.setContentsMargins(0,0,0,0)
+        folder_name_field_label = QtWidgets.QLabel('Project Name')
+        folder_name_field_label.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+        folder_name_field = QtWidgets.QLineEdit('')
+        folder_name_field.setText('New Sheet') # default name
+
+        folder_name_field_container.lyt.addStretch(0)
+
+        folder_name_field_container.addWidgets([
+            folder_name_field_label,
+            folder_name_field
+        ])
+
+        folder_name_field_container.lyt.addStretch(0)
+
+        folder_name_field_container.setStyleSheet(
+            """
+            #FolderNameFieldContainer QLabel {
+                margin: 15px 15px 10px;
+            }
+
+            #FolderNameFieldContainer QLineEdit {
+                border-radius: 5px;
+                border: 1px solid #545458;
+                color: #a6a6ad;
+                margin: 0px 15px 15px;
+                padding: 3px;
+                background-color: transparent;
+            }
+            """
+        )
+
+        folder_location_field_container = components.shared.VerticalBoxLayout()
+        folder_location_field_container.setObjectName('FolderLocationFieldContainer')
+        folder_location_field_container.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+        folder_location_field_container.lyt.setSpacing(0)
+        folder_location_field_container.lyt.setContentsMargins(0,0,0,0)
+        folder_location_field_label = QtWidgets.QLabel('Project Location')
+
+        folder_location_field_subcontainer = components.shared.HorizontalBoxLayout()
+        folder_location_field_subcontainer.setObjectName('FolderLocationFieldSubContainer')
+        folder_location_field_subcontainer.lyt.setSpacing(0)
+        folder_location_field_subcontainer.lyt.setContentsMargins(0,0,0,0)
+        folder_location_field_subcontainer.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+        folder_location_field = QtWidgets.QLabel('/path/to/project')
+        folder_location_field.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+        folder_location_field.setToolTip(folder_location_field.text())
+        file_explorer_button = QtWidgets.QPushButton('Search')
+        file_explorer_button.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Minimum))
+        file_explorer_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+
+        folder_location_field_subcontainer.addWidgets([
+            folder_location_field,
+            file_explorer_button
+        ])
+
+        folder_location_field_container.addWidgets([
+            folder_location_field_label,
+            folder_location_field_subcontainer
+        ])
+
+        folder_location_field_container.setStyleSheet(
+            """
+            #FolderLocationFieldContainer QLabel {
+                margin: 15px 15px 10px;
+            }
+
+            #FolderLocationFieldSubContainer {
+                margin: 0px 15px;
+            }
+
+            #FolderLocationFieldSubContainer QLabel {
+                margin: 0px;
+                margin-left: 15px;
+                margin-right: 5px;
+                border: 1px solid #545458;
+                color: #a6a6ad;
+                padding: 3px;
+            }
+
+            #FolderLocationFieldSubContainer QPushButton {
+                margin: 0px;
+                margin-right: 15px;
+                border-radius: 0px;
+                background-color: #2b2b35;
+                padding: 0 8px;
+            }
+            """
+        )
+
+        submit_button = QtWidgets.QPushButton('Create')
+        submit_button.setObjectName('SubmitButton')
+        submit_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+
+        submit_button.setStyleSheet(
+            """
+            QPushButton {
+                margin: 0px 10px 20px;
+                padding: 6px;
+                border-radius: 6px;
+                background-color: #47474e;
+            }
+
+            QPushButton:hover {
+                border: 1px solid gray;
+            }
+            """
+        )
+
+        body_lyt.addWidget(folder_name_field_container)
+        body_lyt.addWidget(folder_location_field_container)
+        body_lyt.addStretch(0)
+        body_lyt.addWidget(submit_button)
 
         layout.addWidget(body)
