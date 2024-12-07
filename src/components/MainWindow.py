@@ -28,6 +28,7 @@ class Menubar(QtWidgets.QMenuBar):
         file_menu_settings.setShortcut('Ctrl+K')
         file_menu.addSeparator()
         file_menu_exit = file_menu.addAction('&Exit')
+        file_menu_exit.triggered.connect(lambda _: self.parent().app.quit())
 
         self.addMenu(file_menu)
 
