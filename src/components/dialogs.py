@@ -374,23 +374,26 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
     def createProjectFolder(self):
         main_window = self.parent()
 
+        project_folder_name = self.folder_name_field.text()
+
+        if len(project_folder_name) == 0:
+            # no project folder name provided
+            QtWidgets.QMessageBox.critical(
+                main_window,
+                'Invalid Name',
+                "Please provide a name for the project folder.",
+                QtWidgets.QMessageBox.StandardButton.Ok
+            )
+
+            return
+
         project_folder_location = self.folder_location_field.text()
 
         if os.path.isdir(project_folder_location):
-            project_folder_name = self.folder_name_field.text()
             project_folder_path = os.path.join(project_folder_location, project_folder_name)
 
             try:
-                if len(project_folder_name) == 0:
-                    # no project folder name provided
-                    QtWidgets.QMessageBox.critical(
-                        main_window,
-                        'Invalid Name',
-                        "Please provide a name for the project folder.",
-                        QtWidgets.QMessageBox.StandardButton.Ok
-                    )
-
-                if len(project_folder_name) > 0 and os.access(os.path.dirname(project_folder_path), os.W_OK):
+                if os.access(os.path.dirname(project_folder_path), os.W_OK):
                     if os.path.exists(project_folder_path):
                         # folder already exists with the same name as the project, ask user to confirm overwrite
                         user_response = QtWidgets.QMessageBox.warning(
