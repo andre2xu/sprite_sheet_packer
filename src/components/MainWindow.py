@@ -16,10 +16,10 @@ class Menubar(QtWidgets.QMenuBar):
         file_menu = self.addMenu('File')
         file_menu.setMinimumWidth(250)
 
-        file_menu_new_sheet = file_menu.addAction('New sheet...')
-        file_menu_new_sheet.setShortcut('Ctrl+N')
-        file_menu_open_sheet = file_menu.addAction('Open sheet...')
-        file_menu_open_sheet.setShortcut('Ctrl+O')
+        file_menu_new_project = file_menu.addAction('New project...')
+        file_menu_new_project.setShortcut('Ctrl+N')
+        file_menu_open_project = file_menu.addAction('Open project...')
+        file_menu_open_project.setShortcut('Ctrl+O')
         file_menu.addSeparator()
         file_menu_save = file_menu.addAction('Save')
         file_menu_save.setShortcut('Ctrl+S')
@@ -82,10 +82,10 @@ class Menubar(QtWidgets.QMenuBar):
             """
         )
 
-        # FILE MENU > NEW SHEET ACTION
-        self.file_menu_new_sheet_dialog = components.dialogs.FileMenuNewSheetDialog(main_window, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
+        # FILE MENU > NEW PROJECT ACTION
+        self.file_menu_new_project_dialog = components.dialogs.FileMenuNewProjectDialog(main_window, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
 
-        file_menu_new_sheet.triggered.connect(lambda _: self.file_menu_new_sheet_dialog.open())
+        file_menu_new_project.triggered.connect(lambda _: self.file_menu_new_project_dialog.open())
 
 
 

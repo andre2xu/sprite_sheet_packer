@@ -144,7 +144,7 @@ class SpriteInputChoiceDialog(QtWidgets.QDialog):
 
 
 
-class FileMenuNewSheetDialog(QtWidgets.QDialog):
+class FileMenuNewProjectDialog(QtWidgets.QDialog):
     def __init__(self, parent = ..., f = ...):
         super().__init__(parent, f)
 
@@ -213,7 +213,7 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
         body_lyt.setSpacing(0)
         body_lyt.setContentsMargins(0,0,0,0)
 
-        self.DEFAULT_PROJECT_NAME = 'New Sheet'
+        self.DEFAULT_PROJECT_NAME = 'New project'
         self.PROJECT_FOLDER_LOCATION_PLACEHOLDER = '/path/to/project'
 
         folder_name_field_container = components.shared.VerticalBoxLayout()
