@@ -213,6 +213,9 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
         body_lyt.setSpacing(0)
         body_lyt.setContentsMargins(0,0,0,0)
 
+        self.DEFAULT_PROJECT_NAME = 'New Sheet'
+        self.PROJECT_FOLDER_LOCATION_PLACEHOLDER = '/path/to/project'
+
         folder_name_field_container = components.shared.VerticalBoxLayout()
         folder_name_field_container.setObjectName('FolderNameFieldContainer')
         folder_name_field_container.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
@@ -220,7 +223,7 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
         folder_name_field_container.lyt.setContentsMargins(0,0,0,0)
         folder_name_field_label = QtWidgets.QLabel('Project Name')
         folder_name_field_label.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
-        self.folder_name_field = QtWidgets.QLineEdit('New Sheet')
+        self.folder_name_field = QtWidgets.QLineEdit(self.DEFAULT_PROJECT_NAME)
 
         folder_name_field_container.lyt.addStretch(0)
 
@@ -260,7 +263,7 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
         folder_location_field_subcontainer.lyt.setSpacing(0)
         folder_location_field_subcontainer.lyt.setContentsMargins(0,0,0,0)
         folder_location_field_subcontainer.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
-        self.folder_location_field = QtWidgets.QLabel('/path/to/project')
+        self.folder_location_field = QtWidgets.QLabel(self.PROJECT_FOLDER_LOCATION_PLACEHOLDER)
         self.folder_location_field.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
         self.folder_location_field.setToolTip(self.folder_location_field.text())
         file_explorer_button = QtWidgets.QPushButton('Search')
@@ -335,8 +338,9 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
 
     def open(self):
         # reset the default values of the fields
-        self.folder_name_field.setText('New Sheet')
-        self.folder_location_field.setText('/path/to/project')
+        self.folder_name_field.setText(self.DEFAULT_PROJECT_NAME)
+        self.folder_location_field.setText(self.PROJECT_FOLDER_LOCATION_PLACEHOLDER)
+        self.folder_location_field.setToolTip(self.PROJECT_FOLDER_LOCATION_PLACEHOLDER)
 
         super().open()
 
