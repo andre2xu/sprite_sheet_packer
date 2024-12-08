@@ -1,4 +1,4 @@
-import pathlib
+import pathlib, os, shutil
 from PySide6 import QtWidgets, QtCore, QtGui
 from PySide6.QtWidgets import QSizePolicy
 
@@ -313,6 +313,7 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
         submit_button = QtWidgets.QPushButton('Create')
         submit_button.setObjectName('SubmitButton')
         submit_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+        submit_button.clicked.connect(self.createProjectFolder)
 
         submit_button.setStyleSheet(
             """
@@ -363,3 +364,60 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
 
         self.folder_location_field.setText(folder_location)
         self.folder_location_field.setToolTip(folder_location)
+
+    def generateProjectFolder(self, path, enableOverwrite=False):
+        if enableOverwrite:
+            # delete existing folder
+            shutil.rmtree(path)
+
+        os.makedirs(path)
+
+    def createProjectFolder(self):
+        main_window = self.parent()
+
+        project_folder_location = self.folder_location_field.text()
+
+        if os.path.isdir(project_folder_location):
+            project_folder_name = self.folder_name_field.text()
+            project_folder_path = os.path.join(project_folder_location, project_folder_name)
+
+            try:
+                if len(project_folder_name) > 0 and os.access(os.path.dirname(project_folder_path), os.W_OK):
+                    if os.path.exists(project_folder_path):
+                        # folder already exists with the same name as the project, ask user to confirm overwrite
+                        user_response = QtWidgets.QMessageBox.warning(
+                            main_window,
+                            'Please Confirm',
+                            "A folder with the same name as the project already exists in that location. Do you want to overwrite it?",
+                            QtWidgets.QMessageBox.StandardButton.Yes,
+                            QtWidgets.QMessageBox.StandardButton.Cancel
+                        )
+
+                        if user_response == QtWidgets.QMessageBox.StandardButton.Yes:
+                            # create project folder
+                            self.generateProjectFolder(project_folder_path, True)
+
+                            # close dialog
+                            self.accept()
+                    else:
+                        # create project folder
+                        self.generateProjectFolder(project_folder_path)
+
+                        # close dialog
+                        self.accept()
+            except:
+                # invalid project folder name
+                QtWidgets.QMessageBox.critical(
+                    main_window,
+                    'Invalid Name',
+                    "Please make sure to provide a folder name that is valid for your machine.",
+                    QtWidgets.QMessageBox.StandardButton.Ok
+                )
+        else:
+            # invalid project folder location
+            QtWidgets.QMessageBox.critical(
+                main_window,
+                'Invalid Location',
+                "The given location for the project folder could not be found. Please specify a folder that exists on your machine.",
+                QtWidgets.QMessageBox.StandardButton.Ok
+            )
