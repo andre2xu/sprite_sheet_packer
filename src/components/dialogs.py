@@ -266,14 +266,14 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
         self.folder_location_field = QtWidgets.QLabel(self.PROJECT_FOLDER_LOCATION_PLACEHOLDER)
         self.folder_location_field.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
         self.folder_location_field.setToolTip(self.folder_location_field.text())
-        file_explorer_button = QtWidgets.QPushButton('Search')
-        file_explorer_button.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Minimum))
-        file_explorer_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
-        file_explorer_button.clicked.connect(self.getFolderLocationFromUser)
+        file_dialog_button = QtWidgets.QPushButton('Search')
+        file_dialog_button.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Minimum))
+        file_dialog_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+        file_dialog_button.clicked.connect(self.getFolderLocationFromUser)
 
         folder_location_field_subcontainer.addWidgets([
             self.folder_location_field,
-            file_explorer_button
+            file_dialog_button
         ])
 
         folder_location_field_container.addWidgets([
