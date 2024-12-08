@@ -349,7 +349,6 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
         main_window = self.parent()
 
         home_folder_paths = QtCore.QStandardPaths.standardLocations(QtCore.QStandardPaths.StandardLocation.DesktopLocation)
-
         home_folder = ''
 
         if len(home_folder_paths) > 0:
@@ -358,7 +357,7 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
         folder_location = QtWidgets.QFileDialog.getExistingDirectory(
             main_window,
             'Choose project folder location',
-            home_folder,
+            home_folder, # default directory
             QtWidgets.QFileDialog.Option.ShowDirsOnly | QtWidgets.QFileDialog.Option.ReadOnly
         )
 
