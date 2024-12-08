@@ -266,6 +266,7 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
         file_explorer_button = QtWidgets.QPushButton('Search')
         file_explorer_button.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Minimum))
         file_explorer_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+        file_explorer_button.clicked.connect(self.getFolderLocationFromUser)
 
         folder_location_field_subcontainer.addWidgets([
             self.folder_location_field,
@@ -338,3 +339,23 @@ class FileMenuNewSheetDialog(QtWidgets.QDialog):
         self.folder_location_field.setText('/path/to/project')
 
         super().open()
+
+    def getFolderLocationFromUser(self):
+        main_window = self.parent()
+
+        home_folder_paths = QtCore.QStandardPaths.standardLocations(QtCore.QStandardPaths.StandardLocation.DesktopLocation)
+
+        home_folder = ''
+
+        if len(home_folder_paths) > 0:
+            home_folder = home_folder_paths[0]
+
+        folder_location = QtWidgets.QFileDialog.getExistingDirectory(
+            main_window,
+            'Choose project folder location',
+            home_folder,
+            QtWidgets.QFileDialog.Option.ShowDirsOnly | QtWidgets.QFileDialog.Option.ReadOnly
+        )
+
+        self.folder_location_field.setText(folder_location)
+        self.folder_location_field.setToolTip(folder_location)
