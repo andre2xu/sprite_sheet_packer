@@ -70,7 +70,7 @@ class MainWindow(QtWidgets.QMainWindow):
         os.makedirs(f'{path}/sprites')
 
         # load the folder's contents
-        self.openProjectFolder(path)
+        self.loadProjectFolder(path)
 
     def createProjectFolder(self):
         project_folder_name = self.menubar.file_menu_new_project_dialog.folder_name_field.text()
@@ -132,7 +132,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 QtWidgets.QMessageBox.StandardButton.Ok
             )
 
-    def openProjectFolder(self, path):
+    def loadProjectFolder(self, path):
         # display folder name in window title
         self.setWindowTitle(f'{self.window_title_base}  |  {pathlib.Path(path).name}')
 
