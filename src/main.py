@@ -134,6 +134,31 @@ class MainWindow(QtWidgets.QMainWindow):
             )
 
     def loadProjectFolder(self, path):
+        # check if the given folder exists
+        if os.path.exists(path) == False:
+            QtWidgets.QMessageBox.critical(
+                self,
+                'Not Found',
+                "The project folder you specified either does not exist or it may have been moved.",
+                QtWidgets.QMessageBox.StandardButton.Ok
+            )
+
+            return
+
+        # check if the given folder is a valid project folder
+        invalid_project_folder_message = "Failed to load the contents of the project folder."
+        sprites_folder = f'{path}/sprites'
+
+        if os.path.exists(sprites_folder) == False:
+            QtWidgets.QMessageBox.critical(
+                self,
+                'Invalid Project Folder',
+                f"{invalid_project_folder_message} The 'sprites' subfolder could not be found.",
+                QtWidgets.QMessageBox.StandardButton.Ok
+            )
+
+            return
+
         # display folder name in window title
         self.setWindowTitle(f'{self.window_title_base}  |  {pathlib.Path(path).name}')
 
