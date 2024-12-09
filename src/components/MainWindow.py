@@ -18,8 +18,8 @@ class Menubar(QtWidgets.QMenuBar):
 
         file_menu_new_project = file_menu.addAction('New project...')
         file_menu_new_project.setShortcut('Ctrl+N')
-        file_menu_open_project = file_menu.addAction('Open project...')
-        file_menu_open_project.setShortcut('Ctrl+O')
+        self.file_menu_open_project = file_menu.addAction('Open project...')
+        self.file_menu_open_project.setShortcut('Ctrl+O')
         file_menu.addSeparator()
         file_menu_save = file_menu.addAction('Save')
         file_menu_save.setShortcut('Ctrl+S')

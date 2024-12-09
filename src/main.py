@@ -27,6 +27,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.menubar = Menubar(self)
         self.menubar.file_menu_new_project_dialog.submit_button.clicked.connect(self.createProjectFolder)
+        self.menubar.file_menu_open_project.triggered.connect(self.openProjectFolder)
         self.setMenuBar(self.menubar)
 
         self.setMinimumSize(QtCore.QSize(800, 500))
@@ -135,6 +136,22 @@ class MainWindow(QtWidgets.QMainWindow):
     def loadProjectFolder(self, path):
         # display folder name in window title
         self.setWindowTitle(f'{self.window_title_base}  |  {pathlib.Path(path).name}')
+
+    def openProjectFolder(self):
+        home_folder_paths = QtCore.QStandardPaths.standardLocations(QtCore.QStandardPaths.StandardLocation.DesktopLocation)
+        home_folder = ''
+
+        if len(home_folder_paths) > 0:
+            home_folder = home_folder_paths[0]
+
+        project_folder_path = QtWidgets.QFileDialog.getExistingDirectory(
+            self,
+            'Select a project folder',
+            home_folder, # default directory
+            QtWidgets.QFileDialog.Option.ShowDirsOnly | QtWidgets.QFileDialog.Option.ReadOnly
+        )
+
+        self.loadProjectFolder(project_folder_path)
 
 
 
