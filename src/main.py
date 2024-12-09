@@ -30,7 +30,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setMenuBar(self.menubar)
 
         self.setMinimumSize(QtCore.QSize(800, 500))
-        self.setWindowTitle('Sprite Sheet Packer')
+
+        self.window_title_base = 'Sprite Sheet Packer'
+        self.setWindowTitle(self.window_title_base)
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
@@ -66,6 +68,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # make sprites folder
         os.makedirs(f'{path}/sprites')
+
+        # load the folder's contents
+        self.openProjectFolder(path)
 
     def createProjectFolder(self):
         project_folder_name = self.menubar.file_menu_new_project_dialog.folder_name_field.text()
@@ -126,6 +131,10 @@ class MainWindow(QtWidgets.QMainWindow):
                 "The given location for the project folder could not be found. Please specify a folder that exists on your machine.",
                 QtWidgets.QMessageBox.StandardButton.Ok
             )
+
+    def openProjectFolder(self, path):
+        # display folder name in window title
+        self.setWindowTitle(f'{self.window_title_base}  |  {pathlib.Path(path).name}')
 
 
 
