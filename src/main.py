@@ -61,7 +61,11 @@ class MainWindow(QtWidgets.QMainWindow):
             # delete existing folder
             shutil.rmtree(path)
 
+        # make root folder
         os.makedirs(path)
+
+        # make sprites folder
+        os.makedirs(f'{path}/sprites')
 
     def createProjectFolder(self):
         project_folder_name = self.menubar.file_menu_new_project_dialog.folder_name_field.text()
