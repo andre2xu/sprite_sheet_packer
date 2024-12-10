@@ -20,6 +20,7 @@ class MainWindow(QtWidgets.QMainWindow):
         central_widget.lyt.setContentsMargins(0,0,0,0)
 
         self.workspace = Workspace(self)
+        self.workspace.sprites_manager.controls.sprite_input_choice_dialog.selection_option.clicked.connect(self.uploadSprites)
         self.workspace.sprite_sheet_preview.scrollable_area.displayImage(f'{pathlib.Path(__file__).parent.resolve()}/../local/packed.png')
 
         central_widget.addWidgets([
