@@ -150,9 +150,6 @@ class SpriteInputChoiceDialog(QtWidgets.QDialog):
 
             layout.addWidget(body)
 
-        def uploadSprites(self):
-            print(1)
-
 
 
 class FileMenuNewProjectDialog(QtWidgets.QDialog):

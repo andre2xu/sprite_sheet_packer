@@ -184,6 +184,9 @@ class MainWindow(QtWidgets.QMainWindow):
         if len(project_folder_path) > 0:
             self.loadProjectFolder(project_folder_path)
 
+    def uploadSprites(self):
+        print(1)
+
 
 
 if __name__ == '__main__':
