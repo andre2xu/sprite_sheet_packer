@@ -1,4 +1,5 @@
-import sys, pathlib, os, shutil
+import sys, pathlib, os, shutil, PIL
+import PIL.Image
 from PySide6 import QtWidgets, QtCore
 
 ### GUI COMPONENTS ###
@@ -186,7 +187,27 @@ class MainWindow(QtWidgets.QMainWindow):
             self.loadProjectFolder(project_folder_path)
 
     def uploadSprites(self):
-        print(1)
+        sprites = QtWidgets.QFileDialog.getOpenFileNames(
+            self,
+            'Select sprites',
+            '',
+            'Images (*.png)'
+        )[0]
+
+        if len(sprites) > 0:
+            # make a copy of each sprite and put them in the sprites subfolder of the project folder
+            sprites_folder_paths = []
+
+            for i in range(len(sprites)):
+                sprite_src = sprites[i]
+
+                with PIL.Image.open(sprite_src) as sprite:
+                    file_name = os.path.basename(sprite_src)
+                    file_path = f'{self.project_folder_path}/sprites/{file_name}'
+
+                    sprite.save(file_path, 'png')
+
+                    sprites_folder_paths.append(file_path)
 
 
 
