@@ -8,11 +8,11 @@ import components.shared
 
 
 class SpriteInputChoiceDialog(QtWidgets.QDialog):
-        class Option(components.shared.VerticalBoxLayout):
-            def __init__(self, onClickHandler, parent=None):
-                super().__init__(parent)
+        class Option(components.shared.VerticalBoxLayout, QtCore.QObject):
+            clicked = QtCore.Signal(QtGui.QMouseEvent)
 
-                self.onClickHandler = onClickHandler
+            def __init__(self, parent=None):
+                super().__init__(parent)
 
                 self.setMouseTracking(True)
 
@@ -40,7 +40,7 @@ class SpriteInputChoiceDialog(QtWidgets.QDialog):
 
             def mouseReleaseEvent(self, event):
                 if event.button() == QtCore.Qt.MouseButton.LeftButton:
-                    self.onClickHandler()
+                    self.clicked.emit(event)
 
                 return super().mouseReleaseEvent(event)
 
@@ -116,7 +116,7 @@ class SpriteInputChoiceDialog(QtWidgets.QDialog):
             icons_folder = f'{pathlib.Path(__file__).parent.parent.parent.resolve()}/local/icons'
             icons_folder = icons_folder.replace('\\', '/')
 
-            self.sprite_sheet_option = self.Option(lambda _: None)
+            self.sprite_sheet_option = self.Option()
             self.sprite_sheet_option.lyt.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
             self.sprite_sheet_option_image = QtWidgets.QLabel('')
             self.sprite_sheet_option_image.setPixmap(QtGui.QPixmap(f'{icons_folder}/sprite_input_sheet_option.png'))
@@ -130,7 +130,7 @@ class SpriteInputChoiceDialog(QtWidgets.QDialog):
                 self.sprite_sheet_option_text
             ])
 
-            self.selection_option = self.Option(self.uploadSprites)
+            self.selection_option = self.Option()
             self.selection_option.lyt.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
             self.selection_option_image = QtWidgets.QLabel('')
             self.selection_option_image.setPixmap(QtGui.QPixmap(f'{icons_folder}/sprite_input_selection_option.png'))
