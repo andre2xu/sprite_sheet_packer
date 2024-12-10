@@ -176,7 +176,8 @@ class MainWindow(QtWidgets.QMainWindow):
             QtWidgets.QFileDialog.Option.ShowDirsOnly | QtWidgets.QFileDialog.Option.ReadOnly
         )
 
-        self.loadProjectFolder(project_folder_path)
+        if len(project_folder_path) > 0:
+            self.loadProjectFolder(project_folder_path)
 
 
 
