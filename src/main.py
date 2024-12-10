@@ -13,6 +13,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.app = app
 
+        self.project_folder_path = None
+
         central_widget = components.shared.VerticalBoxLayout()
         central_widget.lyt.setSpacing(0)
         central_widget.lyt.setContentsMargins(0,0,0,0)
@@ -158,6 +160,9 @@ class MainWindow(QtWidgets.QMainWindow):
             )
 
             return
+
+        # save the path to the project folder
+        self.project_folder_path = path
 
         # display folder name in window title
         self.setWindowTitle(f'{self.window_title_base}  |  {pathlib.Path(path).name}')
