@@ -90,14 +90,14 @@ class Controls(components.shared.HorizontalBoxLayout):
     def __init__(self, parent=None):
         super(Controls, self).__init__(parent)
 
-        main_window = parent.parent().parent()
+        self.main_window = parent.parent().parent()
 
         add_sprites_btn = QtWidgets.QPushButton('Add Sprites')
         add_sprites_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
         add_sprites_btn.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
 
-        self.sprite_input_choice_dialog = SpriteInputChoiceDialog(main_window, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
-        add_sprites_btn.clicked.connect(lambda _: self.sprite_input_choice_dialog.open())
+        self.sprite_input_choice_dialog = SpriteInputChoiceDialog(self.main_window, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
+        add_sprites_btn.clicked.connect(self.openSpriteInputChoiceDialog)
 
         clear_all_sprites_btn = QtWidgets.QPushButton('Clear All')
         clear_all_sprites_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
@@ -125,6 +125,18 @@ class Controls(components.shared.HorizontalBoxLayout):
         )
 
         self.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+
+    def openSpriteInputChoiceDialog(self):
+        # check if a project folder is opened
+        if self.main_window.project_folder_path != None:
+            self.sprite_input_choice_dialog.open()
+        else:
+            QtWidgets.QMessageBox.critical(
+                self.main_window,
+                'Project Folder Not Found',
+                "You need to open an existing project folder or create a new one before you can add sprites.",
+                QtWidgets.QMessageBox.StandardButton.Ok
+            )
 
 
 
