@@ -1,4 +1,4 @@
-import sys, pathlib, os, shutil, PIL
+import sys, pathlib, os, shutil, PIL, mimetypes
 import PIL.Image
 from PySide6 import QtWidgets, QtCore
 
@@ -168,6 +168,25 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # display folder name in window title
         self.setWindowTitle(f'{self.window_title_base}  |  {pathlib.Path(path).name}')
+
+        # populate sprites list
+        sprites_folder_contents = os.listdir(sprites_folder)
+        sprite_sources = []
+
+        for content in sprites_folder_contents:
+            if content.endswith('.png') and mimetypes.guess_type(content)[0] == 'image/png':
+                sprite_sources.append(f'{sprites_folder}/{content}')
+            else:
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    'Invalid Sprite Found',
+                    f"The sprites folder contains an invalid sprite. \"{content}\" is not a png image. Only png sprites are supported.",
+                    QtWidgets.QMessageBox.StandardButton.Ok
+                )
+
+                return
+
+        self.workspace.sprites_manager.sprites_list.loadSprites(sprite_sources)
 
     def openProjectFolder(self):
         home_folder_paths = QtCore.QStandardPaths.standardLocations(QtCore.QStandardPaths.StandardLocation.DesktopLocation)
