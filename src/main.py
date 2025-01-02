@@ -1,4 +1,4 @@
-import sys, pathlib, os, shutil, PIL, mimetypes
+import sys, pathlib, os, shutil, PIL, mimetypes, re
 import PIL.Image
 from PySide6 import QtWidgets, QtCore
 
@@ -214,9 +214,24 @@ class MainWindow(QtWidgets.QMainWindow):
         )[0]
 
         if len(sprites) > 0:
-            sprites_folder = f'{self.project_folder_path}/sprites'
+            # check if all uploads are valid
+            valid_extension = re.compile(r'\.png$')
+
+            for i in range(len(sprites)):
+                uploaded_sprite = sprites[i]
+
+                if (valid_extension.search(uploaded_sprite) != None and mimetypes.guess_type(uploaded_sprite)[0] == 'image/png') == False:
+                    QtWidgets.QMessageBox.critical(
+                        self,
+                        'Invalid Upload',
+                        f"Only png images are allowed. \"{os.path.basename(uploaded_sprite)}\" is not a png sprite.",
+                        QtWidgets.QMessageBox.StandardButton.Ok,
+                    )
+
+                    return
 
             # make a copy of each sprite and put them in the sprites subfolder of the project folder
+            sprites_folder = f'{self.project_folder_path}/sprites'
             sprites_folder_paths = []
 
             for i in range(len(sprites)):
