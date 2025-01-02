@@ -259,6 +259,13 @@ class MainWindow(QtWidgets.QMainWindow):
                             sprite.save(file_path, 'png')
                             sprites_folder_paths.append(file_path)
 
+            # update sprites list
+            if len(sprites_folder_paths) > 0:
+                self.workspace.sprites_manager.sprites_list.addSprites(sprites_folder_paths)
+
+        # close sprite input choice dialog
+        self.workspace.sprites_manager.controls.sprite_input_choice_dialog.close()
+
 
 
 if __name__ == '__main__':
