@@ -214,19 +214,35 @@ class MainWindow(QtWidgets.QMainWindow):
         )[0]
 
         if len(sprites) > 0:
+            sprites_folder = f'{self.project_folder_path}/sprites'
+
             # make a copy of each sprite and put them in the sprites subfolder of the project folder
             sprites_folder_paths = []
 
             for i in range(len(sprites)):
                 sprite_src = sprites[i]
 
-                with PIL.Image.open(sprite_src) as sprite:
-                    file_name = os.path.basename(sprite_src)
-                    file_path = f'{self.project_folder_path}/sprites/{file_name}'
+                file_name = os.path.basename(sprite_src)
+                file_path = f'{sprites_folder}/{file_name}'
 
-                    sprite.save(file_path, 'png')
+                if os.path.exists(file_path) == False:
+                    with PIL.Image.open(sprite_src) as sprite:
+                        sprite.save(file_path, 'png')
+                        sprites_folder_paths.append(file_path)
+                else:
+                    # sprite already exists, request permission to replace it
+                    answer = QtWidgets.QMessageBox.warning(
+                        self,
+                        'Sprite Already Exists',
+                        f"\"{file_name}\" already exists in the sprites folder. Would you like to replace it?",
+                        QtWidgets.QMessageBox.StandardButton.No,
+                        QtWidgets.QMessageBox.StandardButton.Yes
+                    )
 
-                    sprites_folder_paths.append(file_path)
+                    if answer == QtWidgets.QMessageBox.StandardButton.Yes:
+                        with PIL.Image.open(sprite_src) as sprite:
+                            sprite.save(file_path, 'png')
+                            sprites_folder_paths.append(file_path)
 
 
 
