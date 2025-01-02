@@ -1,4 +1,4 @@
-import pathlib
+import pathlib, os
 from PySide6 import QtWidgets, QtCore, QtGui
 from PySide6.QtWidgets import QSizePolicy
 
@@ -141,6 +141,12 @@ class Controls(components.shared.HorizontalBoxLayout):
 
 
 class SpritesList(components.shared.VerticalBoxLayout):
+    class ListItem(QtWidgets.QListWidgetItem):
+        src = None # path to sprite png
+
+        def __init_subclass__(cls):
+            return super().__init_subclass__()
+
     def __init__(self, parent=None):
         super(SpritesList, self).__init__(parent)
 
@@ -198,3 +204,21 @@ class SpritesList(components.shared.VerticalBoxLayout):
         )
 
         self.lyt.addWidget(self.vertical_list)
+
+    def loadSprites(self, sources: list[str]):
+        # empty list (NOTE: this doesn't delete the list item instances)
+        self.vertical_list.clear()
+
+        # create a list item for each image file and add it to the list
+        if len(sources) > 0:
+            for i in range(len(sources)):
+                src = sources[i]
+
+                new_list_item = self.ListItem(
+                    QtGui.QIcon(src),
+                    os.path.basename(src).replace('.png', '')
+                )
+
+                new_list_item.src = src
+
+                self.vertical_list.addItem(new_list_item)
