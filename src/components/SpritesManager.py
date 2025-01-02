@@ -144,40 +144,21 @@ class SpritesList(components.shared.VerticalBoxLayout):
     def __init__(self, parent=None):
         super(SpritesList, self).__init__(parent)
 
-        vertical_list = QtWidgets.QListWidget()
-        vertical_list_layout = QtWidgets.QVBoxLayout()
+        self.vertical_list = QtWidgets.QListWidget()
+        self.vertical_list_layout = QtWidgets.QVBoxLayout()
 
-        vertical_list.setLayout(vertical_list_layout)
-        vertical_list.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        vertical_list.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        vertical_list.setItemDelegate(SpritesListItemDelegate()) # use custom styling on the list items
-        vertical_list.setMovement(QtWidgets.QListWidget.Movement.Free) # allow list items to be moved
-        vertical_list.setDragEnabled(True) # allow dragging
-        vertical_list.setDragDropMode(QtWidgets.QListWidget.DragDropMode.InternalMove) # move list item instead of copying after it's dragged and dropped
-
-        list_items = [
-            QtWidgets.QListWidgetItem('Sprite 1'),
-            QtWidgets.QListWidgetItem('Sprite 2'),
-            QtWidgets.QListWidgetItem('Sprite 3'),
-            QtWidgets.QListWidgetItem('Sprite 4'),
-            QtWidgets.QListWidgetItem('Sprite 5'),
-            QtWidgets.QListWidgetItem('Sprite 6'),
-            QtWidgets.QListWidgetItem('Sprite 7'),
-            QtWidgets.QListWidgetItem('Sprite 8'),
-            QtWidgets.QListWidgetItem('Sprite 9'),
-            QtWidgets.QListWidgetItem('Sprite 10'),
-        ]
+        self.vertical_list.setLayout(self.vertical_list_layout)
+        self.vertical_list.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        self.vertical_list.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.vertical_list.setItemDelegate(SpritesListItemDelegate()) # use custom styling on the list items
+        self.vertical_list.setMovement(QtWidgets.QListWidget.Movement.Free) # allow list items to be moved
+        self.vertical_list.setDragEnabled(True) # allow dragging
+        self.vertical_list.setDragDropMode(QtWidgets.QListWidget.DragDropMode.InternalMove) # move list item instead of copying after it's dragged and dropped
 
         default_sprite_list_item_icon = QtGui.QIcon(f'{pathlib.Path(__file__).parent.resolve()}/../../local/icons/default_sprite_icon.png')
 
-        for i in range(len(list_items)):
-            li = list_items[i]
-            li.setIcon(default_sprite_list_item_icon)
-
-            vertical_list.addItem(li)
-
         # NOTE: the 'QListWidget::item' styles aren't used since the custom list item delegate overrides them but they should be kept for reference and as fallback
-        vertical_list.setStyleSheet(
+        self.vertical_list.setStyleSheet(
             """
             QListWidget::item {
                 border-bottom: 1px solid #37393c;
@@ -216,4 +197,4 @@ class SpritesList(components.shared.VerticalBoxLayout):
             """
         )
 
-        self.lyt.addWidget(vertical_list)
+        self.lyt.addWidget(self.vertical_list)
