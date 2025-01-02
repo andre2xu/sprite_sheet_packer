@@ -222,3 +222,20 @@ class SpritesList(components.shared.VerticalBoxLayout):
                 new_list_item.src = src
 
                 self.vertical_list.addItem(new_list_item)
+
+    def addSprites(self, sources: list[str]):
+        # create a list item for each image file and add it to the list
+        if len(sources) > 0:
+            for i in range(len(sources)):
+                src = sources[i]
+
+                new_list_item = self.ListItem(
+                    QtGui.QIcon(src),
+                    os.path.basename(src).replace('.png', '')
+                )
+
+                new_list_item.src = src
+
+                self.vertical_list.addItem(new_list_item)
+        else:
+            raise Exception("No sprite sources were given")
