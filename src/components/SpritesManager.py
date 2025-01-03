@@ -216,7 +216,7 @@ class SpritesList(components.shared.VerticalBoxLayout):
         return new_list_item
 
     def loadSprites(self, sources: list[str]):
-        # empty list (NOTE: this doesn't delete the list item instances)
+        # empty list
         self.vertical_list.clear()
 
         # create a list item for each image file and add it to the list
