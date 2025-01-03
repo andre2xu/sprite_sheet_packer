@@ -267,7 +267,6 @@ class MainWindow(QtWidgets.QMainWindow):
                     if answer == QtWidgets.QMessageBox.StandardButton.Yes:
                         with PIL.Image.open(sprite_src) as sprite:
                             sprite.save(file_path, 'png')
-                            sprites_folder_paths.append(file_path)
 
             # update sprites list
             if len(sprites_folder_paths) > 0:
