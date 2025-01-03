@@ -32,6 +32,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.menubar = Menubar(self)
         self.menubar.file_menu_new_project_dialog.submit_button.clicked.connect(self.createProjectFolder)
         self.menubar.file_menu_open_project.triggered.connect(self.openProjectFolder)
+        self.menubar.file_menu_close_project.triggered.connect(self.closeProjectFolder)
         self.setMenuBar(self.menubar)
 
         self.setMinimumSize(QtCore.QSize(800, 500))
@@ -204,6 +205,15 @@ class MainWindow(QtWidgets.QMainWindow):
 
         if len(project_folder_path) > 0:
             self.loadProjectFolder(project_folder_path)
+
+    def closeProjectFolder(self):
+        # empty sprites list
+        self.workspace.sprites_manager.sprites_list.vertical_list.clear()
+
+        # reset window title
+        self.setWindowTitle(self.window_title_base)
+
+        # reset sprite sheet preview (default zoom + no image)
 
     def uploadSprites(self):
         sprites = QtWidgets.QFileDialog.getOpenFileNames(
