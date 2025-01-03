@@ -164,6 +164,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
             return
 
+        # close project folder first (if one is opened)
+        self.closeProjectFolder()
+
         # save the path to the project folder
         self.project_folder_path = path
 
