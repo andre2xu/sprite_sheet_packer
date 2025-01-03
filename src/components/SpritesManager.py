@@ -161,6 +161,9 @@ class SpritesList(components.shared.VerticalBoxLayout):
         self.vertical_list.setDragEnabled(True) # allow dragging
         self.vertical_list.setDragDropMode(QtWidgets.QListWidget.DragDropMode.InternalMove) # move list item instead of copying after it's dragged and dropped
 
+        self.vertical_list.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.vertical_list.customContextMenuRequested.connect(self.displayContextMenu)
+
         default_sprite_list_item_icon = QtGui.QIcon(f'{pathlib.Path(__file__).parent.resolve()}/../../local/icons/default_sprite_icon.png')
 
         # NOTE: the 'QListWidget::item' styles aren't used since the custom list item delegate overrides them but they should be kept for reference and as fallback
@@ -231,3 +234,34 @@ class SpritesList(components.shared.VerticalBoxLayout):
                 self.vertical_list.addItem(self.createListItem(sources[i]))
         else:
             raise Exception("No sprite sources were given")
+
+    def displayContextMenu(self, clickPosition: QtCore.QPoint):
+        list_item_clicked = self.vertical_list.itemAt(clickPosition)
+
+        if list_item_clicked != None:
+            context_menu = QtWidgets.QMenu(self.vertical_list)
+            context_menu.setMinimumWidth(110)
+
+            cm_rename = context_menu.addAction('Rename')
+            cm_delete = context_menu.addAction('Delete')
+
+            context_menu.setStyleSheet(
+                """
+                QMenu {
+                    background-color: #53585a;
+                    padding: 5px;
+                }
+
+                QMenu::item {
+                    color: #fff;
+                    padding: 10px 15px;
+                }
+
+                QMenu::item:selected {
+                    background-color: #484c4e;
+                }
+                """
+            )
+
+            # display context menu at mouse position
+            context_menu.exec(self.vertical_list.viewport().mapToGlobal(clickPosition))
