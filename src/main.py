@@ -213,6 +213,9 @@ class MainWindow(QtWidgets.QMainWindow):
         # reset window title
         self.setWindowTitle(self.window_title_base)
 
+        # remove project folder location
+        self.project_folder_path = None
+
         # reset sprite sheet preview (default zoom + no image)
 
     def uploadSprites(self):
