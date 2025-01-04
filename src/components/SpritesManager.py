@@ -51,11 +51,27 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
             text_rect = QtCore.QRect(
                 option.rect.x() + (icon_rect.x() + icon_size.width() + icon_right_margin), # start on the right of the icon (with space in-between)
                 option.rect.y() - 2, # center vertically in the list item widget
-                option.rect.width() - (icon_size.width() + icon_right_margin),
+                (option.rect.width() - (icon_size.width() + icon_right_margin)) * 0.79,
                 option.rect.height()
             )
         else:
             text_rect = option.rect # use default position if there's no icon
+
+        # shorten long text and add an ellipsis
+        if text:
+            font_metrics = QtGui.QFontMetrics(option.font)
+
+            label_width = text_rect.width()
+            text_length_in_pixels = font_metrics.boundingRect(text).width()
+
+            if text_length_in_pixels > label_width:
+                # create ellipsis
+                while text_length_in_pixels > label_width:
+                    text = text[:-1] # remove last character
+
+                    text_length_in_pixels = font_metrics.boundingRect(text).width()
+
+                text = f'{text[:-3]}...'
 
         # draw text
         painter.drawText(
