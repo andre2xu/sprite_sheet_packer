@@ -244,6 +244,7 @@ class SpritesList(components.shared.VerticalBoxLayout):
 
             cm_rename = context_menu.addAction('Rename')
             cm_delete = context_menu.addAction('Delete')
+            cm_delete.triggered.connect(lambda _: self.deleteSprite(list_item_clicked))
 
             context_menu.setStyleSheet(
                 """
@@ -265,3 +266,10 @@ class SpritesList(components.shared.VerticalBoxLayout):
 
             # display context menu at mouse position
             context_menu.exec(self.vertical_list.viewport().mapToGlobal(clickPosition))
+
+    def deleteSprite(self, sprite: QtWidgets.QListWidgetItem):
+        # remove sprite from the list
+        self.vertical_list.takeItem(self.vertical_list.row(sprite))
+
+        # remove sprite from the sprites folder
+        pathlib.Path(sprite.src).unlink(missing_ok=True)
