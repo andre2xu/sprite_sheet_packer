@@ -292,6 +292,8 @@ class SpritesList(components.shared.VerticalBoxLayout):
             context_menu.setMinimumWidth(110)
 
             cm_rename = context_menu.addAction('Rename')
+            cm_rename.triggered.connect(lambda _: self.renameSprite(list_item_clicked))
+
             cm_delete = context_menu.addAction('Delete')
             cm_delete.triggered.connect(lambda _: self.deleteSprite(list_item_clicked))
 
@@ -315,6 +317,10 @@ class SpritesList(components.shared.VerticalBoxLayout):
 
             # display context menu at mouse position
             context_menu.exec(self.vertical_list.viewport().mapToGlobal(clickPosition))
+
+    def renameSprite(self, sprite: QtWidgets.QListWidgetItem):
+        self.vertical_list.editItem(sprite)
+        self.vertical_list.update(self.vertical_list.indexFromItem(sprite)) # force the list to update the editor's (i.e. the LineEdit for renaming) geometry
 
     def deleteSprite(self, sprite: QtWidgets.QListWidgetItem):
         # remove sprite from the list
