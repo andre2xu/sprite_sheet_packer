@@ -15,6 +15,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.app = app
 
         self.project_folder_path = None
+        self.sprites_folder_path = None
 
         central_widget = components.shared.VerticalBoxLayout()
         central_widget.lyt.setSpacing(0)
@@ -169,6 +170,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # save the path to the project folder
         self.project_folder_path = path
+        self.sprites_folder_path = sprites_folder
 
         # display folder name in window title
         self.setWindowTitle(f'{self.window_title_base}  |  {pathlib.Path(path).name}')
@@ -247,14 +249,13 @@ class MainWindow(QtWidgets.QMainWindow):
                     return
 
             # make a copy of each sprite and put them in the sprites subfolder of the project folder
-            sprites_folder = f'{self.project_folder_path}/sprites'
             sprites_folder_paths = []
 
             for i in range(len(sprites)):
                 sprite_src = sprites[i]
 
                 file_name = os.path.basename(sprite_src)
-                file_path = f'{sprites_folder}/{file_name}'
+                file_path = f'{self.sprites_folder_path}/{file_name}'
 
                 if os.path.exists(file_path) == False:
                     with PIL.Image.open(sprite_src) as sprite:
