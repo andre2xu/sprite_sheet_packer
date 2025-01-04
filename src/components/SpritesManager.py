@@ -80,6 +80,37 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
 
         painter.restore()
 
+    def createEditor(self, parent, *_):
+        # change styling of the line edit that's used for renaming
+        editor = QtWidgets.QLineEdit(parent)
+
+        editor.setStyleSheet(
+            """
+            background-color: #fff;
+            color: #000;
+            """
+        )
+
+        return editor
+
+    def updateEditorGeometry(self, editor, option, index):
+        list_widget = option.widget
+        list_item = list_widget.itemFromIndex(index)
+
+        list_item_rect = list_widget.visualItemRect(list_item)
+
+        # move the line edit that's used for renaming and change its dimensions
+        new_height = option.rect.height() - 40
+
+        new_rect = QtCore.QRect(
+            option.rect.x() + 50,
+            option.rect.y() + ((list_item_rect.height() * 0.5) - (new_height * 0.5)),
+            list_item_rect.width() * 0.8,
+            new_height
+        )
+
+        editor.setGeometry(new_rect)
+
 
 
 
@@ -213,6 +244,8 @@ class SpritesList(components.shared.VerticalBoxLayout):
             QtGui.QIcon(source),
             os.path.basename(source).replace('.png', '')
         )
+
+        new_list_item.setFlags(new_list_item.flags() | QtCore.Qt.ItemFlag.ItemIsEditable)
 
         new_list_item.src = source
 
