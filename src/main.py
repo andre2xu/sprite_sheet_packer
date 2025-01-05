@@ -23,7 +23,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.workspace = Workspace(self)
         self.workspace.sprites_manager.controls.sprite_input_choice_dialog.selection_option.clicked.connect(self.uploadSprites)
-        self.workspace.sprite_sheet_preview.scrollable_area.displayImage(f'{pathlib.Path(__file__).parent.resolve()}/../local/packed.png')
+        self.workspace.sprite_sheet_preview.scrollable_area.displayImage(os.path.join(pathlib.Path(__file__).parent.resolve(), '../local/packed.png'))
 
         central_widget.addWidgets([
             self.workspace
@@ -74,7 +74,7 @@ class MainWindow(QtWidgets.QMainWindow):
         os.makedirs(path)
 
         # make sprites folder
-        os.makedirs(f'{path}/sprites')
+        os.makedirs(os.path.join(path, 'sprites'))
 
         # load the folder's contents
         self.loadProjectFolder(path)
@@ -153,7 +153,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # check if the given folder is a valid project folder
         invalid_project_folder_message = "Failed to load the contents of the project folder."
-        sprites_folder = f'{path}/sprites'
+        sprites_folder = os.path.join(path, 'sprites')
 
         if os.path.exists(sprites_folder) == False:
             QtWidgets.QMessageBox.critical(
@@ -181,7 +181,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         for content in sprites_folder_contents:
             if content.endswith('.png') and mimetypes.guess_type(content)[0] == 'image/png':
-                sprite_sources.append(f'{sprites_folder}/{content}')
+                sprite_sources.append(os.path.join(sprites_folder, content))
             else:
                 QtWidgets.QMessageBox.critical(
                     self,
@@ -255,7 +255,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 sprite_src = sprites[i]
 
                 file_name = os.path.basename(sprite_src)
-                file_path = f'{self.sprites_folder_path}/{file_name}'
+                file_path = os.path.join(self.sprites_folder_path, file_name)
 
                 if os.path.exists(file_path) == False:
                     with PIL.Image.open(sprite_src) as sprite:

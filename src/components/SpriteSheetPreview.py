@@ -1,4 +1,4 @@
-import pathlib
+import pathlib, os
 from PySide6 import QtWidgets, QtCore, QtGui
 from PySide6.QtWidgets import QSizePolicy
 
@@ -15,13 +15,13 @@ class PreviewButtons(QtWidgets.QWidget):
         layout = QtWidgets.QHBoxLayout(self)
         layout.setContentsMargins(0,0,0,0)
 
-        ICONS_FOLDER_PATH = f'{pathlib.Path(__file__).parent.resolve()}/../../local/icons'
+        ICONS_FOLDER_PATH = os.path.join(pathlib.Path(__file__).parent.resolve(), '../../local/icons')
 
-        self.preview_sprite_sheet_button = QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_icon.png'), '')
+        self.preview_sprite_sheet_button = QtWidgets.QPushButton(QtGui.QIcon(os.path.join(ICONS_FOLDER_PATH, 'sprite_sheet_preview_icon.png')), '')
         self.preview_data_sheet_button = QtWidgets.QPushButton('</>')
-        self.zoom_reset_button = QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_zoom_reset_icon.png'), '')
-        self.zoom_out_button = QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_zoom_out_icon.png'), '')
-        self.zoom_in_button = QtWidgets.QPushButton(QtGui.QIcon(f'{ICONS_FOLDER_PATH}/sprite_sheet_preview_zoom_in_icon.png'), '')
+        self.zoom_reset_button = QtWidgets.QPushButton(QtGui.QIcon(os.path.join(ICONS_FOLDER_PATH, 'sprite_sheet_preview_zoom_reset_icon.png')), '')
+        self.zoom_out_button = QtWidgets.QPushButton(QtGui.QIcon(os.path.join(ICONS_FOLDER_PATH, 'sprite_sheet_preview_zoom_out_icon.png')), '')
+        self.zoom_in_button = QtWidgets.QPushButton(QtGui.QIcon(os.path.join(ICONS_FOLDER_PATH, 'sprite_sheet_preview_zoom_in_icon.png')), '')
         self.zoom_value_display = QtWidgets.QLabel('100%')
 
         preview_buttons = [
