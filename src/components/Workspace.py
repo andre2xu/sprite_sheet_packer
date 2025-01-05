@@ -1,3 +1,4 @@
+from PySide6 import QtWidgets
 from PySide6.QtWidgets import QSizePolicy
 
 ### GUI COMPONENTS ###
@@ -106,7 +107,7 @@ class SpritesManager(components.shared.VerticalBoxLayout):
         self.controls = Controls(self)
         self.sprites_list = SpritesList(self)
 
-        self.controls.clear_all_sprites_btn.clicked.connect(lambda: self.sprites_list.deleteAllSprites())
+        self.controls.clear_all_sprites_btn.clicked.connect(self.clearAllSprites)
 
         self.addWidgets([
             self.controls,
@@ -126,3 +127,25 @@ class SpritesManager(components.shared.VerticalBoxLayout):
 
         self.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Minimum))
         self.setMinimumWidth(400)
+
+    def clearAllSprites(self):
+        main_window = self.parent().parent().parent()
+
+        if main_window.sprites_folder_path != None and self.sprites_list.vertical_list.count() > 0:
+            answer = QtWidgets.QMessageBox.warning(
+                main_window,
+                'Confirmation',
+                "Clearing all will delete all your sprites. Are you sure you want to proceed with this action?",
+                QtWidgets.QMessageBox.StandardButton.No,
+                QtWidgets.QMessageBox.StandardButton.Yes
+            )
+
+            if answer == QtWidgets.QMessageBox.StandardButton.Yes:
+                self.sprites_list.deleteAllSprites()
+        else:
+            QtWidgets.QMessageBox.critical(
+                main_window,
+                'Empty Sprites List',
+                "You need to open an existing project folder with sprites before you can do this. If you already have a project folder open, be sure to add sprites first.",
+                QtWidgets.QMessageBox.StandardButton.Ok
+            )
