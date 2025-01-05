@@ -145,9 +145,7 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
 
             # reload list (to re-order sprites by name)
             sprites_list_class = list_widget.parent()
-            sprite_file_names = os.listdir(sprites_folder)
-
-            sprites_list_class.loadSprites([os.path.join(sprites_folder, sprite_file_names[i]) for i in range(len(sprite_file_names))])
+            sprites_list_class.reloadList()
         except:
             # show error and don't make any changes
             main_window = list_widget.parent().parent().parent().parent().parent()
@@ -325,6 +323,8 @@ class SpritesList(components.shared.VerticalBoxLayout):
         if len(sources) > 0:
             for i in range(len(sources)):
                 self.vertical_list.addItem(self.createListItem(sources[i]))
+
+            self.reloadList()
         else:
             raise Exception("No sprite sources were given")
 
@@ -384,3 +384,13 @@ class SpritesList(components.shared.VerticalBoxLayout):
 
         # remove sprites from the list
         self.vertical_list.clear()
+
+    def reloadList(self):
+        main_window = self.parent().parent().parent().parent()
+
+        if main_window.sprites_folder_path != None:
+            self.vertical_list.clear()
+
+            sprite_file_names = os.listdir(main_window.sprites_folder_path)
+
+            self.loadSprites([os.path.join(main_window.sprites_folder_path, sprite_file_names[i]) for i in range(len(sprite_file_names))])
