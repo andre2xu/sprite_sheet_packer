@@ -220,6 +220,18 @@ class Controls(components.shared.HorizontalBoxLayout):
 
 
 class SpritesList(components.shared.VerticalBoxLayout):
+    class List(QtWidgets.QListWidget):
+        def __init__(self, parent=None):
+            super().__init__(parent)
+
+        def keyReleaseEvent(self, event):
+            if event.key() == QtCore.Qt.Key.Key_Delete:
+                selected_list_item = self.currentItem()
+
+                self.parent().deleteSprite(selected_list_item)
+
+            return super().keyReleaseEvent(event)
+
     class ListItem(QtWidgets.QListWidgetItem):
         src = None # path to sprite png
 
@@ -229,7 +241,7 @@ class SpritesList(components.shared.VerticalBoxLayout):
     def __init__(self, parent=None):
         super(SpritesList, self).__init__(parent)
 
-        self.vertical_list = QtWidgets.QListWidget()
+        self.vertical_list = self.List(self)
         self.vertical_list_layout = QtWidgets.QVBoxLayout()
 
         self.vertical_list.setLayout(self.vertical_list_layout)
