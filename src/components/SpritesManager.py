@@ -127,6 +127,38 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
 
         editor.setGeometry(new_rect)
 
+    def setModelData(self, editor, model, index):
+        list_widget = model.parent()
+
+        try:
+            # rename the sprite file
+            list_item_edited = list_widget.itemFromIndex(index)
+
+            extension = os.path.splitext(list_item_edited.src)[1]
+            new_filename = f'{editor.text()}{extension}'
+
+            sprites_folder = os.path.dirname(list_item_edited.src)
+            os.rename(list_item_edited.src, os.path.join(sprites_folder, new_filename))
+
+            # change the list item text
+            super().setModelData(editor, model, index)
+
+            # reload list (to re-order sprites by name)
+            sprites_list_class = list_widget.parent()
+            sprite_file_names = os.listdir(sprites_folder)
+
+            sprites_list_class.loadSprites([os.path.join(sprites_folder, sprite_file_names[i]) for i in range(len(sprite_file_names))])
+        except:
+            # show error and don't make any changes
+            main_window = list_widget.parent().parent().parent().parent().parent()
+
+            QtWidgets.QMessageBox.critical(
+                main_window,
+                'Renaming Failed',
+                "That file name is invalid. Please make sure to use one that works on your machine.",
+                QtWidgets.QMessageBox.StandardButton.Ok
+            )
+
 
 
 
