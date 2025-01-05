@@ -336,10 +336,10 @@ class SpritesList(components.shared.VerticalBoxLayout):
             context_menu.setMinimumWidth(110)
 
             cm_rename = context_menu.addAction('Rename')
-            cm_rename.triggered.connect(lambda _: self.renameSprite(list_item_clicked))
+            cm_rename.triggered.connect(lambda: self.renameSprite(list_item_clicked))
 
             cm_delete = context_menu.addAction('Delete')
-            cm_delete.triggered.connect(lambda _: self.deleteSprite(list_item_clicked))
+            cm_delete.triggered.connect(lambda: self.deleteSprite(list_item_clicked))
 
             context_menu.setStyleSheet(
                 """

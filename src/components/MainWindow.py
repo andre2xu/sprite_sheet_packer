@@ -32,7 +32,7 @@ class Menubar(QtWidgets.QMenuBar):
         file_menu_settings.setShortcut('Ctrl+K')
         file_menu.addSeparator()
         file_menu_exit = file_menu.addAction('Exit')
-        file_menu_exit.triggered.connect(lambda _: main_window.app.quit())
+        file_menu_exit.triggered.connect(lambda: main_window.app.quit())
 
         self.addMenu(file_menu)
 
@@ -87,7 +87,7 @@ class Menubar(QtWidgets.QMenuBar):
         # FILE MENU > NEW PROJECT ACTION
         self.file_menu_new_project_dialog = components.dialogs.FileMenuNewProjectDialog(main_window, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
 
-        file_menu_new_project.triggered.connect(lambda _: self.file_menu_new_project_dialog.open())
+        file_menu_new_project.triggered.connect(lambda: self.file_menu_new_project_dialog.open())
 
 
 
