@@ -178,13 +178,13 @@ class Controls(components.shared.HorizontalBoxLayout):
         self.sprite_input_choice_dialog = SpriteInputChoiceDialog(self.main_window, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
         add_sprites_btn.clicked.connect(self.openSpriteInputChoiceDialog)
 
-        clear_all_sprites_btn = QtWidgets.QPushButton('Clear All')
-        clear_all_sprites_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
-        clear_all_sprites_btn.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+        self.clear_all_sprites_btn = QtWidgets.QPushButton('Clear All')
+        self.clear_all_sprites_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
+        self.clear_all_sprites_btn.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
 
         self.addWidgets([
             add_sprites_btn,
-            clear_all_sprites_btn
+            self.clear_all_sprites_btn
         ])
         self.lyt.addStretch(0)
 
@@ -360,3 +360,15 @@ class SpritesList(components.shared.VerticalBoxLayout):
 
         # remove sprite from the sprites folder
         pathlib.Path(sprite.src).unlink(missing_ok=True)
+
+    def deleteAllSprites(self):
+        # remove sprites from the sprites folder
+        num_of_list_items = self.vertical_list.count()
+
+        for i in range(num_of_list_items):
+            sprite = self.vertical_list.item(i)
+
+            pathlib.Path(sprite.src).unlink(missing_ok=True)
+
+        # remove sprites from the list
+        self.vertical_list.clear()

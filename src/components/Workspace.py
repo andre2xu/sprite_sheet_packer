@@ -106,6 +106,8 @@ class SpritesManager(components.shared.VerticalBoxLayout):
         self.controls = Controls(self)
         self.sprites_list = SpritesList(self)
 
+        self.controls.clear_all_sprites_btn.clicked.connect(lambda: self.sprites_list.deleteAllSprites())
+
         self.addWidgets([
             self.controls,
             self.sprites_list
