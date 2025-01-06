@@ -481,16 +481,45 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
 
         # INFO: background color
         background_color_container = components.shared.VerticalBoxLayout()
+        background_color_container.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
         bgc_field_title = QtWidgets.QLabel('Background color')
         bgc_subcontainer = components.shared.HorizontalBoxLayout()
+        bgc_subcontainer.lyt.setContentsMargins(0,0,0,0)
         bgc_field = QtWidgets.QLineEdit('')
         bgc_field.setPlaceholderText('R,G,B or #aabbcc')
         auto_find_bgc_button = QtWidgets.QPushButton('Auto Find')
+        auto_find_bgc_button.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
+        auto_find_bgc_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+
+        background_color_container.setStyleSheet(
+            """
+            QLabel {
+                margin-bottom: 5px;
+            }
+
+            QLineEdit {
+                margin-bottom: 50px;
+                border-radius: 5px;
+                border: 1px solid #545458;
+                color: #a6a6ad;
+                padding: 3px;
+                background-color: transparent;
+            }
+
+            QPushButton {
+                border-radius: 0px;
+                background-color: #2b2b35;
+                padding: 5px 8px;
+            }
+            """
+        )
 
         bgc_subcontainer.addWidgets([
             bgc_field,
             auto_find_bgc_button
         ])
+
+        bgc_subcontainer.lyt.setAlignment(auto_find_bgc_button, QtCore.Qt.AlignmentFlag.AlignTop)
 
         background_color_container.addWidgets([
             bgc_field_title,
@@ -503,6 +532,23 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         body_lyt.addWidget(background_color_container)
 
         submit_button = QtWidgets.QPushButton('Start Scan')
+        submit_button.setObjectName('SubmitButton')
+        submit_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+        submit_button.setStyleSheet(
+            """
+            QPushButton {
+                margin: 0px 10px 15px;
+                padding: 6px;
+                border-radius: 6px;
+                background-color: #47474e;
+            }
+
+            QPushButton:hover {
+                border: 1px solid gray;
+            }
+            """
+        )
+
         body_lyt.addWidget(submit_button)
 
         layout.addWidget(body)
