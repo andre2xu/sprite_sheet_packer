@@ -4,6 +4,7 @@ from PySide6 import QtWidgets, QtCore
 
 ### GUI COMPONENTS ###
 import components.shared
+import components.dialogs
 from components.MainWindow import Menubar, Workspace
 
 
@@ -42,6 +43,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.window_title_base = 'Sprite Sheet Packer'
         self.setWindowTitle(self.window_title_base)
+
+        self.sprite_sheet_info_dialog = components.dialogs.SpriteSheetInfoDialog(self, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
@@ -326,6 +329,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
             # close sprite input choice dialog
             self.workspace.sprites_manager.controls.sprite_input_choice_dialog.accept()
+
+            # open sprite sheet info dialog
+            self.sprite_sheet_info_dialog.open()
 
 
 
