@@ -1,4 +1,4 @@
-import sys, pathlib, os, shutil, PIL, mimetypes, re
+import sys, pathlib, os, shutil, PIL, mimetypes, re, hashlib, datetime
 import PIL.Image
 from PySide6 import QtWidgets, QtCore
 
@@ -24,6 +24,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.workspace = Workspace(self)
         self.workspace.sprites_manager.controls.sprite_input_choice_dialog.selection_option.clicked.connect(self.uploadSprites)
+        self.workspace.sprites_manager.controls.sprite_input_choice_dialog.sprite_sheet_option.clicked.connect(self.uploadSpriteSheet)
         self.workspace.sprite_sheet_preview.scrollable_area.displayImage(os.path.join(pathlib.Path(__file__).parent.resolve(), '../local/packed.png'))
 
         central_widget.addWidgets([
@@ -295,6 +296,30 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # close sprite input choice dialog
         self.workspace.sprites_manager.controls.sprite_input_choice_dialog.close()
+
+    def uploadSpriteSheet(self):
+        sprite_sheet = QtWidgets.QFileDialog.getOpenFileName(
+            self,
+            'Select sprite sheet',
+            '',
+            'Images (*.png *.jpg *.jpeg)'
+        )
+
+        file_path = sprite_sheet[0]
+        format = sprite_sheet[1]
+
+        if len(file_path) > 0 and len(format) > 0:
+            file_name, extension = os.path.splitext(file_path)
+            iso_timestamp = datetime.datetime.isoformat(datetime.datetime.today())
+
+            new_file_name = hashlib.sha1((file_name + iso_timestamp).encode('utf-8')).hexdigest() + extension
+
+            # save a copy of the sprite sheet in the temp folder
+            with PIL.Image.open(file_path) as sprite_sheet_file:
+                sprite_sheet_file.save(os.path.join(self.temp_folder_path, new_file_name))
+
+            # close sprite input choice dialog
+            self.workspace.sprites_manager.controls.sprite_input_choice_dialog.accept()
 
 
 
