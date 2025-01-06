@@ -300,8 +300,8 @@ class MainWindow(QtWidgets.QMainWindow):
             if len(sprites_folder_paths) > 0:
                 self.workspace.sprites_manager.sprites_list.addSprites(sprites_folder_paths)
 
-        # close sprite input choice dialog
-        self.workspace.sprites_manager.controls.sprite_input_choice_dialog.close()
+            # close sprite input choice dialog
+            self.workspace.sprites_manager.controls.sprite_input_choice_dialog.accept()
 
     def uploadSpriteSheet(self):
         sprite_sheet = QtWidgets.QFileDialog.getOpenFileName(
