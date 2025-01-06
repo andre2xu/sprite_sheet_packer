@@ -16,6 +16,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.project_folder_path = None
         self.sprites_folder_path = None
+        self.temp_folder_path = None
 
         central_widget = components.shared.VerticalBoxLayout()
         central_widget.lyt.setSpacing(0)
@@ -75,6 +76,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # make sprites folder
         os.makedirs(os.path.join(path, 'sprites'))
+
+        # make folder for temporary files
+        os.makedirs(os.path.join(path, 'tmp'))
 
         # load the folder's contents
         self.loadProjectFolder(path)
@@ -153,7 +157,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # check if the given folder is a valid project folder
         invalid_project_folder_message = "Failed to load the contents of the project folder."
+
         sprites_folder = os.path.join(path, 'sprites')
+        temp_folder = os.path.join(path, 'tmp')
 
         if os.path.exists(sprites_folder) == False:
             QtWidgets.QMessageBox.critical(
@@ -162,7 +168,14 @@ class MainWindow(QtWidgets.QMainWindow):
                 f"{invalid_project_folder_message} The 'sprites' subfolder could not be found.",
                 QtWidgets.QMessageBox.StandardButton.Ok
             )
-
+            return
+        elif os.path.exists(temp_folder) == False:
+            QtWidgets.QMessageBox.critical(
+                self,
+                'Invalid Project Folder',
+                f"{invalid_project_folder_message} The 'tmp' subfolder could not be found.",
+                QtWidgets.QMessageBox.StandardButton.Ok
+            )
             return
 
         # close project folder first (if one is opened)
@@ -171,6 +184,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # save the path to the project folder
         self.project_folder_path = path
         self.sprites_folder_path = sprites_folder
+        self.temp_folder_path = temp_folder
 
         # display folder name in window title
         self.setWindowTitle(f'{self.window_title_base}  |  {pathlib.Path(path).name}')
