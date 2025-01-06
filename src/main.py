@@ -323,15 +323,17 @@ class MainWindow(QtWidgets.QMainWindow):
 
             new_file_name = hashlib.sha1((file_name + iso_timestamp).encode('utf-8')).hexdigest() + extension
 
+            save_path = os.path.join(self.temp_folder_path, new_file_name)
+
             # save a copy of the sprite sheet in the temp folder
             with PIL.Image.open(file_path) as sprite_sheet_file:
-                sprite_sheet_file.save(os.path.join(self.temp_folder_path, new_file_name))
+                sprite_sheet_file.save(save_path)
 
             # close sprite input choice dialog
             self.workspace.sprites_manager.controls.sprite_input_choice_dialog.accept()
 
             # open sprite sheet info dialog
-            self.sprite_sheet_info_dialog.open()
+            self.sprite_sheet_info_dialog.open(save_path)
 
 
 
