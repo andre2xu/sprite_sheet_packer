@@ -376,6 +376,8 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
     def __init__(self, parent = ..., f = ...):
         super().__init__(parent, f)
 
+        self.uploaded_sprite_sheet_path = None
+
         layout = QtWidgets.QVBoxLayout()
         layout.setContentsMargins(0,0,0,0)
         layout.setSpacing(0)
@@ -616,3 +618,15 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         body_lyt.addWidget(submit_button)
 
         layout.addWidget(body)
+
+    def open(self, uploadedSpriteSheetPath: str):
+        if os.path.exists(uploadedSpriteSheetPath):
+            self.uploaded_sprite_sheet_path = uploadedSpriteSheetPath
+
+            return super().open()
+
+    def close(self):
+        # delete the recently uploaded sprite sheet
+        pathlib.Path.unlink(self.uploaded_sprite_sheet_path, missing_ok=True)
+
+        return super().close()
