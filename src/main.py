@@ -187,6 +187,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.sprites_folder_path = sprites_folder
         self.temp_folder_path = temp_folder
 
+        # empty temp folder
+        temp_files = os.listdir(self.temp_folder_path)
+
+        for i in range(len(temp_files)):
+            pathlib.Path.unlink(os.path.join(self.temp_folder_path, temp_files[i]), missing_ok=True)
+
         # display folder name in window title
         self.setWindowTitle(f'{self.window_title_base}  |  {pathlib.Path(path).name}')
 
