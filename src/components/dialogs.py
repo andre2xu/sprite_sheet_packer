@@ -382,7 +382,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         self.setLayout(layout)
 
         self.original_width = 350
-        self.original_height = 350
+        self.original_height = 500
         self.setFixedSize(self.original_width, self.original_height)
 
         self.setStyleSheet(
@@ -436,5 +436,73 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         # dialog body
         body = QtWidgets.QWidget()
         body.setObjectName('DialogBody')
+
+        # INFO: area to scan
+        area_to_scan_container = components.shared.VerticalBoxLayout()
+        area_to_scan_container.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+        ats_container_title = QtWidgets.QLabel('Area of sprite sheet to scan')
+
+        ats_width_field_container = components.shared.HorizontalBoxLayout()
+        ats_width_field_title = QtWidgets.QLabel('W:')
+        ats_width_field = QtWidgets.QSpinBox()
+        ats_width_field_container.addWidgets([ats_width_field_title, ats_width_field])
+
+        ats_height_field_container = components.shared.HorizontalBoxLayout()
+        ats_height_field_title = QtWidgets.QLabel('H:')
+        ats_height_field = QtWidgets.QSpinBox()
+        ats_height_field_container.addWidgets([ats_height_field_title, ats_height_field])
+
+        area_to_scan_container.addWidgets([
+            ats_container_title,
+            ats_width_field_container,
+            ats_height_field_container
+        ])
+
+        # INFO: grid square dimensions
+        grid_square_dimensions_container = components.shared.VerticalBoxLayout()
+        grid_square_dimensions_container.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+        gsd_container_title = QtWidgets.QLabel('Grid square dimensions')
+
+        gsd_width_field_container = components.shared.HorizontalBoxLayout()
+        gsd_width_field_title = QtWidgets.QLabel('W:')
+        gsd_width_field = QtWidgets.QSpinBox()
+        gsd_width_field_container.addWidgets([gsd_width_field_title, gsd_width_field])
+
+        gsd_height_field_container = components.shared.HorizontalBoxLayout()
+        gsd_height_field_title = QtWidgets.QLabel('H:')
+        gsd_height_field = QtWidgets.QSpinBox()
+        gsd_height_field_container.addWidgets([gsd_height_field_title, gsd_height_field])
+
+        grid_square_dimensions_container.addWidgets([
+            gsd_container_title,
+            gsd_width_field_container,
+            gsd_height_field_container
+        ])
+
+        # INFO: background color
+        background_color_container = components.shared.VerticalBoxLayout()
+        bgc_field_title = QtWidgets.QLabel('Background color')
+        bgc_subcontainer = components.shared.HorizontalBoxLayout()
+        bgc_field = QtWidgets.QLineEdit('')
+        bgc_field.setPlaceholderText('R,G,B or #aabbcc')
+        auto_find_bgc_button = QtWidgets.QPushButton('Auto Find')
+
+        bgc_subcontainer.addWidgets([
+            bgc_field,
+            auto_find_bgc_button
+        ])
+
+        background_color_container.addWidgets([
+            bgc_field_title,
+            bgc_subcontainer
+        ])
+
+        body_lyt = QtWidgets.QVBoxLayout(body)
+        body_lyt.addWidget(area_to_scan_container)
+        body_lyt.addWidget(grid_square_dimensions_container)
+        body_lyt.addWidget(background_color_container)
+
+        submit_button = QtWidgets.QPushButton('Start Scan')
+        body_lyt.addWidget(submit_button)
 
         layout.addWidget(body)
