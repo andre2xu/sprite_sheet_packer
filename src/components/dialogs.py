@@ -437,20 +437,29 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         body = QtWidgets.QWidget()
         body.setObjectName('DialogBody')
 
+        dimensions_field_width = self.width() * 0.28
+
         # INFO: area to scan
         area_to_scan_container = components.shared.VerticalBoxLayout()
         area_to_scan_container.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+        area_to_scan_container.lyt.setSpacing(0)
         ats_container_title = QtWidgets.QLabel('Area of sprite sheet to scan')
 
         ats_width_field_container = components.shared.HorizontalBoxLayout()
         ats_width_field_title = QtWidgets.QLabel('W:')
+        ats_width_field_title.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
         ats_width_field = QtWidgets.QSpinBox()
+        ats_width_field.setFixedWidth(dimensions_field_width)
         ats_width_field_container.addWidgets([ats_width_field_title, ats_width_field])
+        ats_width_field_container.lyt.addStretch(0)
 
         ats_height_field_container = components.shared.HorizontalBoxLayout()
         ats_height_field_title = QtWidgets.QLabel('H:')
+        ats_height_field_title.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
         ats_height_field = QtWidgets.QSpinBox()
+        ats_height_field.setFixedWidth(dimensions_field_width)
         ats_height_field_container.addWidgets([ats_height_field_title, ats_height_field])
+        ats_height_field_container.lyt.addStretch(0)
 
         area_to_scan_container.addWidgets([
             ats_container_title,
@@ -458,26 +467,81 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
             ats_height_field_container
         ])
 
+        area_to_scan_container.setStyleSheet(
+            """
+            QLabel {
+                margin-bottom: 5px;
+            }
+
+            QSpinBox {
+                border-radius: 5px;
+                border: 1px solid #545458;
+                color: #a6a6ad;
+                padding: 3px;
+                background-color: transparent;
+            }
+
+            QSpinBox QLabel {
+                margin: 0;
+            }
+
+            QSpinBox::up-button, QSpinBox::down-button {
+                width: 20px;
+            }
+            """
+        )
+
         # INFO: grid square dimensions
         grid_square_dimensions_container = components.shared.VerticalBoxLayout()
         grid_square_dimensions_container.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+        grid_square_dimensions_container.lyt.setSpacing(0)
         gsd_container_title = QtWidgets.QLabel('Grid square dimensions')
 
         gsd_width_field_container = components.shared.HorizontalBoxLayout()
         gsd_width_field_title = QtWidgets.QLabel('W:')
+        gsd_width_field_title.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
         gsd_width_field = QtWidgets.QSpinBox()
+        gsd_width_field.setFixedWidth(dimensions_field_width)
         gsd_width_field_container.addWidgets([gsd_width_field_title, gsd_width_field])
+        gsd_width_field_container.lyt.addStretch(0)
 
         gsd_height_field_container = components.shared.HorizontalBoxLayout()
         gsd_height_field_title = QtWidgets.QLabel('H:')
+        gsd_height_field_title.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
         gsd_height_field = QtWidgets.QSpinBox()
+        gsd_height_field.setFixedWidth(dimensions_field_width)
         gsd_height_field_container.addWidgets([gsd_height_field_title, gsd_height_field])
+        gsd_height_field_container.lyt.addStretch(0)
 
         grid_square_dimensions_container.addWidgets([
             gsd_container_title,
             gsd_width_field_container,
             gsd_height_field_container
         ])
+
+        grid_square_dimensions_container.setStyleSheet(
+            """
+            QLabel {
+                margin-bottom: 5px;
+            }
+
+            QSpinBox {
+                border-radius: 5px;
+                border: 1px solid #545458;
+                color: #a6a6ad;
+                padding: 3px;
+                background-color: transparent;
+            }
+
+            QSpinBox QLabel {
+                margin: 0;
+            }
+
+            QSpinBox::up-button, QSpinBox::down-button {
+                width: 20px;
+            }
+            """
+        )
 
         # INFO: background color
         background_color_container = components.shared.VerticalBoxLayout()
