@@ -1,5 +1,6 @@
-import pathlib, os, PIL, ast
+import pathlib, os, PIL, ast, re
 import PIL.Image
+import PIL.ImageColor
 from PySide6 import QtWidgets, QtCore, QtGui
 from PySide6.QtWidgets import QSizePolicy
 
@@ -725,7 +726,44 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
                 gsd_width = self.gsd_width_field.value()
                 gsd_height = self.gsd_height_field.value()
 
-                bg_color = self.bgc_field.text()
+                bg_color = self.bgc_field.text().rstrip()
+
+                # validate background color
+                rgb_pattern = re.compile(r'^\d+, ?\d+, ?\d+$')
+                hex_pattern = re.compile(r'^#([a-fA-F0-9]{2}[a-fA-F0-9]{2}[a-fA-F0-9]{2})|#([a-fA-F0-9][a-fA-F0-9][a-fA-F0-9])$')
+
+                if rgb_pattern.match(bg_color) != None:
+                    # validate RGB values
+                    r, g, b = bg_color.replace(' ', '').split(',')
+
+                    r = int(r)
+                    g = int(g)
+                    b = int(b)
+
+                    if (r < 0 or r > 255) or (g < 0 or g > 255) or (b < 0 or b > 255):
+                        QtWidgets.QMessageBox.critical(
+                            main_window,
+                            'Invalid RGB',
+                            "RGB values can only be between 0 and 255.",
+                            QtWidgets.QMessageBox.StandardButton.Ok
+                        )
+
+                        return 
+
+                    # save background color
+                    self.sprite_sheet_bg_color = (r, g, b, 0)
+                elif hex_pattern.match(bg_color) != None:
+                    # convert hex code to RGB and save it
+                    self.sprite_sheet_bg_color = PIL.ImageColor.getcolor(bg_color, 'RGB') + (0,)
+                else:
+                    QtWidgets.QMessageBox.critical(
+                        main_window,
+                        'Invalid Background Color',
+                        "The background color you provided is not an acceptable RGB or hex. Please follow one of the formats shown in the field's placeholder.",
+                        QtWidgets.QMessageBox.StandardButton.Ok
+                    )
+
+                    return
         else:
             QtWidgets.QMessageBox.critical(
                 main_window,
