@@ -642,5 +642,6 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
     def close(self):
         # delete the recently uploaded sprite sheet
         pathlib.Path.unlink(self.uploaded_sprite_sheet_path, missing_ok=True)
+        self.uploaded_sprite_sheet_path = None
 
         return super().close()
