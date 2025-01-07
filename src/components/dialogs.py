@@ -1,4 +1,4 @@
-import pathlib, os, PIL
+import pathlib, os, PIL, ast
 import PIL.Image
 from PySide6 import QtWidgets, QtCore, QtGui
 from PySide6.QtWidgets import QSizePolicy
@@ -378,6 +378,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         super().__init__(parent, f)
 
         self.uploaded_sprite_sheet_path = None
+        self.sprite_sheet_bg_color = None
 
         layout = QtWidgets.QVBoxLayout()
         layout.setContentsMargins(0,0,0,0)
@@ -556,11 +557,12 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         bgc_field_title = QtWidgets.QLabel('Background color')
         bgc_subcontainer = components.shared.HorizontalBoxLayout()
         bgc_subcontainer.lyt.setContentsMargins(0,0,0,0)
-        bgc_field = QtWidgets.QLineEdit('')
-        bgc_field.setPlaceholderText('R,G,B or #aabbcc')
+        self.bgc_field = QtWidgets.QLineEdit('')
+        self.bgc_field.setPlaceholderText('R,G,B or #aabbcc')
         auto_find_bgc_button = QtWidgets.QPushButton('Auto Find')
         auto_find_bgc_button.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
         auto_find_bgc_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+        auto_find_bgc_button.clicked.connect(self.autoFindBackgroundColor)
 
         background_color_container.setStyleSheet(
             """
@@ -586,7 +588,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         )
 
         bgc_subcontainer.addWidgets([
-            bgc_field,
+            self.bgc_field,
             auto_find_bgc_button
         ])
 
@@ -645,3 +647,61 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         self.uploaded_sprite_sheet_path = None
 
         return super().close()
+
+    def autoFindBackgroundColor(self):
+        if os.path.exists(self.uploaded_sprite_sheet_path):
+            with PIL.Image.open(self.uploaded_sprite_sheet_path) as sprite_sheet:
+                pixels = list(sprite_sheet.getdata())
+
+                # count the no. times each pixel appears
+                frequencies = {}
+
+                i = 0
+                j = len(pixels) - 1
+
+                while i <= j:
+                    left_pixel = str(pixels[i])
+
+                    if left_pixel in frequencies:
+                        frequencies[left_pixel] += 1
+                    else:
+                        frequencies[left_pixel] = 1
+
+                    if i != j:
+                        right_pixel = str(pixels[j])
+
+                        if right_pixel in frequencies:
+                            frequencies[right_pixel] += 1
+                        else:
+                            frequencies[right_pixel] = 1
+
+                    i += 1
+                    j -= 1
+
+                # get the most common pixel
+                most_common = ('', -1)
+
+                for key in frequencies:
+                    frequency = frequencies[key]
+
+                    if frequency > most_common[1]:
+                        most_common = (key, frequency)
+
+                # convert the RGBA data of the pixel back into a tuple and update the background color field
+                if most_common[0] != '':
+                    rgba = ast.literal_eval(most_common[0])
+
+                    self.sprite_sheet_bg_color = rgba
+
+                    self.bgc_field.setText(f'{rgba[0]},{rgba[1]},{rgba[2]}')
+        else:
+            main_window = self.parent()
+
+            QtWidgets.QMessageBox.critical(
+                main_window,
+                'Upload Missing',
+                "The sprite sheet you uploaded either no longer exists or it was moved. The sprite sheet info dialog will now be closed as a result.",
+                QtWidgets.QMessageBox.StandardButton.Ok
+            )
+
+            self.close()
