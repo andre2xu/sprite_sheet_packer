@@ -764,7 +764,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
                 gsd_height = self.gsd_height_field.value()
 
                 bg_color = self.bgc_field.text().rstrip()
-                bg_color_opacity = round(self.bgc_opacity_field.value() * 255) # converted from % to RGB
+                bg_color_opacity = round((self.bgc_opacity_field.value() / 100) * 255) # converted from % to RGB
 
                 # validate background color
                 rgb_pattern = re.compile(r'^\d+, ?\d+, ?\d+$')
