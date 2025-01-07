@@ -1,4 +1,5 @@
-import pathlib, os
+import pathlib, os, PIL
+import PIL.Image
 from PySide6 import QtWidgets, QtCore, QtGui
 from PySide6.QtWidgets import QSizePolicy
 
@@ -450,17 +451,19 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         ats_width_field_container = components.shared.HorizontalBoxLayout()
         ats_width_field_title = QtWidgets.QLabel('W:')
         ats_width_field_title.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
-        ats_width_field = QtWidgets.QSpinBox()
-        ats_width_field.setFixedWidth(dimensions_field_width)
-        ats_width_field_container.addWidgets([ats_width_field_title, ats_width_field])
+        self.ats_width_field = QtWidgets.QSpinBox()
+        self.ats_width_field.setFixedWidth(dimensions_field_width)
+        self.ats_width_field.setMinimum(1)
+        ats_width_field_container.addWidgets([ats_width_field_title, self.ats_width_field])
         ats_width_field_container.lyt.addStretch(0)
 
         ats_height_field_container = components.shared.HorizontalBoxLayout()
         ats_height_field_title = QtWidgets.QLabel('H:')
         ats_height_field_title.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
-        ats_height_field = QtWidgets.QSpinBox()
-        ats_height_field.setFixedWidth(dimensions_field_width)
-        ats_height_field_container.addWidgets([ats_height_field_title, ats_height_field])
+        self.ats_height_field = QtWidgets.QSpinBox()
+        self.ats_height_field.setFixedWidth(dimensions_field_width)
+        self.ats_height_field.setMinimum(1)
+        ats_height_field_container.addWidgets([ats_height_field_title, self.ats_height_field])
         ats_height_field_container.lyt.addStretch(0)
 
         area_to_scan_container.addWidgets([
@@ -622,6 +625,15 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
     def open(self, uploadedSpriteSheetPath: str):
         if os.path.exists(uploadedSpriteSheetPath):
             self.uploaded_sprite_sheet_path = uploadedSpriteSheetPath
+
+            with PIL.Image.open(uploadedSpriteSheetPath) as sprite_sheet:
+                # change the maximum values of the 'area to scan' width & height fields
+                self.ats_width_field.setMaximum(sprite_sheet.width)
+                self.ats_height_field.setMaximum(sprite_sheet.height)
+
+                # pre-populate the fields with the sprite sheet's dimensions
+                self.ats_width_field.setValue(sprite_sheet.width)
+                self.ats_height_field.setValue(sprite_sheet.height)
 
             return super().open()
 
