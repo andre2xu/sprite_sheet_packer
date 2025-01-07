@@ -607,6 +607,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         submit_button = QtWidgets.QPushButton('Start Scan')
         submit_button.setObjectName('SubmitButton')
         submit_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+        submit_button.clicked.connect(self.submit)
         submit_button.setStyleSheet(
             """
             QPushButton {
@@ -697,6 +698,28 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         else:
             main_window = self.parent()
 
+            QtWidgets.QMessageBox.critical(
+                main_window,
+                'Upload Missing',
+                "The sprite sheet you uploaded either no longer exists or it was moved. The sprite sheet info dialog will now be closed as a result.",
+                QtWidgets.QMessageBox.StandardButton.Ok
+            )
+
+            self.close()
+
+    def submit(self):
+        main_window = self.parent()
+
+        if os.path.exists(self.uploaded_sprite_sheet_path):
+            with PIL.Image.open(self.uploaded_sprite_sheet_path) as sprite_sheet: 
+                ats_width = self.ats_width_field.value()
+                ats_height = self.ats_height_field.value()
+
+                gsd_width = self.gsd_width_field.value()
+                gsd_height = self.gsd_height_field.value()
+
+                bg_color = self.bgc_field.text()
+        else:
             QtWidgets.QMessageBox.critical(
                 main_window,
                 'Upload Missing',
