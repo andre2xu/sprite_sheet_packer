@@ -387,7 +387,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         self.setLayout(layout)
 
         self.original_width = 350
-        self.original_height = 500
+        self.original_height = 600
         self.setFixedSize(self.original_width, self.original_height)
 
         self.setStyleSheet(
@@ -560,6 +560,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         background_color_container = components.shared.VerticalBoxLayout()
         background_color_container.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
         bgc_field_title = QtWidgets.QLabel('Background color')
+
         bgc_subcontainer = components.shared.HorizontalBoxLayout()
         bgc_subcontainer.lyt.setContentsMargins(0,0,0,0)
         self.bgc_field = QtWidgets.QLineEdit('')
@@ -569,6 +570,35 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         auto_find_bgc_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         auto_find_bgc_button.clicked.connect(self.autoFindBackgroundColor)
 
+        bgc_subcontainer2 = components.shared.VerticalBoxLayout()
+        bgc_subcontainer2.lyt.setSpacing(0)
+        bgc_subcontainer2.lyt.setContentsMargins(0,0,0,0)
+        bgc_opacity_field_title = QtWidgets.QLabel('Opacity (%)')
+        self.bgc_opacity_field = QtWidgets.QSpinBox()
+        self.bgc_opacity_field.setMaximum(100)
+        self.bgc_opacity_field.setFixedWidth(dimensions_field_width)
+        self.bgc_opacity_field.setCorrectionMode(QtWidgets.QSpinBox.CorrectionMode.CorrectToNearestValue)
+
+        bgc_subcontainer2.setStyleSheet(
+            """
+            QLabel {
+                margin-bottom: 10px;
+            }
+
+            QSpinBox {
+                border-radius: 5px;
+                border: 1px solid #545458;
+                color: #a6a6ad;
+                padding: 3px;
+                background-color: transparent;
+            }
+
+            QSpinBox::up-button, QSpinBox::down-button {
+                width: 20px;
+            }
+            """
+        )
+
         background_color_container.setStyleSheet(
             """
             QLabel {
@@ -576,7 +606,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
             }
 
             QLineEdit {
-                margin-bottom: 50px;
+                margin-bottom: 15px;
                 border-radius: 5px;
                 border: 1px solid #545458;
                 color: #a6a6ad;
@@ -599,9 +629,15 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
 
         bgc_subcontainer.lyt.setAlignment(auto_find_bgc_button, QtCore.Qt.AlignmentFlag.AlignTop)
 
+        bgc_subcontainer2.addWidgets([
+            bgc_opacity_field_title,
+            self.bgc_opacity_field
+        ])
+
         background_color_container.addWidgets([
             bgc_field_title,
-            bgc_subcontainer
+            bgc_subcontainer,
+            bgc_subcontainer2
         ])
 
         body_lyt = QtWidgets.QVBoxLayout(body)
@@ -616,7 +652,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         submit_button.setStyleSheet(
             """
             QPushButton {
-                margin: 0px 10px 15px;
+                margin: 40px 10px 15px;
                 padding: 6px;
                 border-radius: 6px;
                 background-color: #47474e;
