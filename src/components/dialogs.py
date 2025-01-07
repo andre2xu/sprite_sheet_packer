@@ -764,6 +764,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
                 gsd_height = self.gsd_height_field.value()
 
                 bg_color = self.bgc_field.text().rstrip()
+                bg_color_opacity = round(self.bgc_opacity_field.value() * 255) # converted from % to RGB
 
                 # validate background color
                 rgb_pattern = re.compile(r'^\d+, ?\d+, ?\d+$')
@@ -788,10 +789,10 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
                         return 
 
                     # save background color
-                    self.sprite_sheet_bg_color = (r, g, b, 0)
+                    self.sprite_sheet_bg_color = (r, g, b, bg_color_opacity)
                 elif hex_pattern.match(bg_color) != None:
                     # convert hex code to RGB and save it
-                    self.sprite_sheet_bg_color = PIL.ImageColor.getcolor(bg_color, 'RGB') + (0,)
+                    self.sprite_sheet_bg_color = PIL.ImageColor.getcolor(bg_color, 'RGB') + (bg_color_opacity,)
                 else:
                     QtWidgets.QMessageBox.critical(
                         main_window,
