@@ -739,6 +739,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
                     self.sprite_sheet_bg_color = rgba
 
                     self.bgc_field.setText(f'{rgba[0]},{rgba[1]},{rgba[2]}')
+                    self.bgc_opacity_field.setValue(round((rgba[3] / 255) * 100))
         else:
             main_window = self.parent()
 
