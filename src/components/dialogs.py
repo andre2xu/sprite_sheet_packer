@@ -636,9 +636,12 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
             self.uploaded_sprite_sheet_path = uploadedSpriteSheetPath
 
             with PIL.Image.open(uploadedSpriteSheetPath) as sprite_sheet:
-                # change the maximum values of the 'area to scan' width & height fields
+                # change the maximum values of the dimension fields
                 self.ats_width_field.setMaximum(sprite_sheet.width)
                 self.ats_height_field.setMaximum(sprite_sheet.height)
+
+                self.gsd_width_field.setMaximum(sprite_sheet.width)
+                self.gsd_height_field.setMaximum(sprite_sheet.height)
 
                 # pre-populate the fields with the sprite sheet's dimensions
                 self.ats_width_field.setValue(sprite_sheet.width)
