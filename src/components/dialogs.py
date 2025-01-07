@@ -455,6 +455,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         self.ats_width_field = QtWidgets.QSpinBox()
         self.ats_width_field.setFixedWidth(dimensions_field_width)
         self.ats_width_field.setMinimum(1)
+        self.ats_width_field.setCorrectionMode(QtWidgets.QSpinBox.CorrectionMode.CorrectToNearestValue)
         ats_width_field_container.addWidgets([ats_width_field_title, self.ats_width_field])
         ats_width_field_container.lyt.addStretch(0)
 
@@ -464,6 +465,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         self.ats_height_field = QtWidgets.QSpinBox()
         self.ats_height_field.setFixedWidth(dimensions_field_width)
         self.ats_height_field.setMinimum(1)
+        self.ats_height_field.setCorrectionMode(QtWidgets.QSpinBox.CorrectionMode.CorrectToNearestValue)
         ats_height_field_container.addWidgets([ats_height_field_title, self.ats_height_field])
         ats_height_field_container.lyt.addStretch(0)
 
@@ -509,6 +511,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         self.gsd_width_field = QtWidgets.QSpinBox()
         self.gsd_width_field.setFixedWidth(dimensions_field_width)
         self.gsd_width_field.setMinimum(1)
+        self.gsd_width_field.setCorrectionMode(QtWidgets.QSpinBox.CorrectionMode.CorrectToNearestValue)
         gsd_width_field_container.addWidgets([gsd_width_field_title, self.gsd_width_field])
         gsd_width_field_container.lyt.addStretch(0)
 
@@ -518,6 +521,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         self.gsd_height_field = QtWidgets.QSpinBox()
         self.gsd_height_field.setFixedWidth(dimensions_field_width)
         self.gsd_height_field.setMinimum(1)
+        self.gsd_height_field.setCorrectionMode(QtWidgets.QSpinBox.CorrectionMode.CorrectToNearestValue)
         gsd_height_field_container.addWidgets([gsd_height_field_title, self.gsd_height_field])
         gsd_height_field_container.lyt.addStretch(0)
 
