@@ -129,6 +129,42 @@ class SpriteSheet():
 
             return sprite_top_y
 
+        def getSpriteBottomX(self):
+            sprite_bottom_x = None
+
+            x = self.grid_top_x + (self.grid_width - 1)
+            last_x = self.grid_top_x
+            last_y = self.grid_top_y + (self.grid_height - 1)
+
+            # scan the grid square column by column (right to left) until the first non-background pixel is found
+            while x != last_x:
+                y1 = self.grid_top_y
+                y2 = last_y
+
+                while y1 <= y2:
+                    top_column_pixel = self.getPixel(x, y1)
+
+                    if top_column_pixel != self.sprite_sheet_class.background_color:
+                        sprite_bottom_x = x
+                        break
+
+                    if y1 != y2:
+                        bottom_column_pixel = self.getPixel(x, y2)
+
+                        if bottom_column_pixel != self.sprite_sheet_class.background_color:
+                            sprite_bottom_x = x
+                            break
+
+                    y1 += 1
+                    y2 -= 1
+
+                if sprite_bottom_x != None:
+                    break
+
+                x -= 1
+
+            return sprite_bottom_x
+
     def __init__(self, spriteSheetPath: str, backgroundColor: tuple):
         self.sprite_sheet = None
         self.pixels = [] # each pixel will be 4 elements long (RGBA)
