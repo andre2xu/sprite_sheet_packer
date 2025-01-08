@@ -759,9 +759,6 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         main_window = self.parent()
 
         if os.path.exists(self.uploaded_sprite_sheet_path):
-            # initialize the sprite sheet (it will validate the uploaded file)
-            sprite_sheet = components.shared.SpriteSheet(self.uploaded_sprite_sheet_path)
-
             # get user inputs
             ats_width = self.ats_width_field.value()
             ats_height = self.ats_height_field.value()
@@ -810,6 +807,9 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
                 return
 
             if self.sprite_sheet_bg_color != None:
+                # initialize the sprite sheet (it will validate the uploaded file)
+                sprite_sheet = components.shared.SpriteSheet(self.uploaded_sprite_sheet_path, self.sprite_sheet_bg_color)
+
                 try:
                     sprites = sprite_sheet.getSprites(
                         ats_width,
