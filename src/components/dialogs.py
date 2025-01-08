@@ -759,52 +759,58 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         main_window = self.parent()
 
         if os.path.exists(self.uploaded_sprite_sheet_path):
-            with PIL.Image.open(self.uploaded_sprite_sheet_path) as sprite_sheet: 
-                ats_width = self.ats_width_field.value()
-                ats_height = self.ats_height_field.value()
+            # initialize the sprite sheet (it will validate the uploaded file)
+            sprite_sheet = components.shared.SpriteSheet(self.uploaded_sprite_sheet_path)
 
-                gsd_width = self.gsd_width_field.value()
-                gsd_height = self.gsd_height_field.value()
+            # get user inputs
+            ats_width = self.ats_width_field.value()
+            ats_height = self.ats_height_field.value()
 
-                bg_color = self.bgc_field.text().rstrip()
-                bg_color_opacity = round((self.bgc_opacity_field.value() / 100) * 255) # converted from % to RGB
+            gsd_width = self.gsd_width_field.value()
+            gsd_height = self.gsd_height_field.value()
 
-                # validate background color
-                rgb_pattern = re.compile(r'^\d+, ?\d+, ?\d+$')
-                hex_pattern = re.compile(r'^#([a-fA-F0-9]{2}[a-fA-F0-9]{2}[a-fA-F0-9]{2})|#([a-fA-F0-9][a-fA-F0-9][a-fA-F0-9])$')
+            bg_color = self.bgc_field.text().rstrip()
+            bg_color_opacity = round((self.bgc_opacity_field.value() / 100) * 255) # converted from % to RGB
 
-                if rgb_pattern.match(bg_color) != None:
-                    # validate RGB values
-                    r, g, b = bg_color.replace(' ', '').split(',')
+            # validate background color
+            rgb_pattern = re.compile(r'^\d+, ?\d+, ?\d+$')
+            hex_pattern = re.compile(r'^#([a-fA-F0-9]{2}[a-fA-F0-9]{2}[a-fA-F0-9]{2})|#([a-fA-F0-9][a-fA-F0-9][a-fA-F0-9])$')
 
-                    r = int(r)
-                    g = int(g)
-                    b = int(b)
+            if rgb_pattern.match(bg_color) != None:
+                # validate RGB values
+                r, g, b = bg_color.replace(' ', '').split(',')
 
-                    if (r < 0 or r > 255) or (g < 0 or g > 255) or (b < 0 or b > 255):
-                        QtWidgets.QMessageBox.critical(
-                            main_window,
-                            'Invalid RGB',
-                            "RGB values can only be between 0 and 255.",
-                            QtWidgets.QMessageBox.StandardButton.Ok
-                        )
+                r = int(r)
+                g = int(g)
+                b = int(b)
 
-                        return 
-
-                    # save background color
-                    self.sprite_sheet_bg_color = (r, g, b, bg_color_opacity)
-                elif hex_pattern.match(bg_color) != None:
-                    # convert hex code to RGB and save it
-                    self.sprite_sheet_bg_color = PIL.ImageColor.getcolor(bg_color, 'RGB') + (bg_color_opacity,)
-                else:
+                if (r < 0 or r > 255) or (g < 0 or g > 255) or (b < 0 or b > 255):
                     QtWidgets.QMessageBox.critical(
                         main_window,
-                        'Invalid Background Color',
-                        "The background color you provided is not an acceptable RGB or hex. Please follow one of the formats shown in the field's placeholder.",
+                        'Invalid RGB',
+                        "RGB values can only be between 0 and 255.",
                         QtWidgets.QMessageBox.StandardButton.Ok
                     )
 
-                    return
+                    return 
+
+                # save background color
+                self.sprite_sheet_bg_color = (r, g, b, bg_color_opacity)
+            elif hex_pattern.match(bg_color) != None:
+                # convert hex code to RGB and save it
+                self.sprite_sheet_bg_color = PIL.ImageColor.getcolor(bg_color, 'RGB') + (bg_color_opacity,)
+            else:
+                QtWidgets.QMessageBox.critical(
+                    main_window,
+                    'Invalid Background Color',
+                    "The background color you provided is not an acceptable RGB or hex. Please follow one of the formats shown in the field's placeholder.",
+                    QtWidgets.QMessageBox.StandardButton.Ok
+                )
+
+                return
+
+            # close the sprite sheet file
+            sprite_sheet.close()
         else:
             QtWidgets.QMessageBox.critical(
                 main_window,
