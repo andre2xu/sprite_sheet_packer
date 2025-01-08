@@ -809,6 +809,22 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
 
                 return
 
+            if self.sprite_sheet_bg_color != None:
+                try:
+                    sprites = sprite_sheet.getSprites(
+                        ats_width,
+                        ats_height,
+                        gsd_width,
+                        gsd_height
+                    )
+                except Exception as error:
+                    QtWidgets.QMessageBox.critical(
+                        main_window,
+                        'Scan Failed',
+                        str(error),
+                        QtWidgets.QMessageBox.StandardButton.Ok
+                    )
+
             # close the sprite sheet file
             sprite_sheet.close()
         else:
