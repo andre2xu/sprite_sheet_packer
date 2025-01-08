@@ -301,6 +301,11 @@ class SpriteSheet():
                     gridSquareHeight
                 )
 
+                sprite_in_grid_square = grid_square.extractSprite()
+
+                if sprite_in_grid_square != None:
+                    sprites.append(sprite_in_grid_square)
+
                 # move to the next grid square in the row
                 pixel_x += gridSquareWidth
 
