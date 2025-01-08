@@ -1,4 +1,4 @@
-import pathlib, os, PIL, ast, re
+import pathlib, os, PIL, ast, re, hashlib, datetime
 import PIL.Image
 import PIL.ImageColor
 from PySide6 import QtWidgets, QtCore, QtGui
@@ -512,6 +512,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         self.gsd_width_field = QtWidgets.QSpinBox()
         self.gsd_width_field.setFixedWidth(dimensions_field_width)
         self.gsd_width_field.setMinimum(1)
+        self.gsd_width_field.setValue(50) # temp
         self.gsd_width_field.setCorrectionMode(QtWidgets.QSpinBox.CorrectionMode.CorrectToNearestValue)
         gsd_width_field_container.addWidgets([gsd_width_field_title, self.gsd_width_field])
         gsd_width_field_container.lyt.addStretch(0)
@@ -522,6 +523,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         self.gsd_height_field = QtWidgets.QSpinBox()
         self.gsd_height_field.setFixedWidth(dimensions_field_width)
         self.gsd_height_field.setMinimum(1)
+        self.gsd_height_field.setValue(50) # temp
         self.gsd_height_field.setCorrectionMode(QtWidgets.QSpinBox.CorrectionMode.CorrectToNearestValue)
         gsd_height_field_container.addWidgets([gsd_height_field_title, self.gsd_height_field])
         gsd_height_field_container.lyt.addStretch(0)
@@ -817,6 +819,24 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
                         gsd_width,
                         gsd_height
                     )
+
+                    if len(sprites) > 0 and main_window.sprites_folder_path != None:
+                        # save the sprites in the sprite folder
+                        for i in range(len(sprites)):
+                            sprite = sprites[i]
+
+                            timestamp = datetime.datetime.today().strftime('%d%m%Y%H%M%S%f')
+                            new_file_name = f'sprite{i}{i*2}{i*3}{timestamp}' + '.png'
+
+                            sprite.save(os.path.join(main_window.sprites_folder_path, new_file_name))
+
+                        # reload the sprites list
+                        main_window.workspace.sprites_manager.sprites_list.reloadList()
+
+                        # close the sprite sheet and the dialog
+                        sprite_sheet.close()
+
+                        return self.accept()
                 except Exception as error:
                     QtWidgets.QMessageBox.critical(
                         main_window,
