@@ -52,6 +52,11 @@ class SpriteSheet():
             self.grid_width = width
             self.grid_height = height
 
+        def getPixel(self, x: int, y: int):
+            index = (self.sprite_sheet_class.sprite_sheet.width * y) + x
+
+            return self.sprite_sheet_class.pixels[index]
+
     def __init__(self, spriteSheetPath: str, backgroundColor: tuple):
         self.sprite_sheet = None
         self.pixels = [] # each pixel will be 4 elements long (RGBA)
