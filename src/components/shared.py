@@ -98,6 +98,32 @@ class SpriteSheet():
             elif areaToScanHeight % gridSquareHeight != 0:
                 raise IndexError("The grid square height does not divide evenly into the height of the area to scan. This means that there are either too many vertical pixels, in one or more of the squares, or too few.")
 
+            # iterate over each grid square and extract its sprite
+            num_of_grid_squares_per_row = areaToScanWidth // gridSquareWidth
+            num_of_grid_squares_per_column = areaToScanHeight // gridSquareHeight
+
+            total_grid_squares = num_of_grid_squares_per_row * num_of_grid_squares_per_column
+
+            pixel_x = 0
+            pixel_y = 0
+
+            for _ in range(total_grid_squares):
+                grid_square = self.GridSquare(
+                    self,
+                    pixel_x,
+                    pixel_y,
+                    gridSquareWidth,
+                    gridSquareHeight
+                )
+
+                # move to the next grid square in the row
+                pixel_x += gridSquareWidth
+
+                # move to the next row
+                if pixel_x >= areaToScanWidth:
+                    pixel_x = 0
+                    pixel_y += gridSquareHeight
+
         return sprites
 
     def close(self):
