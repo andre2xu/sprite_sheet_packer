@@ -72,7 +72,7 @@ class SpriteSheet():
     def getSprites(self, areaToScanWidth: int, areaToScanHeight: int, gridSquareWidth: int, gridSquareHeight: int) -> list:
         sprites = []
 
-        if self.sprite_sheet != None:
+        if self.sprite_sheet != None and type(self.pixels) == list and len(self.pixels) > 0 and self.background_color != None:
             # validate area to scan dimensions
             if areaToScanWidth < 1 or areaToScanHeight < 1:
                 raise ValueError("The width and height of the area to scan cannot be less than 1.")
