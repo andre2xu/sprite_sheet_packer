@@ -43,10 +43,12 @@ class VerticalBoxLayout(Layout):
 
 ### MISCELLANEOUS ###
 class SpriteSheet():
-    def __init__(self, spriteSheetPath: str):
+    def __init__(self, spriteSheetPath: str, backgroundColor: tuple):
         self.sprite_sheet = None
+        self.background_color = None # (R,G,B,A)
 
         if os.path.exists(spriteSheetPath):
+            # validate the sprite sheet file
             file_name = os.path.basename(spriteSheetPath)
             extension = os.path.splitext(file_name)[1]
             mime_type = mimetypes.guess_type(file_name)[0]
@@ -55,6 +57,12 @@ class SpriteSheet():
                 self.sprite_sheet = PIL.Image.open(spriteSheetPath)
             else:
                 raise Exception("Invalid sprite sheet. Must be a png or jpeg image.")
+
+            # validate the background color data
+            if type(backgroundColor) == tuple and len(backgroundColor) == 4 and all(type(backgroundColor[i]) == int and backgroundColor[i] >= 0 and backgroundColor[i] <= 255 for i in range(len(backgroundColor))):
+                self.background_color = backgroundColor
+            else:
+                raise Exception("Invalid background color. Must be a tuple with RGBA values between 0 and 255.")
         else:
             raise FileNotFoundError("The sprite sheet could not be found. Please make sure you're passing a valid path to an existing file.")
 
