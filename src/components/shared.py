@@ -58,6 +58,28 @@ class SpriteSheet():
         else:
             raise FileNotFoundError("The sprite sheet could not be found. Please make sure you're passing a valid path to an existing file.")
 
+    def getSprites(self, areaToScanWidth: int, areaToScanHeight: int, gridSquareWidth: int, gridSquareHeight: int) -> list:
+        sprites = []
+
+        if self.sprite_sheet != None:
+            # validate area to scan dimensions
+            if areaToScanWidth < 1 or areaToScanHeight < 1:
+                raise ValueError("The width and height of the area to scan cannot be less than 1.")
+            elif areaToScanWidth > self.sprite_sheet.width:
+                raise IndexError("The area to scan width cannot exceed the sprite sheet's width.")
+            elif areaToScanHeight > self.sprite_sheet.height:
+                raise IndexError("The area to scan height cannot exceed the sprite sheet's height.")
+
+            # validate grid square dimensions
+            if gridSquareWidth < 1 or gridSquareHeight < 1:
+                raise ValueError("The grid square width and height cannot be less than 1.")
+            elif areaToScanWidth % gridSquareWidth != 0:
+                raise IndexError("The grid square width does not divide evenly into the width of the area to scan. This means that there are either too many horizontal pixels, in one or more of the squares, or too few.")
+            elif areaToScanHeight % gridSquareHeight != 0:
+                raise IndexError("The grid square height does not divide evenly into the height of the area to scan. This means that there are either too many vertical pixels, in one or more of the squares, or too few.")
+
+        return sprites
+
     def close(self):
         if self.sprite_sheet != None:
             self.sprite_sheet.close()
