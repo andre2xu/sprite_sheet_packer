@@ -1,4 +1,4 @@
-import os, mimetypes, PIL
+import os, mimetypes, PIL, numpy
 import PIL.Image
 from PySide6 import QtWidgets, QtGui
 
@@ -200,6 +200,42 @@ class SpriteSheet():
                 y -= 1
 
             return sprite_bottom_y
+
+        def extractSprite(self):
+            sprite_top_x = self.getSpriteTopX()
+            sprite_top_y = self.getSpriteTopY()
+            sprite_bottom_x = self.getSpriteBottomX()
+            sprite_bottom_y = self.getSpriteBottomY()
+
+            if sprite_top_x != None and sprite_top_y != None and sprite_bottom_x != None and sprite_bottom_y != None:
+                pixels = []
+
+                # get all the sprite's pixels row by row
+                y = sprite_top_y
+
+                while y != sprite_bottom_y:
+                    row = []
+
+                    x = sprite_top_x
+
+                    while x != sprite_bottom_x:
+                        row.append(self.getPixel(x, y))
+
+                        x += 1
+
+                    pixels.append(row)
+
+                    y += 1
+
+                # recreate the sprite using its pixels
+                if len(pixels) > 0:
+                    pixels = numpy.array(pixels, dtype=numpy.uint8)
+
+                    return PIL.Image.fromarray(pixels)
+                else:
+                    return None
+            else:
+                raise IndexError("The bounding box of a sprite in one of the grid squares could not be determined. This could mean that either one or more of the grid squares is empty or the background color provided is incorrect (i.e. a pixel with a color different to the background wasn't found in a grid square).")
 
     def __init__(self, spriteSheetPath: str, backgroundColor: tuple):
         self.sprite_sheet = None
