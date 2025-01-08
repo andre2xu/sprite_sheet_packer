@@ -45,6 +45,7 @@ class VerticalBoxLayout(Layout):
 class SpriteSheet():
     def __init__(self, spriteSheetPath: str, backgroundColor: tuple):
         self.sprite_sheet = None
+        self.pixels = [] # each pixel will be 4 elements long (RGBA)
         self.background_color = None # (R,G,B,A)
 
         if os.path.exists(spriteSheetPath):
@@ -55,6 +56,8 @@ class SpriteSheet():
 
             if (extension == '.png' or extension == '.jpg' or extension == '.jpeg') and (mime_type == 'image/png' or mime_type == 'image/jpg' or mime_type == 'image/jpeg'):
                 self.sprite_sheet = PIL.Image.open(spriteSheetPath)
+                self.sprite_sheet.convert('RGBA')
+                self.pixels = list(self.sprite_sheet.getdata())
             else:
                 raise Exception("Invalid sprite sheet. Must be a png or jpeg image.")
 
