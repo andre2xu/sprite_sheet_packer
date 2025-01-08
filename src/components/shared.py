@@ -43,6 +43,15 @@ class VerticalBoxLayout(Layout):
 
 ### MISCELLANEOUS ###
 class SpriteSheet():
+    class GridSquare():
+        def __init__(self, spriteSheetClass, topX: int, topY: int, width: int, height: int):
+            self.sprite_sheet_class = spriteSheetClass
+
+            self.grid_top_x = topX
+            self.grid_top_y = topY
+            self.grid_width = width
+            self.grid_height = height
+
     def __init__(self, spriteSheetPath: str, backgroundColor: tuple):
         self.sprite_sheet = None
         self.pixels = [] # each pixel will be 4 elements long (RGBA)
