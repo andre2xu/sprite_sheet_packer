@@ -1,4 +1,4 @@
-import os, mimetypes, PIL, numpy, multiprocessing
+import os, mimetypes, PIL, numpy
 import PIL.Image
 from PySide6 import QtWidgets, QtGui, QtCore
 
@@ -42,80 +42,6 @@ class VerticalBoxLayout(Layout):
 
 
 ### MISCELLANEOUS ###
-def spriteSheetGridSquareColumnByColumnScan(multiprocessingQueue: multiprocessing.Queue, spriteSheetPixels: list, spriteSheetBackgroundColor: tuple, spriteSheetWidth: int, firstCol: int, lastCol: int, firstY: int, lastY, r2l=False):
-    x_coordinate_to_find = None
-
-    return_dict = multiprocessingQueue.get()
-
-    def getPixel(x: int, y: int):
-        index = (spriteSheetWidth * y) + x
-
-        return spriteSheetPixels[index]
-
-    # scan the grid square column by column (left to right OR right to left) until the first non-background pixel is found
-    x = firstCol
-
-    if r2l:
-        # right to left scan
-        while x != lastCol:
-            y1 = firstY
-            y2 = lastY
-
-            while y1 <= y2:
-                top_column_pixel = getPixel(x, y1)
-
-                if top_column_pixel != spriteSheetBackgroundColor:
-                    x_coordinate_to_find = x
-                    break
-
-                if y1 != y2:
-                    bottom_column_pixel = getPixel(x, y2)
-
-                    if bottom_column_pixel != spriteSheetBackgroundColor:
-                        x_coordinate_to_find = x
-                        break
-
-                y1 += 1
-                y2 -= 1
-
-            if x_coordinate_to_find != None:
-                break
-
-            x -= 1
-
-        return_dict['bottomX'] = x_coordinate_to_find
-    else:
-        # left to right scan
-        while x != lastCol:
-            y1 = firstY
-            y2 = lastY
-
-            while y1 <= y2:
-                top_column_pixel = getPixel(x, y1)
-
-                if top_column_pixel != spriteSheetBackgroundColor:
-                    x_coordinate_to_find = x
-                    break
-
-                if y1 != y2:
-                    bottom_column_pixel = getPixel(x, y2)
-
-                    if bottom_column_pixel != spriteSheetBackgroundColor:
-                        x_coordinate_to_find = x
-                        break
-
-                y1 += 1
-                y2 -= 1
-
-            if x_coordinate_to_find != None:
-                break
-
-            x += 1
-
-        return_dict['topX'] = x_coordinate_to_find
-
-    multiprocessingQueue.put(return_dict)
-
 class SpriteSheet():
     class GridSquare():
         def __init__(self, spriteSheetClass, topX: int, topY: int, width: int, height: int):
@@ -276,56 +202,9 @@ class SpriteSheet():
             return sprite_bottom_y
 
         def extractSprite(self):
-            mp_queue = multiprocessing.Queue()
-
-            mp_queue.put({
-                'topX': None,
-                'topY': None,
-                'bottomX': None,
-                'bottomY': None
-            })
-
-            # get the sprite's top x-coordinate
-            p1 = multiprocessing.Process(
-                target=spriteSheetGridSquareColumnByColumnScan,
-                args=(
-                    mp_queue,
-                    self.sprite_sheet_class.pixels,
-                    self.sprite_sheet_class.background_color,
-                    self.sprite_sheet_class.sprite_sheet.width,
-                    self.grid_top_x,
-                    self.grid_top_x + (self.grid_width - 1),
-                    self.grid_top_y,
-                    self.grid_top_y + (self.grid_height - 1)
-                )
-            )
-            p1.start()
-
-            # get the sprite's bottom x-coordinate
-            p2 = multiprocessing.Process(
-                target=spriteSheetGridSquareColumnByColumnScan,
-                args=(
-                    mp_queue,
-                    self.sprite_sheet_class.pixels,
-                    self.sprite_sheet_class.background_color,
-                    self.sprite_sheet_class.sprite_sheet.width,
-                    self.grid_top_x + (self.grid_width - 1),
-                    self.grid_top_x,
-                    self.grid_top_y,
-                    self.grid_top_y + (self.grid_height - 1),
-                    True
-                )
-            )
-            p2.start()
-
-            p1.join()
-            p2.join()
-
-            sprite_bounding_box = mp_queue.get()
-
-            sprite_top_x = sprite_bounding_box['topX']
+            sprite_top_x = self.getSpriteTopX()
             sprite_top_y = self.getSpriteTopY()
-            sprite_bottom_x = sprite_bounding_box['bottomX']
+            sprite_bottom_x = self.getSpriteBottomX()
             sprite_bottom_y = self.getSpriteBottomY()
 
             if sprite_top_x != None and sprite_top_y != None and sprite_bottom_x != None and sprite_bottom_y != None:
