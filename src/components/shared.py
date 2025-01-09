@@ -1,6 +1,6 @@
 import os, mimetypes, PIL, numpy
 import PIL.Image
-from PySide6 import QtWidgets, QtGui
+from PySide6 import QtWidgets, QtGui, QtCore
 
 
 
@@ -237,10 +237,16 @@ class SpriteSheet():
             else:
                 raise IndexError("The bounding box of a sprite in one of the grid squares could not be determined. This could mean that either one or more of the grid squares is empty or the background color provided is incorrect (i.e. a pixel with a color different to the background wasn't found in a grid square).")
 
-    def __init__(self, spriteSheetPath: str, backgroundColor: tuple):
+    def __init__(self, spriteSheetPath: str, backgroundColor: tuple, progressDialogParent: QtWidgets.QWidget):
         self.sprite_sheet = None
         self.pixels = [] # each pixel will be 4 elements long (RGBA)
         self.background_color = None # (R,G,B,A)
+
+        self.progress_bar_dialog = QtWidgets.QProgressDialog('Scanning Completed', 'Cancel', 0, 100, progressDialogParent, QtCore.Qt.WindowType.FramelessWindowHint)
+        self.progress_bar_dialog.setValue(0)
+
+        self.cancel_scan = False
+        self.progress_bar_dialog.canceled.connect(self.cancelScan)
 
         if os.path.exists(spriteSheetPath):
             # validate the sprite sheet file
@@ -263,6 +269,9 @@ class SpriteSheet():
         else:
             raise FileNotFoundError("The sprite sheet could not be found. Please make sure you're passing a valid path to an existing file.")
 
+    def cancelScan(self):
+        self.cancel_scan = True
+
     def getSprites(self, areaToScanWidth: int, areaToScanHeight: int, gridSquareWidth: int, gridSquareHeight: int) -> list:
         sprites = []
 
@@ -283,6 +292,9 @@ class SpriteSheet():
             elif areaToScanHeight % gridSquareHeight != 0:
                 raise IndexError("The grid square height does not divide evenly into the height of the area to scan. This means that there are either too many vertical pixels, in one or more of the squares, or too few.")
 
+            # display progress bar dialog
+            self.progress_bar_dialog.open()
+
             # iterate over each grid square and extract its sprite
             num_of_grid_squares_per_row = areaToScanWidth // gridSquareWidth
             num_of_grid_squares_per_column = areaToScanHeight // gridSquareHeight
@@ -292,7 +304,11 @@ class SpriteSheet():
             pixel_x = 0
             pixel_y = 0
 
-            for _ in range(total_grid_squares):
+            for i in range(total_grid_squares):
+                if self.cancel_scan:
+                    # stop scanning and end the function abruptly by returning no sprites
+                    return []
+
                 grid_square = self.GridSquare(
                     self,
                     pixel_x,
@@ -313,6 +329,12 @@ class SpriteSheet():
                 if pixel_x >= areaToScanWidth:
                     pixel_x = 0
                     pixel_y += gridSquareHeight
+
+                # update progress
+                self.progress_bar_dialog.setValue(((i+1) / total_grid_squares) * 100)
+
+            # close progress bar dialog
+            self.progress_bar_dialog.accept()
 
         return sprites
 
