@@ -512,7 +512,6 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         self.gsd_width_field = QtWidgets.QSpinBox()
         self.gsd_width_field.setFixedWidth(dimensions_field_width)
         self.gsd_width_field.setMinimum(1)
-        self.gsd_width_field.setValue(50) # temp
         self.gsd_width_field.setCorrectionMode(QtWidgets.QSpinBox.CorrectionMode.CorrectToNearestValue)
         gsd_width_field_container.addWidgets([gsd_width_field_title, self.gsd_width_field])
         gsd_width_field_container.lyt.addStretch(0)
@@ -523,7 +522,6 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         self.gsd_height_field = QtWidgets.QSpinBox()
         self.gsd_height_field.setFixedWidth(dimensions_field_width)
         self.gsd_height_field.setMinimum(1)
-        self.gsd_height_field.setValue(50) # temp
         self.gsd_height_field.setCorrectionMode(QtWidgets.QSpinBox.CorrectionMode.CorrectToNearestValue)
         gsd_height_field_container.addWidgets([gsd_height_field_title, self.gsd_height_field])
         gsd_height_field_container.lyt.addStretch(0)
@@ -675,6 +673,12 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
             self.uploaded_sprite_sheet_path = uploadedSpriteSheetPath
 
             with PIL.Image.open(uploadedSpriteSheetPath) as sprite_sheet:
+                # reset fields
+                self.gsd_width_field.setValue(1)
+                self.gsd_height_field.setValue(1)
+                self.bgc_field.setText('')
+                self.bgc_opacity_field.setValue(0)
+
                 # change the maximum values of the dimension fields
                 self.ats_width_field.setMaximum(sprite_sheet.width)
                 self.ats_height_field.setMaximum(sprite_sheet.height)
