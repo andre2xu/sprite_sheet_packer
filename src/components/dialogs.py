@@ -814,7 +814,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
 
             if self.sprite_sheet_bg_color != None:
                 # initialize the sprite sheet (it will validate the uploaded file)
-                sprite_sheet = components.shared.SpriteSheet(self.uploaded_sprite_sheet_path, self.sprite_sheet_bg_color)
+                sprite_sheet = components.shared.SpriteSheet(self.uploaded_sprite_sheet_path, self.sprite_sheet_bg_color, self)
 
                 try:
                     sprites = sprite_sheet.getSprites(
