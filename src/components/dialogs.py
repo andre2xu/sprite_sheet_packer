@@ -686,7 +686,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
                 self.gsd_width_field.setMaximum(sprite_sheet.width)
                 self.gsd_height_field.setMaximum(sprite_sheet.height)
 
-                # pre-populate the fields with the sprite sheet's dimensions
+                # pre-populate the area to scan fields with the sprite sheet's dimensions
                 self.ats_width_field.setValue(sprite_sheet.width)
                 self.ats_height_field.setValue(sprite_sheet.height)
 
