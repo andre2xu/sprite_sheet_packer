@@ -272,7 +272,7 @@ class SpriteSheet():
     def cancelScan(self):
         self.cancel_scan = True
 
-    def getSprites(self, areaToScanWidth: int, areaToScanHeight: int, gridSquareWidth: int, gridSquareHeight: int) -> list:
+    def getSprites(self, areaToScanStartX: int, areaToScanStartY: int, areaToScanWidth: int, areaToScanHeight: int, gridSquareWidth: int, gridSquareHeight: int) -> list:
         sprites = []
 
         if self.sprite_sheet != None and type(self.pixels) == list and len(self.pixels) > 0 and self.background_color != None:

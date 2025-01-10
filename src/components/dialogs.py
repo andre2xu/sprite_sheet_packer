@@ -878,6 +878,8 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
 
                 try:
                     sprites = sprite_sheet.getSprites(
+                        ats_startX,
+                        ats_startY,
                         ats_width,
                         ats_height,
                         gsd_width,
