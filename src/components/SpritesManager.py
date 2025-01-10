@@ -180,11 +180,19 @@ class Controls(components.shared.HorizontalBoxLayout):
         self.clear_all_sprites_btn.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
         self.clear_all_sprites_btn.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
 
+        self.pack_sprites_btn = QtWidgets.QPushButton(QtGui.QIcon(os.path.join(pathlib.Path(__file__).parent.resolve(), '../../local/icons/pack_sprite_sheet_icon.png')), '')
+        self.pack_sprites_btn.setIconSize(QtCore.QSize(20, 20))
+        self.pack_sprites_btn.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+        self.pack_sprites_btn.setToolTip('Pack Sprites')
+        self.pack_sprites_btn.setStyleSheet("""padding: 5px;""")
+
         self.addWidgets([
             add_sprites_btn,
             self.clear_all_sprites_btn
         ])
         self.lyt.addStretch(0)
+
+        self.lyt.addWidget(self.pack_sprites_btn)
 
         self.setStyleSheet(
             """
