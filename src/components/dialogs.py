@@ -470,10 +470,47 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         ats_height_field_container.addWidgets([ats_height_field_title, self.ats_height_field])
         ats_height_field_container.lyt.addStretch(0)
 
-        area_to_scan_container.addWidgets([
-            ats_container_title,
+        ats_startX_field_container = components.shared.HorizontalBoxLayout()
+        ats_startX_field_title = QtWidgets.QLabel('StartX:')
+        self.ats_startX_field = QtWidgets.QSpinBox()
+        self.ats_startX_field.setFixedWidth(dimensions_field_width)
+        self.ats_startX_field.setMinimum(0)
+        self.ats_startX_field.setCorrectionMode(QtWidgets.QSpinBox.CorrectionMode.CorrectToNearestValue)
+        ats_startX_field_container.addWidgets([ats_startX_field_title, self.ats_startX_field])
+
+        ats_startY_field_container = components.shared.HorizontalBoxLayout()
+        ats_startY_field_title = QtWidgets.QLabel('StartY:')
+        self.ats_startY_field = QtWidgets.QSpinBox()
+        self.ats_startY_field.setFixedWidth(dimensions_field_width)
+        self.ats_startY_field.setMinimum(0)
+        self.ats_startY_field.setCorrectionMode(QtWidgets.QSpinBox.CorrectionMode.CorrectToNearestValue)
+        ats_startY_field_container.addWidgets([ats_startY_field_title, self.ats_startY_field])
+
+        ats_subcontainer = components.shared.HorizontalBoxLayout()
+        ats_subcontainer.lyt.setContentsMargins(0,0,0,0)
+        ats_subcontainer_subcontainer1 = components.shared.VerticalBoxLayout()
+        ats_subcontainer_subcontainer1.lyt.setContentsMargins(0,0,0,0)
+        ats_subcontainer_subcontainer2 = components.shared.VerticalBoxLayout()
+        ats_subcontainer_subcontainer2.lyt.setContentsMargins(0,0,0,0)
+
+        ats_subcontainer_subcontainer1.addWidgets([
             ats_width_field_container,
             ats_height_field_container
+        ])
+
+        ats_subcontainer_subcontainer2.addWidgets([
+            ats_startX_field_container,
+            ats_startY_field_container
+        ])
+
+        ats_subcontainer.addWidgets([
+            ats_subcontainer_subcontainer1,
+            ats_subcontainer_subcontainer2
+        ])
+
+        area_to_scan_container.addWidgets([
+            ats_container_title,
+            ats_subcontainer
         ])
 
         area_to_scan_container.setStyleSheet(
