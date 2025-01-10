@@ -606,7 +606,6 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         auto_find_bgc_button.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
         auto_find_bgc_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         auto_find_bgc_button.clicked.connect(self.autoFindBackgroundColor)
-        bgc_subcontainer.lyt.setAlignment(auto_find_bgc_button, QtCore.Qt.AlignmentFlag.AlignTop)
 
         bgc_subcontainer2 = components.shared.VerticalBoxLayout()
         bgc_subcontainer2.lyt.setSpacing(0)
@@ -664,6 +663,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
             self.bgc_field,
             auto_find_bgc_button
         ])
+        bgc_subcontainer.lyt.setAlignment(auto_find_bgc_button, QtCore.Qt.AlignmentFlag.AlignTop)
 
         bgc_subcontainer2.addWidgets([
             bgc_opacity_field_title,
