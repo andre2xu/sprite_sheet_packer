@@ -904,6 +904,8 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
 
                         return self.accept()
                 except Exception as error:
+                    sprite_sheet.progress_bar_dialog.close()
+
                     QtWidgets.QMessageBox.critical(
                         main_window,
                         'Scan Failed',
