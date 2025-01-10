@@ -710,6 +710,8 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
 
             with PIL.Image.open(uploadedSpriteSheetPath) as sprite_sheet:
                 # reset fields
+                self.ats_startX_field.setValue(0)
+                self.ats_startY_field.setValue(0)
                 self.gsd_width_field.setValue(1)
                 self.gsd_height_field.setValue(1)
                 self.bgc_field.setText('')
@@ -721,6 +723,10 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
 
                 self.gsd_width_field.setMaximum(sprite_sheet.width)
                 self.gsd_height_field.setMaximum(sprite_sheet.height)
+
+                # change the maximum values of the area to scan starting coordinates (smallest area is 1x1)
+                self.ats_startX_field.setMaximum(sprite_sheet.width - 1)
+                self.ats_startY_field.setMaximum(sprite_sheet.height - 1)
 
                 # pre-populate the area to scan fields with the sprite sheet's dimensions
                 self.ats_width_field.setValue(sprite_sheet.width)
