@@ -885,8 +885,8 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
                         QtWidgets.QMessageBox.StandardButton.Ok
                     )
 
-            # close the sprite sheet file
-            sprite_sheet.close()
+                # close the sprite sheet file
+                sprite_sheet.close()
         else:
             QtWidgets.QMessageBox.critical(
                 main_window,
