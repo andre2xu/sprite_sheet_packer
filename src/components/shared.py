@@ -301,10 +301,12 @@ class SpriteSheet():
 
             total_grid_squares = num_of_grid_squares_per_row * num_of_grid_squares_per_column
 
-            pixel_x = 0
-            pixel_y = 0
+            pixel_x = areaToScanStartX
+            pixel_y = areaToScanStartY
 
             for i in range(total_grid_squares):
+                print((pixel_x, pixel_y))
+
                 if self.cancel_scan:
                     # stop scanning and end the function abruptly by returning no sprites
                     return []
@@ -327,7 +329,7 @@ class SpriteSheet():
 
                 # move to the next row
                 if pixel_x >= areaToScanWidth:
-                    pixel_x = 0
+                    pixel_x = areaToScanStartX
                     pixel_y += gridSquareHeight
 
                 # update progress
