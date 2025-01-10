@@ -811,11 +811,29 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
             ats_width = self.ats_width_field.value()
             ats_height = self.ats_height_field.value()
 
+            ats_startX = self.ats_startX_field.value()
+            ats_startY = self.ats_startY_field.value()
+
             gsd_width = self.gsd_width_field.value()
             gsd_height = self.gsd_height_field.value()
 
             bg_color = self.bgc_field.text().rstrip()
             bg_color_opacity = round((self.bgc_opacity_field.value() / 100) * 255) # converted from % to RGB
+
+            # validate area to scan
+            with PIL.Image.open(self.uploaded_sprite_sheet_path) as sprite_sheet:
+                horizontal_overflow_exists = sprite_sheet.width - (ats_startX + ats_width) < 0
+                vertical_overflow_exists = sprite_sheet.height - (ats_startY + ats_height) < 0
+
+                if horizontal_overflow_exists or vertical_overflow_exists:
+                    QtWidgets.QMessageBox.critical(
+                        main_window,
+                        'Out of Bounds',
+                        "The area to scan is not fully inside the sprite sheet.",
+                        QtWidgets.QMessageBox.StandardButton.Ok
+                    )
+
+                    return
 
             # validate background color
             rgb_pattern = re.compile(r'^\d+, ?\d+, ?\d+$')
