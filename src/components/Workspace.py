@@ -1,8 +1,8 @@
-from PySide6 import QtWidgets
+from PySide6 import QtWidgets, QtCore
 from PySide6.QtWidgets import QSizePolicy
 
 ### GUI COMPONENTS ###
-import components.shared
+import components.shared, components.dialogs
 from components.SpriteSheetPreview import PreviewButtons, ScrollableArea
 from components.SpritesManager import Controls, SpritesList
 
@@ -108,6 +108,7 @@ class SpritesManager(components.shared.VerticalBoxLayout):
         self.sprites_list = SpritesList(self)
 
         self.controls.clear_all_sprites_btn.clicked.connect(self.clearAllSprites)
+        self.controls.pack_sprites_btn.clicked.connect(self.packSprites)
 
         self.addWidgets([
             self.controls,
@@ -142,6 +143,20 @@ class SpritesManager(components.shared.VerticalBoxLayout):
 
             if answer == QtWidgets.QMessageBox.StandardButton.Yes:
                 self.sprites_list.deleteAllSprites()
+        else:
+            QtWidgets.QMessageBox.critical(
+                main_window,
+                'Empty Sprites List',
+                "You need to open an existing project folder with sprites before you can do this. If you already have a project folder open, be sure to add sprites first.",
+                QtWidgets.QMessageBox.StandardButton.Ok
+            )
+
+    def packSprites(self):
+        main_window = self.parent().parent().parent()
+
+        if self.sprites_list.vertical_list.count() > 0:
+            sprite_sheet_layout_dialog = components.dialogs.SpriteSheetLayoutDialog(main_window, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
+            sprite_sheet_layout_dialog.open()
         else:
             QtWidgets.QMessageBox.critical(
                 main_window,
