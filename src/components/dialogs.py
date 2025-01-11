@@ -924,3 +924,72 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
             )
 
             self.close()
+
+
+
+class SpriteSheetLayoutDialog(QtWidgets.QDialog):
+    def __init__(self, parent = ..., f = ...):
+        super().__init__(parent, f)
+
+        layout = QtWidgets.QVBoxLayout()
+        layout.setContentsMargins(0,0,0,0)
+        layout.setSpacing(0)
+        self.setLayout(layout)
+
+        self.original_width = 350
+        self.original_height = 230
+        self.setFixedSize(self.original_width, self.original_height)
+
+        self.setStyleSheet(
+            """
+            QDialog {
+                background-color: transparent;
+            }
+
+            #DialogTitleBar {
+                background-color: #2f2f36;
+            }
+
+            #DialogTitleBar QLabel {
+                font-weight: bold;
+                margin-left: 8px;
+            }
+
+            #DialogTitleBar QPushButton {
+                color: #fff;
+                padding: 3px 10px;
+                border-radius: 0px;
+                font-size: 15px;
+            }
+
+            #DialogTitleBar QPushButton:hover {
+                background-color: red;
+            }
+
+            #DialogBody {
+                background-color: #36363c;
+            }
+            """
+        )
+
+        # dialog title bar
+        title_bar = QtWidgets.QWidget()
+        title_bar.setObjectName('DialogTitleBar')
+        title_bar.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Maximum))
+
+        self.close_button = QtWidgets.QPushButton('X')
+        self.close_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+        self.close_button.clicked.connect(self.close)
+
+        tb_lyt = QtWidgets.QHBoxLayout(title_bar)
+        tb_lyt.addWidget(QtWidgets.QLabel('Choose Sprite Sheet Layout'))
+        tb_lyt.addStretch(0)
+        tb_lyt.addWidget(self.close_button)
+
+        layout.addWidget(title_bar)
+
+        # dialog body
+        body = QtWidgets.QWidget()
+        body.setObjectName('DialogBody')
+
+        layout.addWidget(body)
