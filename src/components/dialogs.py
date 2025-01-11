@@ -969,6 +969,16 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
             #DialogBody {
                 background-color: #36363c;
             }
+
+            #DialogBody QPushButton {
+                background-color: #47474e;
+                padding: 10px 0px;
+                border: none;
+            }
+
+            #DialogBody QPushButton:hover {
+                border: 1px solid gray;
+            }
             """
         )
 
@@ -991,5 +1001,33 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
         # dialog body
         body = QtWidgets.QWidget()
         body.setObjectName('DialogBody')
+
+        body_lyt = QtWidgets.QVBoxLayout(body)
+        body_lyt.setSpacing(0)
+        body_lyt.setContentsMargins(0,0,0,0)
+
+        # LAYOUT: horizontal
+        layout_group1 = components.shared.HorizontalBoxLayout()
+        layout_group1.setStyleSheet("""QPushButton { margin: 10px 7px 0px; }""")
+        self.horizontal_layout_btn = QtWidgets.QPushButton('Horizontal')
+        self.horizontal_reverse_layout_btn = QtWidgets.QPushButton('Horizontal Reverse')
+        layout_group1.addWidgets([self.horizontal_layout_btn, self.horizontal_reverse_layout_btn])
+
+        # LAYOUT: vertical
+        layout_group2 = components.shared.HorizontalBoxLayout()
+        layout_group2.setStyleSheet("""QPushButton { margin: 0px 7px; }""")
+        self.vertical_layout_btn = QtWidgets.QPushButton('Vertical')
+        self.vertical_reverse_layout_btn = QtWidgets.QPushButton('Vertical Reverse')
+        layout_group2.addWidgets([self.vertical_layout_btn, self.vertical_reverse_layout_btn])
+
+        # LAYOUT: compact
+        layout_group3 = components.shared.HorizontalBoxLayout()
+        layout_group3.setStyleSheet("""QPushButton { margin: 0px 7px 15px; }""")
+        self.compact_layout_btn = QtWidgets.QPushButton('Compact')
+        layout_group3.addWidgets([self.compact_layout_btn])
+
+        body_lyt.addWidget(layout_group1)
+        body_lyt.addWidget(layout_group2)
+        body_lyt.addWidget(layout_group3)
 
         layout.addWidget(body)
