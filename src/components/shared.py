@@ -1,4 +1,4 @@
-import os, mimetypes, PIL, numpy
+import os, mimetypes, numpy
 import PIL.Image
 from PySide6 import QtWidgets, QtGui, QtCore
 

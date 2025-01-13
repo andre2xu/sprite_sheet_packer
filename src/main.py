@@ -1,4 +1,4 @@
-import sys, pathlib, os, shutil, PIL, mimetypes, re, hashlib, datetime
+import sys, pathlib, os, shutil, mimetypes, re, hashlib, datetime
 import PIL.Image
 from PySide6 import QtWidgets, QtCore
 
