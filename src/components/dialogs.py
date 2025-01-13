@@ -1140,7 +1140,7 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
                         column_is_empty = True # assume the current column is empty
 
                         current_y = y
-                        last_y = y + sprite.height
+                        last_y = y + sprite.height + 1
 
                         while current_y < last_y:
                             current_pixel = compact_sprite_sheet.getpixel((x, current_y))
