@@ -931,6 +931,9 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
     def __init__(self, parent = ..., f = ...):
         super().__init__(parent, f)
 
+        self.main_window = self.parent()
+        self.sprites_list = self.main_window.workspace.sprites_manager.sprites_list
+
         layout = QtWidgets.QVBoxLayout()
         layout.setContentsMargins(0,0,0,0)
         layout.setSpacing(0)
@@ -1031,3 +1034,37 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
         body_lyt.addWidget(layout_group3)
 
         layout.addWidget(body)
+
+        # connect slots
+        self.compact_layout_btn.clicked.connect(self.compactPacker)
+
+    def getSpriteImages(self):
+        sprite_images = []
+
+        list_widget = self.sprites_list.vertical_list
+
+        for i in range(list_widget.count()):
+            list_item = list_widget.item(i)
+            sprite_image_src = list_item.src
+
+            if os.path.exists(sprite_image_src):
+                with PIL.Image.open(sprite_image_src) as sprite_image_file:
+                    sprite = sprite_image_file.convert('RGBA')
+                    sprite_images.append(sprite)
+            else:
+                # mark sprite as missing and show error message
+                list_item.setText(f'[MISSING] {list_item.text()}')
+
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    'Missing Sprite',
+                    f"The sprite \"{os.path.basename(sprite_image_src)}\" is missing. It may have been moved or deleted. To continue the packing, please remove it from the sprites list or put it back in the project's sprites folder if it still exists. You could also re-open the project folder to reload the sprites list.",
+                    QtWidgets.QMessageBox.StandardButton.Ok,
+                )
+
+                return []
+
+        return sprite_images
+
+    def compactPacker(self):
+        sprites = self.getSpriteImages()
