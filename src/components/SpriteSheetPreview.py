@@ -104,6 +104,10 @@ class ScrollableArea(QtWidgets.QScrollArea):
         # reset zoom
         self.setZoom(1)
 
+    def clearImage(self):
+        self.image_widget.clear()
+        self.image_widget.setText(' ')
+
     def centerImage(self):
         centerX = self.scroll_area_body.width() // 2
         centerY = self.scroll_area_body.height() // 2
