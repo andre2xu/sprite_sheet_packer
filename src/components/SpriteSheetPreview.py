@@ -102,7 +102,8 @@ class ScrollableArea(QtWidgets.QScrollArea):
         self.vertical_scroll_range_changed = True
 
         # reset zoom
-        self.setZoom(1)
+        sprite_sheet_preview = self.parent()
+        sprite_sheet_preview.zoomReset()
 
     def clearImage(self):
         self.image_widget.clear()
