@@ -1037,6 +1037,7 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
         # connect slots
         self.horizontal_layout_btn.clicked.connect(self.createHorizontalSpriteSheet)
         self.horizontal_reverse_layout_btn.clicked.connect(self.createReverseHorizontalSpriteSheet)
+        self.vertical_layout_btn.clicked.connect(self.createVerticalSpriteSheet)
         self.compact_layout_btn.clicked.connect(self.createCompactSpriteSheet)
 
     def getSpriteImages(self):
@@ -1125,6 +1126,36 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
 
             # save sprite sheet in the temp folder
             reverse_horizontal_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
+
+            # close the dialog
+            self.accept()
+
+    def createVerticalSpriteSheet(self):
+        sprites = self.getSpriteImages()
+
+        if len(sprites) > 0:
+            total_height = 0
+            max_width = 0
+
+            for i in range(len(sprites)):
+                sprite = sprites[i]
+
+                total_height += sprite.height
+
+                if sprite.width > max_width:
+                    max_width = sprite.width
+
+            # create sprite sheet
+            vertical_sprite_sheet = PIL.Image.new('RGBA', (max_width, total_height))
+            x, y = 0, 0
+
+            for sprite in sprites:
+                vertical_sprite_sheet.paste(sprite, (x, y))
+
+                y += sprite.height
+
+            # save sprite sheet in the temp folder
+            vertical_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
 
             # close the dialog
             self.accept()
