@@ -1035,7 +1035,7 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
         layout.addWidget(body)
 
         # connect slots
-        self.compact_layout_btn.clicked.connect(self.compactPacker)
+        self.compact_layout_btn.clicked.connect(self.createCompactSpriteSheet)
 
     def getSpriteImages(self):
         sprite_images = []
@@ -1065,7 +1065,7 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
 
         return sprite_images
 
-    def compactPacker(self):
+    def createCompactSpriteSheet(self):
         sprites = self.getSpriteImages()
 
         if len(sprites) > 0:

@@ -45,6 +45,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.sprite_sheet_info_dialog = components.dialogs.SpriteSheetInfoDialog(self, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
 
+        self.loadProjectFolder('C:/Users/andre/Desktop/New project')
+
     def resizeEvent(self, event):
         super().resizeEvent(event)
 
