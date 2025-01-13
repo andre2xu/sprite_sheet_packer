@@ -26,7 +26,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.workspace = Workspace(self)
         self.workspace.sprites_manager.controls.sprite_input_choice_dialog.selection_option.clicked.connect(self.uploadSprites)
         self.workspace.sprites_manager.controls.sprite_input_choice_dialog.sprite_sheet_option.clicked.connect(self.uploadSpriteSheet)
-        self.workspace.sprite_sheet_preview.scrollable_area.displayImage(os.path.join(pathlib.Path(__file__).parent.resolve(), '../local/packed.png'))
 
         central_widget.addWidgets([
             self.workspace
