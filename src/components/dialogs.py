@@ -1035,6 +1035,7 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
         layout.addWidget(body)
 
         # connect slots
+        self.horizontal_layout_btn.clicked.connect(self.createHorizontalSpriteSheet)
         self.compact_layout_btn.clicked.connect(self.createCompactSpriteSheet)
 
     def getSpriteImages(self):
@@ -1064,6 +1065,36 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
                 return []
 
         return sprite_images
+
+    def createHorizontalSpriteSheet(self):
+        sprites = self.getSpriteImages()
+
+        if len(sprites) > 0:
+            total_width = 0
+            max_height = 0
+
+            for i in range(len(sprites)):
+                sprite = sprites[i]
+
+                total_width += sprite.width
+
+                if sprite.height > max_height:
+                    max_height = sprite.height
+
+            # create sprite sheet
+            horizontal_sprite_sheet = PIL.Image.new('RGBA', (total_width, max_height))
+            x, y = 0, 0
+
+            for sprite in sprites:
+                horizontal_sprite_sheet.paste(sprite, (x, y))
+
+                x += sprite.width
+
+            # save sprite sheet in the temp folder
+            horizontal_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
+
+            # close the dialog
+            self.accept()
 
     def createCompactSpriteSheet(self):
         sprites = self.getSpriteImages()
