@@ -1,6 +1,5 @@
-import pathlib, os, PIL, ast, re, datetime
-import PIL.Image
-import PIL.ImageColor
+import pathlib, os, ast, re, datetime, rectpack
+import PIL.Image, PIL.ImageColor
 from PySide6 import QtWidgets, QtCore, QtGui
 from PySide6.QtWidgets import QSizePolicy
 
