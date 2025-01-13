@@ -1132,7 +1132,33 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
                         else:
                             y += 1
 
-                # add the sprites on to the sprite sheet
+                if x > 0:
+                    # find the empty column (i.e. a vertical set of transparent pixels. The no. pixels are equal to the height of the current sprite)
+                    column_is_empty = False
+
+                    while column_is_empty == False:
+                        column_is_empty = True # assume the current column is empty
+
+                        current_y = y
+                        last_y = y + sprite.height
+
+                        while current_y < last_y:
+                            current_pixel = compact_sprite_sheet.getpixel((x, current_y))
+
+                            # find a non-transparent pixel and, if one is found, skip to the next column
+                            if current_pixel != (0,0,0,0):
+                                column_is_empty = False
+                                break
+
+                            current_y += 1
+
+                        if column_is_empty:
+                            # stop searching since the current x value should be pointing to the empty column 
+                            break
+                        else:
+                            x += 1
+
+                # add the current sprite on to the sprite sheet
                 compact_sprite_sheet.paste(sprite, (x, y))
 
             compact_sprite_sheet.show()
