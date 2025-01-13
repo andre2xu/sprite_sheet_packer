@@ -1161,4 +1161,11 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
                 # add the current sprite on to the sprite sheet
                 compact_sprite_sheet.paste(sprite, (x, y))
 
-            compact_sprite_sheet.show()
+            # get rid of excess transparent pixels
+            compact_sprite_sheet = compact_sprite_sheet.crop(compact_sprite_sheet.getbbox(alpha_only=True))
+
+            # save the sprite sheet in the temp folder
+            compact_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
+
+            # close the dialog
+            self.accept()
