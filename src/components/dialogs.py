@@ -1106,6 +1106,32 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
 
                 x, y = d[1], d[2]
 
+                if y > 0:
+                    # find the empty row (i.e. a horizontal set of transparent pixels. The no. pixels are equal to the width of the current sprite)
+                    row_is_empty = False
+
+                    while row_is_empty == False:
+                        row_is_empty = True # assume the current row is empty
+
+                        current_x = x
+                        last_x = x + sprite.width + 1
+
+                        while current_x < last_x:
+                            current_pixel = compact_sprite_sheet.getpixel((current_x, y))
+
+                            # find a non-transparent pixel and, if one is found, skip to the next row
+                            if current_pixel != (0,0,0,0):
+                                row_is_empty = False
+                                break
+
+                            current_x += 1
+
+                        if row_is_empty:
+                            # stop searching since the current y value should be pointing to the empty row 
+                            break
+                        else:
+                            y += 1
+
                 # add the sprites on to the sprite sheet
                 compact_sprite_sheet.paste(sprite, (x, y))
 
