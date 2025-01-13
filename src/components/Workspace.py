@@ -1,3 +1,4 @@
+import os
 from PySide6 import QtWidgets, QtCore
 from PySide6.QtWidgets import QSizePolicy
 
@@ -156,6 +157,10 @@ class SpritesManager(components.shared.VerticalBoxLayout):
 
         if self.sprites_list.vertical_list.count() > 0:
             sprite_sheet_layout_dialog = components.dialogs.SpriteSheetLayoutDialog(main_window, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
+
+            # display packed sprite sheet (if one was created)
+            sprite_sheet_layout_dialog.accepted.connect(lambda: main_window.workspace.sprite_sheet_preview.scrollable_area.displayImage(os.path.join(main_window.temp_folder_path, 'spritesheet.png')))
+
             sprite_sheet_layout_dialog.open()
         else:
             QtWidgets.QMessageBox.critical(
