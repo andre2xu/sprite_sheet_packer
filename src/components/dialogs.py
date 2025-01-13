@@ -1094,3 +1094,19 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
 
             # retrieve the geometry and positional data of the sprites in the compact sprite sheet
             data = packer.rect_list()
+
+            # create sheet using the rough dimensions
+            compact_sprite_sheet = PIL.Image.new('RGBA', (total_width, total_height))
+
+            # iterate over the sprite data
+            for i in range(len(data)):
+                d = data[i]
+                sprite_index = d[5]
+                sprite = sprites[sprite_index]
+
+                x, y = d[1], d[2]
+
+                # add the sprites on to the sprite sheet
+                compact_sprite_sheet.paste(sprite, (x, y))
+
+            compact_sprite_sheet.show()
