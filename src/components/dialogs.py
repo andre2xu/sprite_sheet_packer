@@ -1067,3 +1067,30 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
 
     def compactPacker(self):
         sprites = self.getSpriteImages()
+
+        if len(sprites) > 0:
+            # initialize packer
+            packer = rectpack.newPacker()
+
+            # iterate over the sprite pillow image instances
+            total_width = 0
+            total_height = 0
+
+            for i in range(len(sprites)):
+                sprite = sprites[i]
+
+                # pass the dimensions of the sprite images (in the form of a rectangle) to the packer
+                packer.add_rect(sprite.width, sprite.height, rid=i)
+
+                # calculate the sprite sheet dimensions needed to fit all the sprites (this won't be an exact fit and it will have a large excess of empty pixels because all it gets is the largest box that can fit all the sprites)
+                total_width += sprite.width
+                total_height += sprite.height
+
+            # pass sprite sheet dimensions (in the form of a rectangle) to the packer
+            packer.add_bin(total_width, total_height)
+
+            # arrange all the sprites in the sprite sheet rectangle in a way that reduces the amount of gaps in between them (i.e. compact packing) 
+            packer.pack()
+
+            # retrieve the geometry and positional data of the sprites in the compact sprite sheet
+            data = packer.rect_list()
