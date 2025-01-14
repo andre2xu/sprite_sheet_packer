@@ -1142,10 +1142,23 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
             reverse_horizontal_sprite_sheet = PIL.Image.new('RGBA', (total_width, max_height))
             x, y = 0, 0
 
+            self.progress_bar_dialog.open()
+            progress = 0
+
             for i in range(len(sprites) - 1, -1, -1):
+                if self.cancel_packing:
+                    # reset flag
+                    self.cancel_packing = False
+
+                    return
+
                 sprite = sprites[i]
 
                 reverse_horizontal_sprite_sheet.paste(sprite, (x, y))
+
+                # update progress bar
+                progress += 1
+                self.progress_bar_dialog.setValue((progress / len(sprites)) * 100)
 
                 x += sprite.width
 
