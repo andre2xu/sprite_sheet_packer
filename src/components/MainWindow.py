@@ -1,4 +1,4 @@
-import os
+import os, shutil
 import PIL.Image
 from PySide6 import QtWidgets, QtCore
 
@@ -89,6 +89,9 @@ class Menubar(QtWidgets.QMenuBar):
         # FILE MENU > EXPORT SPRITE SHEET ACTION
         file_menu_export_sprite_sheet.triggered.connect(self.exportSpriteSheet)
 
+        # FILE MENU > EXPORT DATA SHEET ACTION
+        file_menu_export_data_sheet.triggered.connect(self.exportDataSheet)
+
     def exportSpriteSheet(self):
         main_window = self.parent()
 
@@ -126,6 +129,45 @@ class Menubar(QtWidgets.QMenuBar):
                 main_window,
                 'No Sprite Sheet',
                 "Please create a sprite sheet first by adding sprites and then packing them.",
+                QtWidgets.QMessageBox.StandardButton.Ok
+            )
+
+    def exportDataSheet(self):
+        main_window = self.parent()
+
+        data_sheet_file = 'datasheet.json'
+
+        if main_window.temp_folder_path != None and os.path.exists(os.path.join(main_window.temp_folder_path, data_sheet_file)):
+            save_data = QtWidgets.QFileDialog.getSaveFileName(
+                main_window,
+                'Choose a destination and file name',
+                main_window.project_folder_path,
+                '*.json'
+            )
+
+            save_path = save_data[0]
+
+            if len(save_path) > 0:
+                destination = os.path.dirname(save_path)
+
+                # validate save folder
+                if os.path.exists(destination) == False:
+                    QtWidgets.QMessageBox.critical(
+                        main_window,
+                        'Invalid Destination',
+                        "The folder you specified does not exist. Please make sure you are providing a valid path to an existing directory in your machine.",
+                        QtWidgets.QMessageBox.StandardButton.Ok
+                    )
+
+                    return
+
+                # save data sheet
+                shutil.copy(os.path.join(main_window.temp_folder_path, data_sheet_file), save_path)
+        else:
+            QtWidgets.QMessageBox.critical(
+                main_window,
+                'No Data Sheet',
+                "Please create a sprite sheet first by adding sprites and then packing them. This will generate a data sheet.",
                 QtWidgets.QMessageBox.StandardButton.Ok
             )
 
