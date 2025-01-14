@@ -1099,8 +1099,21 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
             horizontal_sprite_sheet = PIL.Image.new('RGBA', (total_width, max_height))
             x, y = 0, 0
 
-            for sprite in sprites:
+            self.progress_bar_dialog.open()
+
+            for i in range(len(sprites)):
+                if self.cancel_packing:
+                    # reset flag
+                    self.cancel_packing = False
+
+                    return
+
+                sprite = sprites[i]
+
                 horizontal_sprite_sheet.paste(sprite, (x, y))
+
+                # update progress bar
+                self.progress_bar_dialog.setValue(((i+1) / len(sprites)) * 100)
 
                 x += sprite.width
 
