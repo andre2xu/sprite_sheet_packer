@@ -138,7 +138,10 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
             new_filename = f'{editor.text()}{extension}'
 
             sprites_folder = os.path.dirname(list_item_edited.src)
-            os.rename(list_item_edited.src, os.path.join(sprites_folder, new_filename))
+            new_src = os.path.join(sprites_folder, new_filename)
+
+            os.rename(list_item_edited.src, new_src)
+            list_item_edited.src = new_src
 
             # change the list item text
             super().setModelData(editor, model, index)
