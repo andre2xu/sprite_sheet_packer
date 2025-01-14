@@ -1041,6 +1041,14 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
         self.vertical_reverse_layout_btn.clicked.connect(self.createReverseVerticalSpriteSheet)
         self.compact_layout_btn.clicked.connect(self.createCompactSpriteSheet)
 
+        # initialize progress dialog
+        self.progress_bar_dialog = QtWidgets.QProgressDialog('Sprites Packed', 'Cancel', 0, 100, self, QtCore.Qt.WindowType.FramelessWindowHint)
+        self.progress_bar_dialog.setValue(0)
+        self.progress_bar_dialog.close()
+
+        self.cancel_packing = False
+        self.progress_bar_dialog.canceled.connect(self.cancelPacking)
+
     def getSpriteImages(self):
         sprite_images = []
 
@@ -1068,6 +1076,9 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
                 return []
 
         return sprite_images
+
+    def cancelPacking(self):
+        self.cancel_packing = True
 
     def createHorizontalSpriteSheet(self):
         sprites = self.getSpriteImages()
@@ -1227,7 +1238,15 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
             compact_sprite_sheet = PIL.Image.new('RGBA', (total_width, total_height))
 
             # iterate over the sprite data
+            self.progress_bar_dialog.open()
+
             for i in range(len(data)):
+                if self.cancel_packing:
+                    # reset flag
+                    self.cancel_packing = False
+
+                    return
+
                 d = data[i]
                 sprite_index = d[5]
                 sprite = sprites[sprite_index]
@@ -1289,11 +1308,15 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
                 # add the current sprite on to the sprite sheet
                 compact_sprite_sheet.paste(sprite, (x, y))
 
+                # update progress bar
+                self.progress_bar_dialog.setValue(((i+1) / len(sprites)) * 100)
+
             # get rid of excess transparent pixels
             compact_sprite_sheet = compact_sprite_sheet.crop(compact_sprite_sheet.getbbox(alpha_only=True))
 
             # save the sprite sheet in the temp folder
             compact_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
 
-            # close the dialog
+            # close the dialogs
+            self.progress_bar_dialog.accept()
             self.accept()
