@@ -1133,6 +1133,9 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
             # save sprite sheet in the temp folder
             horizontal_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
 
+            # create data sheet
+            self.createDataSheet(data_sheet)
+
             # close the dialog
             self.accept()
 
@@ -1188,6 +1191,9 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
             # save sprite sheet in the temp folder
             reverse_horizontal_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
 
+            # create data sheet
+            self.createDataSheet(data_sheet)
+
             # close the dialog
             self.accept()
 
@@ -1240,6 +1246,9 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
 
             # save sprite sheet in the temp folder
             vertical_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
+
+            # create data sheet
+            self.createDataSheet(data_sheet)
 
             # close the dialog
             self.accept()
@@ -1295,6 +1304,9 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
 
             # save sprite sheet in the temp folder
             vertical_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
+
+            # create data sheet
+            self.createDataSheet(data_sheet)
 
             # close the dialog
             self.accept()
