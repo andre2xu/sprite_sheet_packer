@@ -119,11 +119,11 @@ class ScrollableArea(QtWidgets.QScrollArea):
         HOW ZOOM WORKS:
         Zoom is given as a decimal not a percentage, e.g. 50% = 0.5, 125% = 1.25, etc.
 
-        Zoom=200%, img * 2, sab * 2
-        Zoom=175%, img * 1.75, sab * 1.75
-        Zoom=150%, img * 1.5, sab * 1.5
-        Zoom=125%, img * 1.25, sab * 1.25
-        Zoom=100%, img * 1, sab * 1
+        Zoom=200%, img * 2, sab * 2+
+        Zoom=175%, img * 1.75, sab * 1.75+
+        Zoom=150%, img * 1.5, sab * 1.5+
+        Zoom=125%, img * 1.25, sab * 1.25+
+        Zoom=100%, img * 1, sab * 1+
         Zoom=75%, img * 0.75
         Zoom=50%, img * 0.5
         Zoom=25%, img * 0.25
@@ -134,15 +134,34 @@ class ScrollableArea(QtWidgets.QScrollArea):
         """
 
         if self.original_image_width != None and self.original_image_height != None:
+            # resize image
             new_size = QtCore.QSize(self.original_image_width * zoomFactor, self.original_image_height * zoomFactor)
 
             self.image_widget.setFixedSize(new_size)
 
+            # calculate the minimum dimensions needed to fit the image and has a bit of space around
+            min_width = self.original_sab_width
+            min_height = self.original_sab_height
+
+            if self.original_sab_width < self.original_image_width:
+                min_width = self.original_image_width
+
+            if self.original_sab_height < self.original_image_height:
+                min_height = self.original_image_height
+
+            min_width = min_width * 1.1
+            min_height = min_height * 1.1
+
+            # give the scroll area body a fixed size, that is larger than the image, to resize the scrollbars as well
             if zoomFactor > 1:
-                # set a fixed size to resize the scrollbars as well
                 self.scroll_area_body.setFixedSize(
-                    self.original_sab_width * zoomFactor,
-                    self.original_sab_height * zoomFactor
+                    min_width * zoomFactor,
+                    min_height * zoomFactor
+                )
+            elif zoomFactor == 1:
+                self.scroll_area_body.setFixedSize(
+                    min_width,
+                    min_height
                 )
 
             # re-position image in the center (I didn't scroll to center here because I consider it a non-zoom effect)
