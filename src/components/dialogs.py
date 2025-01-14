@@ -1266,6 +1266,8 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
             self.progress_bar_dialog.open()
             progress = 0
 
+            data_sheet = {}
+
             for i in range(len(sprites) - 1, -1, -1):
                 if self.cancel_packing:
                     # reset flag
@@ -1276,6 +1278,14 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
                 sprite = sprites[i]
 
                 vertical_sprite_sheet.paste(sprite, (x, y))
+
+                # add the current sprite's bounding box data to the data sheet
+                data_sheet[sprite.filename] = {
+                    'x': x,
+                    'y': y,
+                    'w': sprite.width,
+                    'h': sprite.height
+                }
 
                 # update progress bar
                 progress += 1
