@@ -1,4 +1,4 @@
-import pathlib, os, ast, re, datetime, rectpack
+import pathlib, os, ast, re, datetime, rectpack, json
 import PIL.Image, PIL.ImageColor
 from PySide6 import QtWidgets, QtCore, QtGui
 from PySide6.QtWidgets import QSizePolicy
@@ -1422,6 +1422,13 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
             # save the sprite sheet in the temp folder
             compact_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
 
+            # create data sheet
+            self.createDataSheet(data_sheet)
+
             # close the dialogs
             self.progress_bar_dialog.accept()
             self.accept()
+
+    def createDataSheet(self, data: dict):
+        with open(os.path.join(self.main_window.temp_folder_path, 'datasheet.json'), 'w+') as json_file:
+            json.dump(data, json_file, indent=4)
