@@ -1061,6 +1061,9 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
             if os.path.exists(sprite_image_src):
                 with PIL.Image.open(sprite_image_src) as sprite_image_file:
                     sprite = sprite_image_file.convert('RGBA')
+
+                    sprite.filename = os.path.basename(list_item.src)
+
                     sprite_images.append(sprite)
             else:
                 # mark sprite as missing and show error message
@@ -1292,6 +1295,8 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
             # iterate over the sprite data
             self.progress_bar_dialog.open()
 
+            data_sheet = {}
+
             for i in range(len(data)):
                 if self.cancel_packing:
                     # reset flag
@@ -1359,6 +1364,14 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
 
                 # add the current sprite on to the sprite sheet
                 compact_sprite_sheet.paste(sprite, (x, y))
+
+                # add the current sprite's bounding box data to the data sheet
+                data_sheet[sprite.filename] = {
+                    'x': x,
+                    'y': y,
+                    'w': sprite.width,
+                    'h': sprite.height
+                }
 
                 # update progress bar
                 self.progress_bar_dialog.setValue(((i+1) / len(sprites)) * 100)
