@@ -1,4 +1,4 @@
-import os
+import os, json
 from PySide6 import QtWidgets, QtCore
 from PySide6.QtWidgets import QSizePolicy
 
@@ -210,7 +210,7 @@ class SpritesManager(components.shared.VerticalBoxLayout):
             sprite_sheet_layout_dialog = components.dialogs.SpriteSheetLayoutDialog(main_window, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
 
             # display packed sprite sheet (if one was created)
-            sprite_sheet_layout_dialog.accepted.connect(lambda: main_window.workspace.sprite_sheet_preview.scrollable_area.displayImage(os.path.join(main_window.temp_folder_path, 'spritesheet.png')))
+            sprite_sheet_layout_dialog.accepted.connect(self.loadSheets)
 
             sprite_sheet_layout_dialog.open()
         else:
@@ -220,3 +220,20 @@ class SpritesManager(components.shared.VerticalBoxLayout):
                 "You need to open an existing project folder with sprites before you can do this. If you already have a project folder open, be sure to add sprites first.",
                 QtWidgets.QMessageBox.StandardButton.Ok
             )
+
+    def loadSheets(self):
+        main_window = self.parent().parent().parent()
+
+        if main_window.temp_folder_path != None:
+            sprite_sheet_file = os.path.join(main_window.temp_folder_path, 'spritesheet.png')
+            data_sheet_file = os.path.join(main_window.temp_folder_path, 'datasheet.json')
+
+            if os.path.exists(sprite_sheet_file) and os.path.exists(data_sheet_file):
+                # sprite sheet
+                main_window.workspace.sprite_sheet_preview.scrollable_area.displayImage(sprite_sheet_file)
+
+                # data sheet
+                with open(data_sheet_file) as json_file:
+                    data = json.load(json_file)
+
+                    main_window.workspace.sprite_sheet_preview.sprite_sheet_data_preview.displayData(data)
