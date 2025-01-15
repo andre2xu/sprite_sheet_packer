@@ -1,6 +1,6 @@
 import sys, pathlib, os, shutil, mimetypes, re, hashlib, datetime
 import PIL.Image
-from PySide6 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore, QtGui
 
 ### GUI COMPONENTS ###
 import components.shared
@@ -10,7 +10,7 @@ from components.MainWindow import Menubar, Workspace
 
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self, app, parent=None):
+    def __init__(self, app: QtWidgets.QApplication, parent: QtWidgets.QWidget = None):
         super(MainWindow, self).__init__(parent)
 
         self.app = app
@@ -45,7 +45,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.sprite_sheet_info_dialog = components.dialogs.SpriteSheetInfoDialog(self, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
 
-    def resizeEvent(self, event):
+    def resizeEvent(self, event: QtGui.QResizeEvent):
         super().resizeEvent(event)
 
         main_window_width = self.width()
@@ -69,7 +69,7 @@ class MainWindow(QtWidgets.QMainWindow):
             sprite_input_choice_dialog.sprite_sheet_option_image.setFixedSize(sprite_input_choice_dialog.sprite_sheet_option_image.pixmap().size())
             sprite_input_choice_dialog.selection_option_image.setFixedSize(sprite_input_choice_dialog.selection_option_image.pixmap().size())
 
-    def generateProjectFolder(self, path, enableOverwrite=False):
+    def generateProjectFolder(self, path: str, enableOverwrite: bool = False):
         if enableOverwrite:
             # delete existing folder
             shutil.rmtree(path)
@@ -146,7 +146,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 QtWidgets.QMessageBox.StandardButton.Ok
             )
 
-    def loadProjectFolder(self, path):
+    def loadProjectFolder(self, path: str):
         # check if the given folder exists
         if os.path.exists(path) == False:
             QtWidgets.QMessageBox.critical(
