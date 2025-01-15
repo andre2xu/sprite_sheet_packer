@@ -212,3 +212,6 @@ class SpriteSheetDataPreview(QtWidgets.QScrollArea):
             }
             """
         )
+
+    def displayData(self, data: dict):
+        print(data)
