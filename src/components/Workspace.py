@@ -82,6 +82,23 @@ class SpriteSheetPreview(QtWidgets.QWidget):
             """
         )
 
+        # make the buttons, and the zoom value, still take up space even when they are invisible
+        new_size_policy = self.preview_buttons.zoom_reset_button.sizePolicy()
+        new_size_policy.setRetainSizeWhenHidden(True)
+        self.preview_buttons.zoom_reset_button.setSizePolicy(new_size_policy)
+
+        new_size_policy = self.preview_buttons.zoom_out_button.sizePolicy()
+        new_size_policy.setRetainSizeWhenHidden(True)
+        self.preview_buttons.zoom_out_button.setSizePolicy(new_size_policy)
+
+        new_size_policy = self.preview_buttons.zoom_in_button.sizePolicy()
+        new_size_policy.setRetainSizeWhenHidden(True)
+        self.preview_buttons.zoom_in_button.setSizePolicy(new_size_policy)
+
+        new_size_policy = self.preview_buttons.zoom_value_display.sizePolicy()
+        new_size_policy.setRetainSizeWhenHidden(True)
+        self.preview_buttons.zoom_value_display.setSizePolicy(new_size_policy)
+
     def previewSpriteSheet(self):
         self.stacked_layout.setCurrentIndex(0)
         self.preview_buttons.raise_() # keep the preview buttons on top
