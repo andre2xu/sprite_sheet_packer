@@ -26,8 +26,6 @@ class SpriteSheetPreview(QtWidgets.QWidget):
         self.preview_buttons.preview_sprite_sheet_button.clicked.connect(self.previewSpriteSheet)
         self.preview_buttons.preview_data_sheet_button.clicked.connect(self.previewDataSheet)
 
-        self.previewDataSheet() # temp
-
         self.image_zoom = 1
         self.preview_buttons.zoom_out_button.clicked.connect(self.zoomOut)
         self.preview_buttons.zoom_in_button.clicked.connect(self.zoomIn)
