@@ -12,12 +12,12 @@ class SpriteInputChoiceDialog(QtWidgets.QDialog):
     class Option(components.shared.VerticalBoxLayout, QtCore.QObject):
         clicked = QtCore.Signal(QtGui.QMouseEvent)
 
-        def __init__(self, parent=None):
+        def __init__(self, parent: QtWidgets.QWidget | None = None):
             super().__init__(parent)
 
             self.setMouseTracking(True)
 
-        def enterEvent(self, event):
+        def enterEvent(self, event: QtGui.QEnterEvent):
             # change the text color when the mouse is hovering over
             self.children()[1].setStyleSheet(
                 """
@@ -28,7 +28,7 @@ class SpriteInputChoiceDialog(QtWidgets.QDialog):
 
             return super().enterEvent(event)
 
-        def leaveEvent(self, event):
+        def leaveEvent(self, event: QtGui.QMouseEvent):
             # reset the text color when the mouse is no longer hovering over the option
             self.children()[1].setStyleSheet(
                 """
@@ -39,13 +39,13 @@ class SpriteInputChoiceDialog(QtWidgets.QDialog):
 
             return super().leaveEvent(event)
 
-        def mouseReleaseEvent(self, event):
+        def mouseReleaseEvent(self, event: QtGui.QMouseEvent):
             if event.button() == QtCore.Qt.MouseButton.LeftButton:
                 self.clicked.emit(event)
 
             return super().mouseReleaseEvent(event)
 
-    def __init__(self, parent = ..., f = ...):
+    def __init__(self, parent: QtWidgets.QWidget | None = None, f: QtCore.Qt.WindowType = ...):
         super().__init__(parent, f)
 
         layout = QtWidgets.QVBoxLayout()
