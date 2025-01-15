@@ -13,26 +13,28 @@ class SpriteSheetPreview(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super(SpriteSheetPreview, self).__init__(parent)
 
-        stacked_layout = QtWidgets.QStackedLayout()
-        self.setLayout(stacked_layout)
+        self.stacked_layout = QtWidgets.QStackedLayout()
+        self.setLayout(self.stacked_layout)
 
         self.scrollable_area = ScrollableArea()
         self.sprite_sheet_data_preview = SpriteSheetDataPreview()
 
-        stacked_layout.addWidget(self.scrollable_area)
-        stacked_layout.addWidget(self.sprite_sheet_data_preview)
-
-        stacked_layout.setCurrentIndex(1) # temp
+        self.stacked_layout.addWidget(self.scrollable_area)
+        self.stacked_layout.addWidget(self.sprite_sheet_data_preview)
 
         self.preview_buttons = PreviewButtons(self)
+        self.preview_buttons.preview_sprite_sheet_button.clicked.connect(self.previewSpriteSheet)
+        self.preview_buttons.preview_data_sheet_button.clicked.connect(self.previewDataSheet)
+
+        self.previewDataSheet() # temp
 
         self.image_zoom = 1
         self.preview_buttons.zoom_out_button.clicked.connect(self.zoomOut)
         self.preview_buttons.zoom_in_button.clicked.connect(self.zoomIn)
         self.preview_buttons.zoom_reset_button.clicked.connect(self.zoomReset)
 
-        stacked_layout.setContentsMargins(0,0,0,0)
-        stacked_layout.setSpacing(0)
+        self.stacked_layout.setContentsMargins(0,0,0,0)
+        self.stacked_layout.setSpacing(0)
 
         self.setStyleSheet(
             """
@@ -79,6 +81,14 @@ class SpriteSheetPreview(QtWidgets.QWidget):
             }
             """
         )
+
+    def previewSpriteSheet(self):
+        self.stacked_layout.setCurrentIndex(0)
+        self.preview_buttons.raise_() # keep the preview buttons on top
+
+    def previewDataSheet(self):
+        self.stacked_layout.setCurrentIndex(1)
+        self.preview_buttons.raise_() # keep the preview buttons on top
 
     def zoomOut(self):
         new_zoom_value = round(self.image_zoom - 0.25, 2)
