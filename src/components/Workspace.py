@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QSizePolicy
 
 ### GUI COMPONENTS ###
 import components.shared, components.dialogs
-from components.SpriteSheetPreview import PreviewButtons, ScrollableArea
+from components.SpriteSheetPreview import PreviewButtons, ScrollableArea, SpriteSheetDataPreview
 from components.SpritesManager import Controls, SpritesList
 
 
@@ -17,8 +17,12 @@ class SpriteSheetPreview(QtWidgets.QWidget):
         self.setLayout(stacked_layout)
 
         self.scrollable_area = ScrollableArea()
+        self.sprite_sheet_data_preview = SpriteSheetDataPreview()
 
         stacked_layout.addWidget(self.scrollable_area)
+        stacked_layout.addWidget(self.sprite_sheet_data_preview)
+
+        stacked_layout.setCurrentIndex(1) # temp
 
         self.preview_buttons = PreviewButtons(self)
 

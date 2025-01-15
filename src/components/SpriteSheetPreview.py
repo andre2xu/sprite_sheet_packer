@@ -188,3 +188,27 @@ class ScrollableArea(QtWidgets.QScrollArea):
     def scrollToVerticalCenter(self):
         vertical_scrollbar = self.verticalScrollBar()
         vertical_scrollbar.setValue(vertical_scrollbar.maximum() // 2)
+
+
+
+class SpriteSheetDataPreview(QtWidgets.QScrollArea):
+    def __init__(self, parent=None):
+        super(SpriteSheetDataPreview, self).__init__(parent)
+
+        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+
+        self.scroll_area_body = QtWidgets.QLabel('No data')
+        self.scroll_area_body.setMinimumHeight(self.scroll_area_body.height() * 1.5)
+        self.scroll_area_body.setAlignment(QtCore.Qt.AlignmentFlag.AlignTop)
+
+        self.setWidget(self.scroll_area_body)
+        self.setWidgetResizable(True)
+
+        self.setStyleSheet(
+            """
+            QScrollArea QLabel {
+                margin-top: 70px;
+                margin-left: 15px;
+            }
+            """
+        )
