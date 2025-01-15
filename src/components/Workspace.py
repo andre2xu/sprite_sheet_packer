@@ -86,9 +86,25 @@ class SpriteSheetPreview(QtWidgets.QWidget):
         self.stacked_layout.setCurrentIndex(0)
         self.preview_buttons.raise_() # keep the preview buttons on top
 
+        # show zoom buttons
+        self.preview_buttons.zoom_out_button.setVisible(True)
+        self.preview_buttons.zoom_in_button.setVisible(True)
+        self.preview_buttons.zoom_reset_button.setVisible(True)
+
+        # show zoom value
+        self.preview_buttons.zoom_value_display.setVisible(True)
+
     def previewDataSheet(self):
         self.stacked_layout.setCurrentIndex(1)
         self.preview_buttons.raise_() # keep the preview buttons on top
+
+        # hide zoom buttons
+        self.preview_buttons.zoom_out_button.setVisible(False)
+        self.preview_buttons.zoom_in_button.setVisible(False)
+        self.preview_buttons.zoom_reset_button.setVisible(False)
+
+        # hide zoom value
+        self.preview_buttons.zoom_value_display.setVisible(False)
 
     def zoomOut(self):
         new_zoom_value = round(self.image_zoom - 0.25, 2)
