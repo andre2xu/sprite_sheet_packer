@@ -6,13 +6,13 @@ from PySide6 import QtWidgets, QtGui, QtCore
 
 ### LAYOUTS ###
 class Layout(QtWidgets.QWidget):
-    def __init__(self, layout: QtWidgets.QLayout, parent=None):
+    def __init__(self, layout: QtWidgets.QLayout, parent: QtWidgets.QWidget = None):
         super(Layout, self).__init__(parent)
 
         self.lyt = layout
         self.setLayout(layout)
 
-    def addWidgets(self, widgets: list):
+    def addWidgets(self, widgets: list[QtWidgets.QWidget]):
         for i in range(len(widgets)):
             self.lyt.addWidget(widgets[i])
 
@@ -32,11 +32,11 @@ class Layout(QtWidgets.QWidget):
         )
 
 class HorizontalBoxLayout(Layout):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QtWidgets.QWidget = None):
         super(HorizontalBoxLayout, self).__init__(QtWidgets.QHBoxLayout(), parent)
 
 class VerticalBoxLayout(Layout):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QtWidgets.QWidget = None):
         super(VerticalBoxLayout, self).__init__(QtWidgets.QVBoxLayout(), parent)
 
 
