@@ -374,7 +374,7 @@ class FileMenuNewProjectDialog(QtWidgets.QDialog):
 
 
 class SpriteSheetInfoDialog(QtWidgets.QDialog):
-    def __init__(self, parent = ..., f = ...):
+    def __init__(self, parent: QtWidgets.QWidget | None = None, f: QtCore.Qt.WindowType = ...):
         super().__init__(parent, f)
 
         self.uploaded_sprite_sheet_path = None
