@@ -230,10 +230,10 @@ class Controls(components.shared.HorizontalBoxLayout):
 
 class SpritesList(components.shared.VerticalBoxLayout):
     class List(QtWidgets.QListWidget):
-        def __init__(self, parent=None):
+        def __init__(self, parent: QtWidgets.QWidget | None = None):
             super().__init__(parent)
 
-        def keyReleaseEvent(self, event):
+        def keyReleaseEvent(self, event: QtGui.QKeyEvent):
             if event.key() == QtCore.Qt.Key.Key_Delete:
                 selected_list_item = self.currentItem()
 
@@ -247,7 +247,7 @@ class SpritesList(components.shared.VerticalBoxLayout):
         def __init_subclass__(cls):
             return super().__init_subclass__()
 
-    def __init__(self, parent=None):
+    def __init__(self, parent: QtWidgets.QWidget | None = None):
         super(SpritesList, self).__init__(parent)
 
         self.vertical_list = self.List(self)
