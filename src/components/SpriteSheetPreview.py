@@ -1,4 +1,4 @@
-import pathlib, os
+import pathlib, os, json, re
 from PySide6 import QtWidgets, QtCore, QtGui
 from PySide6.QtWidgets import QSizePolicy
 
@@ -198,6 +198,7 @@ class SpriteSheetDataPreview(QtWidgets.QScrollArea):
         self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
 
         self.scroll_area_body = QtWidgets.QLabel('No data')
+        self.scroll_area_body.setTextFormat(QtCore.Qt.TextFormat.RichText) # add support for HTML syntax
         self.scroll_area_body.setMinimumHeight(self.scroll_area_body.height() * 1.5)
         self.scroll_area_body.setAlignment(QtCore.Qt.AlignmentFlag.AlignTop)
 
@@ -214,4 +215,18 @@ class SpriteSheetDataPreview(QtWidgets.QScrollArea):
         )
 
     def displayData(self, data: dict):
-        print(data)
+        # parse dictionary
+        json_string = json.dumps(data, indent=4)
+
+        # apply colors
+        json_string = json_string.replace(' ', '&nbsp;')
+        json_string = re.sub(r'".*"', lambda m: f'<font color="#90b2e8">{m.group()}</font>', json_string)
+        json_string = json_string.replace('{', '<font color="#df90e8">{</font>')
+        json_string = json_string.replace('}', '<font color="#df90e8">}</font>')
+        json_string = json_string.replace('\n', '<br>')
+
+        # change displayed data
+        self.scroll_area_body.setText(json_string)
+
+        # update scrollable area height
+        self.scroll_area_body.setMinimumHeight(self.scroll_area_body.sizeHint().height() * 1.05)
