@@ -261,8 +261,6 @@ class SpritesList(components.shared.VerticalBoxLayout):
         self.vertical_list.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.vertical_list.customContextMenuRequested.connect(self.displayContextMenu)
 
-        default_sprite_list_item_icon = QtGui.QIcon(os.path.join(pathlib.Path(__file__).parent.resolve(), '../../local/icons/default_sprite_icon.png'))
-
         # NOTE: the 'QListWidget::item' styles aren't used since the custom list item delegate overrides them but they should be kept for reference and as fallback
         self.vertical_list.setStyleSheet(
             """
