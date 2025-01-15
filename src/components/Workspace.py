@@ -10,7 +10,7 @@ from components.SpritesManager import Controls, SpritesList
 
 
 class SpriteSheetPreview(QtWidgets.QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QtWidgets.QWidget | None = None):
         super(SpriteSheetPreview, self).__init__(parent)
 
         self.stacked_layout = QtWidgets.QStackedLayout()
@@ -151,7 +151,7 @@ class SpriteSheetPreview(QtWidgets.QWidget):
 
 
 class SpritesManager(components.shared.VerticalBoxLayout):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QtWidgets.QWidget | None = None):
         super(SpritesManager, self).__init__(parent)
 
         self.controls = Controls(self)
