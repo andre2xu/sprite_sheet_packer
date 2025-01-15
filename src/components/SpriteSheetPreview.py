@@ -210,6 +210,7 @@ class SpriteSheetDataPreview(QtWidgets.QScrollArea):
             QScrollArea QLabel {
                 margin-top: 70px;
                 margin-left: 15px;
+                font-size: 14px;
             }
             """
         )
