@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QSizePolicy
 
 
 class PreviewButtons(QtWidgets.QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QtWidgets.QWidget | None = None):
         super(PreviewButtons, self).__init__(parent)
 
         self.setObjectName('SSPB') # id for styling
@@ -52,7 +52,7 @@ class PreviewButtons(QtWidgets.QWidget):
 
 
 class ScrollableArea(QtWidgets.QScrollArea):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QtWidgets.QWidget | None = None):
         super(ScrollableArea, self).__init__(parent)
 
         self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
@@ -114,7 +114,7 @@ class ScrollableArea(QtWidgets.QScrollArea):
         centerY = self.scroll_area_body.height() // 2
         self.image_widget.move(centerX - (self.image_widget.width() // 2), centerY - (self.image_widget.height() // 2))
 
-    def setZoom(self, zoomFactor):
+    def setZoom(self, zoomFactor: int | float):
         """
         HOW ZOOM WORKS:
         Zoom is given as a decimal not a percentage, e.g. 50% = 0.5, 125% = 1.25, etc.
@@ -192,7 +192,7 @@ class ScrollableArea(QtWidgets.QScrollArea):
 
 
 class SpriteSheetDataPreview(QtWidgets.QScrollArea):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QtWidgets.QWidget | None = None):
         super(SpriteSheetDataPreview, self).__init__(parent)
 
         self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
