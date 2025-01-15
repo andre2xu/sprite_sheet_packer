@@ -9,12 +9,16 @@ from components.SpritesManager import Controls, SpritesList
 
 
 
-class SpriteSheetPreview(components.shared.VerticalBoxLayout):
+class SpriteSheetPreview(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super(SpriteSheetPreview, self).__init__(parent)
 
+        stacked_layout = QtWidgets.QStackedLayout()
+        self.setLayout(stacked_layout)
+
         self.scrollable_area = ScrollableArea()
-        self.lyt.addWidget(self.scrollable_area)
+
+        stacked_layout.addWidget(self.scrollable_area)
 
         self.preview_buttons = PreviewButtons(self)
 
@@ -23,8 +27,8 @@ class SpriteSheetPreview(components.shared.VerticalBoxLayout):
         self.preview_buttons.zoom_in_button.clicked.connect(self.zoomIn)
         self.preview_buttons.zoom_reset_button.clicked.connect(self.zoomReset)
 
-        self.lyt.setContentsMargins(0,0,0,0)
-        self.lyt.setSpacing(0)
+        stacked_layout.setContentsMargins(0,0,0,0)
+        stacked_layout.setSpacing(0)
 
         self.setStyleSheet(
             """
