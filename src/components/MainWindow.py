@@ -9,7 +9,7 @@ from components.Workspace import SpriteSheetPreview, SpritesManager
 
 
 class Menubar(QtWidgets.QMenuBar):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QtWidgets.QWidget | None = None):
         super(Menubar, self).__init__(parent)
 
         main_window = self.parent()
@@ -174,7 +174,7 @@ class Menubar(QtWidgets.QMenuBar):
 
 
 class Workspace(components.shared.HorizontalBoxLayout):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QtWidgets.QWidget | None = None):
         super(Workspace, self).__init__(parent)
 
         self.lyt.setSpacing(0)
