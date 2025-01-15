@@ -167,7 +167,7 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
 
 ### COMPONENTS ###
 class Controls(components.shared.HorizontalBoxLayout):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QtWidgets.QWidget | None = None):
         super(Controls, self).__init__(parent)
 
         self.main_window = parent.parent().parent()
