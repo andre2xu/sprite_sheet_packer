@@ -241,6 +241,9 @@ class MainWindow(QtWidgets.QMainWindow):
         # clear sprite sheet preview
         self.workspace.sprite_sheet_preview.scrollable_area.clearImage()
 
+        # clear sprite sheet data preview
+        self.workspace.sprite_sheet_preview.sprite_sheet_data_preview.clearData()
+
         # reset window title
         self.setWindowTitle(self.window_title_base)
 

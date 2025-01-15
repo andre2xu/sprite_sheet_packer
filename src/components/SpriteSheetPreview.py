@@ -230,3 +230,6 @@ class SpriteSheetDataPreview(QtWidgets.QScrollArea):
 
         # update scrollable area height
         self.scroll_area_body.setMinimumHeight(self.scroll_area_body.sizeHint().height() * 1.05)
+
+    def clearData(self):
+        self.scroll_area_body.setText('No data')
