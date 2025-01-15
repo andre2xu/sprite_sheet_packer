@@ -153,7 +153,7 @@ class SpriteInputChoiceDialog(QtWidgets.QDialog):
 
 
 class FileMenuNewProjectDialog(QtWidgets.QDialog):
-    def __init__(self, parent = ..., f = ...):
+    def __init__(self, parent: QtWidgets.QWidget | None = None, f: QtCore.Qt.WindowType = ...):
         super().__init__(parent, f)
 
         layout = QtWidgets.QVBoxLayout()
