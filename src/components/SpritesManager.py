@@ -13,13 +13,13 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
     def __init__(self):
         super(SpritesListItemDelegate, self).__init__()
 
-    def editorEvent(self, event, model, option, index):
+    def editorEvent(self, event: QtCore.QEvent, model: QtCore.QAbstractItemModel, option: QtWidgets.QStyleOptionViewItem, index: QtCore.QModelIndex | QtCore.QPersistentModelIndex):
         if event.type() == event.Type.MouseMove:
             option.widget.viewport().setCursor(QtCore.Qt.CursorShape.OpenHandCursor)
 
         return super().editorEvent(event, model, option, index)
 
-    def paint(self, painter, option, index):
+    def paint(self, painter: QtGui.QPainter, option: QtWidgets.QStyleOptionViewItem, index: QtCore.QModelIndex | QtCore.QPersistentModelIndex):
         painter.save()
 
         if option.state & QtWidgets.QStyle.StateFlag.State_Selected:
@@ -96,7 +96,7 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
 
         painter.restore()
 
-    def createEditor(self, parent, *_):
+    def createEditor(self, parent: QtWidgets.QWidget, *_):
         # change styling of the line edit that's used for renaming
         editor = QtWidgets.QLineEdit(parent)
 
@@ -109,7 +109,7 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
 
         return editor
 
-    def updateEditorGeometry(self, editor, option, index):
+    def updateEditorGeometry(self, editor: QtWidgets.QWidget, option: QtWidgets.QStyleOptionViewItem, index: QtCore.QModelIndex | QtCore.QPersistentModelIndex):
         list_widget = option.widget
         list_item = list_widget.itemFromIndex(index)
 
@@ -127,7 +127,7 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
 
         editor.setGeometry(new_rect)
 
-    def setModelData(self, editor, model, index):
+    def setModelData(self, editor: QtWidgets.QWidget, model: QtCore.QAbstractItemModel, index: QtCore.QModelIndex | QtCore.QPersistentModelIndex):
         list_widget = model.parent()
 
         try:
