@@ -927,7 +927,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
 
 
 class SpriteSheetLayoutDialog(QtWidgets.QDialog):
-    def __init__(self, parent = ..., f = ...):
+    def __init__(self, parent: QtWidgets.QWidget | None = None, f: QtCore.Qt.WindowType = ...):
         super().__init__(parent, f)
 
         self.main_window = self.parent()
