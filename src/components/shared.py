@@ -6,7 +6,7 @@ from PySide6 import QtWidgets, QtGui, QtCore
 
 ### LAYOUTS ###
 class Layout(QtWidgets.QWidget):
-    def __init__(self, layout: QtWidgets.QLayout, parent: QtWidgets.QWidget = None):
+    def __init__(self, layout: QtWidgets.QLayout, parent: QtWidgets.QWidget | None = None):
         super(Layout, self).__init__(parent)
 
         self.lyt = layout
@@ -32,11 +32,11 @@ class Layout(QtWidgets.QWidget):
         )
 
 class HorizontalBoxLayout(Layout):
-    def __init__(self, parent: QtWidgets.QWidget = None):
+    def __init__(self, parent: QtWidgets.QWidget | None = None):
         super(HorizontalBoxLayout, self).__init__(QtWidgets.QHBoxLayout(), parent)
 
 class VerticalBoxLayout(Layout):
-    def __init__(self, parent: QtWidgets.QWidget = None):
+    def __init__(self, parent: QtWidgets.QWidget | None = None):
         super(VerticalBoxLayout, self).__init__(QtWidgets.QVBoxLayout(), parent)
 
 

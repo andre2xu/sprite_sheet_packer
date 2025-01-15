@@ -10,7 +10,7 @@ from components.MainWindow import Menubar, Workspace
 
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self, app: QtWidgets.QApplication, parent: QtWidgets.QWidget = None):
+    def __init__(self, app: QtWidgets.QApplication, parent: QtWidgets.QWidget | None = None):
         super(MainWindow, self).__init__(parent)
 
         self.app = app
