@@ -89,6 +89,9 @@ class Menubar(QtWidgets.QMenuBar):
         file_menu_export_data_sheet.triggered.connect(self.exportDataSheet)
 
         # HELP MENU SLOTS
+        tutorial_window = components.shared.TutorialWindow()
+
+        help_menu_tutorial.triggered.connect(lambda: tutorial_window.show())
         help_menu_my_channel.triggered.connect(lambda: QtGui.QDesktopServices.openUrl('https://www.youtube.com/@AndrewsPetProjects'))
         help_menu_source_code.triggered.connect(lambda: QtGui.QDesktopServices.openUrl('https://github.com/andre2xu/sprite_sheet_packer'))
 

@@ -343,3 +343,11 @@ class SpriteSheet():
     def close(self):
         if self.sprite_sheet != None:
             self.sprite_sheet.close()
+
+class TutorialWindow(VerticalBoxLayout):
+    def __init__(self, parent: QtWidgets.QWidget | None = None):
+        super(TutorialWindow, self).__init__(parent)
+
+        self.setFixedWidth(500)
+        self.setMinimumHeight(600)
+        self.setWindowTitle('Sprite Sheet Packer Tutorial')
