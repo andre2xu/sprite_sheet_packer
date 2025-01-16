@@ -1,6 +1,6 @@
 import os, shutil
 import PIL.Image
-from PySide6 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore, QtGui
 
 ### GUI COMPONENTS ###
 import components.shared, components.dialogs
@@ -81,16 +81,16 @@ class Menubar(QtWidgets.QMenuBar):
             """
         )
 
-        # FILE MENU > NEW PROJECT ACTION
+        # FILE MENU SLOTS
         self.file_menu_new_project_dialog = components.dialogs.FileMenuNewProjectDialog(main_window, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
 
         file_menu_new_project.triggered.connect(lambda: self.file_menu_new_project_dialog.open())
-
-        # FILE MENU > EXPORT SPRITE SHEET ACTION
         file_menu_export_sprite_sheet.triggered.connect(self.exportSpriteSheet)
-
-        # FILE MENU > EXPORT DATA SHEET ACTION
         file_menu_export_data_sheet.triggered.connect(self.exportDataSheet)
+
+        # HELP MENU SLOTS
+        help_menu_my_channel.triggered.connect(lambda: QtGui.QDesktopServices.openUrl('https://www.youtube.com/@AndrewsPetProjects'))
+        help_menu_source_code.triggered.connect(lambda: QtGui.QDesktopServices.openUrl('https://github.com/andre2xu/sprite_sheet_packer'))
 
     def exportSpriteSheet(self):
         main_window = self.parent()
