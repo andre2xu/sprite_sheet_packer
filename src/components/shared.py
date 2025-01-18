@@ -374,6 +374,10 @@ class TutorialWindow(VerticalBoxLayout):
             QScrollBar::handle {
                 background-color: #5f656a;
             }
+
+            QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+                background-color: #383b3f;
+            }
             """
         )
 
