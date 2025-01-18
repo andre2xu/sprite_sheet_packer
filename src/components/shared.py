@@ -418,7 +418,7 @@ class TutorialWindow(VerticalBoxLayout):
             """
         )
 
-        # TUTORIAL:
+        # TUTORIAL: How to add sprites using an existing sprite sheet
         tutorial2 = QtWidgets.QLabel()
         tutorial2.setTextFormat(QtCore.Qt.TextFormat.RichText)
         tutorial2.setWordWrap(True)
