@@ -351,3 +351,35 @@ class TutorialWindow(VerticalBoxLayout):
         self.setFixedWidth(500)
         self.setMinimumHeight(600)
         self.setWindowTitle('Sprite Sheet Packer Tutorial')
+
+        self.setContentsMargins(0,0,0,0)
+        self.lyt.setSpacing(0)
+        self.lyt.setContentsMargins(0,0,0,0)
+
+        scroll_area = QtWidgets.QScrollArea()
+        scroll_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        scroll_area.setWidgetResizable(True)
+
+        scroll_area.setStyleSheet(
+            """
+            QScrollArea {
+                border-radius: 0px;
+            }
+
+            QScrollBar {
+                width: 4px;
+                background-color: transparent;
+            }
+
+            QScrollBar::handle {
+                background-color: #5f656a;
+            }
+            """
+        )
+
+        scroll_area_body = VerticalBoxLayout()
+        scroll_area_body.setStyleSheet("""background-color: #383b3f;""")
+
+        scroll_area.setWidget(scroll_area_body)
+
+        self.lyt.addWidget(scroll_area)
