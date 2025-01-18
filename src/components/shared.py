@@ -448,9 +448,30 @@ class TutorialWindow(VerticalBoxLayout):
             """
         )
 
+        # TUTORIAL: How to edit the sprites list
+        tutorial3 = QtWidgets.QLabel()
+        tutorial3.setTextFormat(QtCore.Qt.TextFormat.RichText)
+        tutorial3.setWordWrap(True)
+        tutorial3.setStyleSheet("""margin-top: 40px; margin-bottom: 40px;""")
+
+        tutorial3.setText(
+            """
+            <h2>How to edit the sprites list</h2>
+
+            <ol style="font-size:14px;">
+                <li style="margin-bottom:10px;">Right click on a sprite in the sprites list to open a context menu.</li>
+
+                <li style="margin-bottom:10px;">Hit [Rename] or double click on the sprite to change its file name (this only changes the name of the copy contained in the project's 'sprites' folder, not the original file).</li>
+
+                <li style="margin-bottom:10px;">Hit [Delete] or the delete key in your keyboard to get rid of the sprite (this only deletes the copy contained in the project's 'sprites' folder, not the original file).</li>
+            </ol>
+            """
+        )
+
         scroll_area_body.addWidgets([
             tutorial1,
-            tutorial2
+            tutorial2,
+            tutorial3
         ])
 
         scroll_area.setWidget(scroll_area_body)
