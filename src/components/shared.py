@@ -394,6 +394,7 @@ class TutorialWindow(VerticalBoxLayout):
         tutorial1 = QtWidgets.QLabel()
         tutorial1.setTextFormat(QtCore.Qt.TextFormat.RichText)
         tutorial1.setWordWrap(True)
+        tutorial1.setStyleSheet("""margin-top: 20px;""")
 
         tutorial1.setText(
             """
@@ -417,8 +418,39 @@ class TutorialWindow(VerticalBoxLayout):
             """
         )
 
+        # TUTORIAL:
+        tutorial2 = QtWidgets.QLabel()
+        tutorial2.setTextFormat(QtCore.Qt.TextFormat.RichText)
+        tutorial2.setWordWrap(True)
+        tutorial2.setStyleSheet("""margin-top: 40px;""")
+
+        tutorial2.setText(
+            """
+            <h2>How to add sprites using an existing sprite sheet</h2>
+
+            <ol style="font-size:14px;">
+                <li style="margin-bottom:10px;">First create a new project or open an existing one. Click on [File] > [New project] or [File] > [Open project].</li>
+
+                <li style="margin-bottom:10px;">Click on the [Add Sprites] button and select the [Sheet] input type.</li>
+
+                <li style="margin-bottom:10px;">Find your sprite sheet and double click on it. This will open up a dialog that asks you for information about your sheet.</li>
+
+                <li style="margin-bottom:10px;">Specify the area to scan. This area determines which part of the sprite sheet to check for sprites. By default, it is set to the entire sprite sheet. The width and height refers to an invisible box on your sprite sheet (i.e. the area to scan). The 'StartX' and the 'StartY' fields is how you move the box in the sprite sheet; the movement is relative to the top left corner of the sheet and is in pixels. Make sure that the box stays within the sheet's edges. If it doesn't, you will either have to resize it or change its position.</li>
+
+                <li style="margin-bottom:10px;">Specify the dimensions of the grid squares on your sprite sheet. It's expected that every grid square has the same dimension and are divided evenly in the sheet (vertically & horizontally).</li>
+
+                <li style="margin-bottom:10px;">Specify the background color of the sprite sheet. This can be done manually by entering an RGB or hex code in the field, or by clicking on the [Auto Find] button which will get the most common color (transparent pixels included).</li>
+
+                <li style="margin-bottom:10px;">Specify the background color's opacity in percentage. Note that the [Auto Find] button will fill this in.</li>
+
+                <li>Click the [Start Scan] button and wait for the sprites list to be populated.</li>
+            </ol>
+            """
+        )
+
         scroll_area_body.addWidgets([
-            tutorial1
+            tutorial1,
+            tutorial2
         ])
 
         scroll_area.setWidget(scroll_area_body)
