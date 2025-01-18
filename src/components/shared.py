@@ -378,7 +378,44 @@ class TutorialWindow(VerticalBoxLayout):
         )
 
         scroll_area_body = VerticalBoxLayout()
-        scroll_area_body.setStyleSheet("""background-color: #383b3f;""")
+        scroll_area_body.setStyleSheet(
+            """
+                background-color: #383b3f;
+                padding-left: 10px;
+                padding-right: 30px;
+            """
+        )
+
+        # TUTORIAL: How to create a packed sprite sheet
+        tutorial1 = QtWidgets.QLabel()
+        tutorial1.setTextFormat(QtCore.Qt.TextFormat.RichText)
+        tutorial1.setWordWrap(True)
+
+        tutorial1.setText(
+            """
+            <h2>How to create a packed sprite sheet</h2>
+
+            <ol style="font-size:14px;">
+                <li style="margin-bottom:10px;">First create a new project or open an existing one. Click on [File] > [New project] or [File] > [Open project].</li>
+
+                <li style="margin-bottom:10px;">Add sprites to the project by clicking the [Add Sprites] button. Choose whether you want to use sprites from an existing sprite sheet, or prefer to select them individually from your machine.</li>
+
+                <li style="margin-bottom:10px;">Once the sprites list is populated, click the [Pack Sprites] icon button to the right of the [Add Sprites] button.</li>
+
+                <li style="margin-bottom:10px;">Choose the layout for your sprite sheet.</li>
+
+                <li style="margin-bottom:10px;">Wait for the packing to finish after selecting a layout. Either the sprite sheet or its data will appear in the preview (this depends on which preview you have toggled) when it's done.</li>
+
+                <li style="margin-bottom:10px;">To save your new sprite sheet, click on [File] > [Export sprite sheet]. Provide a name for the file and hit save.</li>
+
+                <li>To save its data sheet, click on [File] > [Export data sheet]. Provide a name for the file and hit save.</li>
+            </ol>
+            """
+        )
+
+        scroll_area_body.addWidgets([
+            tutorial1
+        ])
 
         scroll_area.setWidget(scroll_area_body)
 
