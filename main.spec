@@ -5,7 +5,7 @@ a = Analysis(
     ['src\\main.py'],
     pathex=[],
     binaries=[],
-    datas=[('src/icons/*.png', 'icons')],
+    datas=[('src/icons/*.png', 'icons'), ('src/icons/*.ico', 'icons')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -32,6 +32,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon='./src/icons/app_icon.ico'
 )
 coll = COLLECT(
     exe,
