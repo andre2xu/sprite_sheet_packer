@@ -15,7 +15,7 @@ class PreviewButtons(QtWidgets.QWidget):
         layout = QtWidgets.QHBoxLayout(self)
         layout.setContentsMargins(0,0,0,0)
 
-        ICONS_FOLDER_PATH = os.path.join(pathlib.Path(__file__).parent.resolve(), '../icons')
+        ICONS_FOLDER_PATH = os.path.join(pathlib.Path(__file__).parent.parent.resolve(), 'icons')
 
         self.preview_sprite_sheet_button = QtWidgets.QPushButton(QtGui.QIcon(os.path.join(ICONS_FOLDER_PATH, 'sprite_sheet_preview_icon.png')), '')
         self.preview_data_sheet_button = QtWidgets.QPushButton('</>')

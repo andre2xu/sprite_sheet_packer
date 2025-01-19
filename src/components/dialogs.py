@@ -114,7 +114,7 @@ class SpriteInputChoiceDialog(QtWidgets.QDialog):
         body = QtWidgets.QWidget()
         body.setObjectName('DialogBody')
 
-        ICONS_FOLDER_PATH = os.path.join(pathlib.Path(__file__).parent.resolve(), '../icons')
+        ICONS_FOLDER_PATH = os.path.join(pathlib.Path(__file__).parent.parent.resolve(), 'icons')
 
         self.sprite_sheet_option = self.Option()
         self.sprite_sheet_option.lyt.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
