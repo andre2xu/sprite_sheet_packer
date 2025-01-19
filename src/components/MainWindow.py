@@ -126,6 +126,9 @@ class Menubar(QtWidgets.QMenuBar):
 
                 # save sprite sheet
                 with PIL.Image.open(os.path.join(main_window.temp_folder_path, sprite_sheet_file)) as sprite_sheet:
+                    if save_path.find('.png') == -1:
+                        save_path += '.png'
+
                     sprite_sheet.save(save_path)
         else:
             QtWidgets.QMessageBox.critical(
@@ -165,6 +168,9 @@ class Menubar(QtWidgets.QMenuBar):
                     return
 
                 # save data sheet
+                if save_path.find('.json') == -1:
+                    save_path += '.json'
+
                 shutil.copy(os.path.join(main_window.temp_folder_path, data_sheet_file), save_path)
         else:
             QtWidgets.QMessageBox.critical(
