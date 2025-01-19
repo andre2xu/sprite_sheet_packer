@@ -42,6 +42,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.window_title_base = 'Sprite Sheet Packer'
         self.setWindowTitle(self.window_title_base)
+        self.setWindowIcon(QtGui.QIcon(os.path.join(pathlib.Path(__file__).parent.resolve(), './icons/app_icon.png')))
 
         self.sprite_sheet_info_dialog = components.dialogs.SpriteSheetInfoDialog(self, QtCore.Qt.WindowType.Dialog | QtCore.Qt.WindowType.FramelessWindowHint)
 

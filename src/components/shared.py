@@ -1,4 +1,4 @@
-import os, mimetypes, numpy
+import os, mimetypes, numpy, pathlib
 import PIL.Image
 from PySide6 import QtWidgets, QtGui, QtCore
 
@@ -351,6 +351,7 @@ class TutorialWindow(VerticalBoxLayout):
         self.setFixedWidth(500)
         self.setMinimumHeight(600)
         self.setWindowTitle('Sprite Sheet Packer Tutorial')
+        self.setWindowIcon(QtGui.QIcon(os.path.join(pathlib.Path(__file__).parent.resolve(), '../icons/app_icon.png')))
 
         self.setContentsMargins(0,0,0,0)
         self.lyt.setSpacing(0)
