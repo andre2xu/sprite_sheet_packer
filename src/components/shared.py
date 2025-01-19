@@ -395,7 +395,13 @@ class TutorialWindow(VerticalBoxLayout):
         tutorial1 = QtWidgets.QLabel()
         tutorial1.setTextFormat(QtCore.Qt.TextFormat.RichText)
         tutorial1.setWordWrap(True)
-        tutorial1.setStyleSheet("""margin-top: 20px;""")
+
+        tutorial1.setStyleSheet(
+            """
+                margin-top: 20px;
+                color: white;
+            """
+        )
 
         tutorial1.setText(
             """
@@ -423,7 +429,13 @@ class TutorialWindow(VerticalBoxLayout):
         tutorial2 = QtWidgets.QLabel()
         tutorial2.setTextFormat(QtCore.Qt.TextFormat.RichText)
         tutorial2.setWordWrap(True)
-        tutorial2.setStyleSheet("""margin-top: 40px;""")
+
+        tutorial2.setStyleSheet(
+            """
+                margin-top: 40px;
+                color: white;
+            """
+        )
 
         tutorial2.setText(
             """
@@ -453,7 +465,14 @@ class TutorialWindow(VerticalBoxLayout):
         tutorial3 = QtWidgets.QLabel()
         tutorial3.setTextFormat(QtCore.Qt.TextFormat.RichText)
         tutorial3.setWordWrap(True)
-        tutorial3.setStyleSheet("""margin-top: 40px; margin-bottom: 40px;""")
+
+        tutorial3.setStyleSheet(
+            """
+                margin-top: 40px;
+                margin-bottom: 40px;
+                color: white;
+            """
+        )
 
         tutorial3.setText(
             """

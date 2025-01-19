@@ -74,6 +74,8 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
                 text = f'{text[:-3]}...'
 
         # draw text
+        painter.setPen(QtGui.QColor('#ffffff'))
+
         painter.drawText(
             text_rect,
             QtCore.Qt.AlignmentFlag.AlignLeft | QtCore.Qt.AlignmentFlag.AlignVCenter,
@@ -208,6 +210,7 @@ class Controls(components.shared.HorizontalBoxLayout):
                 background-color: #212124;
                 padding: 8px 20px;
                 margin: 0px 5px;
+                color: white;
             }
             """
         )

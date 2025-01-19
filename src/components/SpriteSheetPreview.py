@@ -33,6 +33,9 @@ class PreviewButtons(QtWidgets.QWidget):
             self.zoom_value_display
         ]
 
+        self.preview_data_sheet_button.setStyleSheet("""color: white;""")
+        self.zoom_value_display.setStyleSheet("""color: white;""")
+
         # add a tooltip to each of the buttons
         self.preview_sprite_sheet_button.setToolTip('Preview Sprite Sheet')
         self.preview_data_sheet_button.setToolTip('Preview Data Sheet')
@@ -211,6 +214,7 @@ class SpriteSheetDataPreview(QtWidgets.QScrollArea):
                 margin-top: 70px;
                 margin-left: 15px;
                 font-size: 14px;
+                color: white;
             }
             """
         )

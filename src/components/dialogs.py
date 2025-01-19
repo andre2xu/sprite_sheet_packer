@@ -70,6 +70,7 @@ class SpriteInputChoiceDialog(QtWidgets.QDialog):
             #DialogTitleBar QLabel {
                 font-weight: bold;
                 margin-left: 8px;
+                color: white;
             }
 
             #DialogTitleBar QPushButton {
@@ -90,6 +91,7 @@ class SpriteInputChoiceDialog(QtWidgets.QDialog):
             #DialogBody QLabel {
                 background-position: top center;
                 background-repeat: none;
+                color: white;
             }
             """
         )
@@ -178,6 +180,7 @@ class FileMenuNewProjectDialog(QtWidgets.QDialog):
                 #DialogTitleBar QLabel {
                     font-weight: bold;
                     margin-left: 8px;
+                    color: white;
                 }
 
                 #DialogTitleBar QPushButton {
@@ -246,6 +249,7 @@ class FileMenuNewProjectDialog(QtWidgets.QDialog):
             """
             #FolderNameFieldContainer QLabel {
                 margin: 15px 15px 10px;
+                color: white;
             }
 
             #FolderNameFieldContainer QLineEdit {
@@ -293,6 +297,7 @@ class FileMenuNewProjectDialog(QtWidgets.QDialog):
             """
             #FolderLocationFieldContainer QLabel {
                 margin: 15px 15px 10px;
+                color: white;
             }
 
             #FolderLocationFieldSubContainer {
@@ -314,6 +319,7 @@ class FileMenuNewProjectDialog(QtWidgets.QDialog):
                 border-radius: 0px;
                 background-color: #2b2b35;
                 padding: 0 8px;
+                color: white;
             }
             """
         )
@@ -329,6 +335,7 @@ class FileMenuNewProjectDialog(QtWidgets.QDialog):
                 padding: 6px;
                 border-radius: 6px;
                 background-color: #47474e;
+                color: white;
             }
 
             QPushButton:hover {
@@ -402,6 +409,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
             #DialogTitleBar QLabel {
                 font-weight: bold;
                 margin-left: 8px;
+                color: white;
             }
 
             #DialogTitleBar QPushButton {
@@ -516,6 +524,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
             """
             QLabel {
                 margin-bottom: 5px;
+                color: white;
             }
 
             QSpinBox {
@@ -572,6 +581,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
             """
             QLabel {
                 margin-bottom: 5px;
+                color: white;
             }
 
             QSpinBox {
@@ -619,6 +629,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
             """
             QLabel {
                 margin-bottom: 10px;
+                color: white;
             }
 
             QSpinBox {
@@ -639,6 +650,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
             """
             QLabel {
                 margin-bottom: 5px;
+                color: white;
             }
 
             QLineEdit {
@@ -654,6 +666,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
                 border-radius: 0px;
                 background-color: #2b2b35;
                 padding: 5px 8px;
+                color: white;
             }
             """
         )
@@ -691,6 +704,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
                 padding: 6px;
                 border-radius: 6px;
                 background-color: #47474e;
+                color: white;
             }
 
             QPushButton:hover {
@@ -955,6 +969,7 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
             #DialogTitleBar QLabel {
                 font-weight: bold;
                 margin-left: 8px;
+                color: white;
             }
 
             #DialogTitleBar QPushButton {
@@ -976,6 +991,7 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
                 background-color: #47474e;
                 padding: 10px 0px;
                 border: none;
+                color: white;
             }
 
             #DialogBody QPushButton:hover {

@@ -52,6 +52,7 @@ class Menubar(QtWidgets.QMenuBar):
             QMenuBar::item {
                 border: none;
                 padding: 3px 10px;
+                color: white;
             }
 
             QMenuBar::item:selected {
