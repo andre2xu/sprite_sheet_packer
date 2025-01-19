@@ -114,12 +114,12 @@ class SpriteInputChoiceDialog(QtWidgets.QDialog):
         body = QtWidgets.QWidget()
         body.setObjectName('DialogBody')
 
-        icons_folder = os.path.join(pathlib.Path(__file__).parent.parent.parent.resolve(), 'local/icons')
+        ICONS_FOLDER_PATH = os.path.join(pathlib.Path(__file__).parent.resolve(), '../icons')
 
         self.sprite_sheet_option = self.Option()
         self.sprite_sheet_option.lyt.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.sprite_sheet_option_image = QtWidgets.QLabel('')
-        self.sprite_sheet_option_image.setPixmap(QtGui.QPixmap(os.path.join(icons_folder, 'sprite_input_sheet_option.png')))
+        self.sprite_sheet_option_image.setPixmap(QtGui.QPixmap(os.path.join(ICONS_FOLDER_PATH, 'sprite_input_sheet_option.png')))
         self.sprite_sheet_option_image.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.sprite_sheet_option_image.setScaledContents(True)
         self.sprite_sheet_option_text = QtWidgets.QLabel('Sheet', self.sprite_sheet_option)
@@ -133,7 +133,7 @@ class SpriteInputChoiceDialog(QtWidgets.QDialog):
         self.selection_option = self.Option()
         self.selection_option.lyt.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.selection_option_image = QtWidgets.QLabel('')
-        self.selection_option_image.setPixmap(QtGui.QPixmap(os.path.join(icons_folder, 'sprite_input_selection_option.png')))
+        self.selection_option_image.setPixmap(QtGui.QPixmap(os.path.join(ICONS_FOLDER_PATH, 'sprite_input_selection_option.png')))
         self.selection_option_image.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.selection_option_image.setScaledContents(True)
         self.selection_option_text = QtWidgets.QLabel('Selection', self.selection_option)
