@@ -192,6 +192,16 @@ class SpritesManager(components.shared.VerticalBoxLayout):
             )
 
             if answer == QtWidgets.QMessageBox.StandardButton.Yes:
+                if os.path.exists(main_window.project_folder_path) == False:
+                    QtWidgets.QMessageBox.critical(
+                        main_window,
+                        'Missing Project Folder',
+                        "The project folder could not be found. It may have been moved or deleted. Please close the current project and either create a new one or re-open the project from its new location.",
+                        QtWidgets.QMessageBox.StandardButton.Ok,
+                    )
+
+                    return
+
                 self.sprites_list.deleteAllSprites()
         else:
             QtWidgets.QMessageBox.critical(
