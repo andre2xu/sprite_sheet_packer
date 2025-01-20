@@ -201,6 +201,15 @@ class SpritesManager(components.shared.VerticalBoxLayout):
                     )
 
                     return
+                elif os.path.exists(main_window.sprites_folder_path) == False:
+                    QtWidgets.QMessageBox.critical(
+                        main_window,
+                        'Missing Sprites Folder',
+                        "The sprites folder could not be found. It may have been moved or deleted.",
+                        QtWidgets.QMessageBox.StandardButton.Ok,
+                    )
+
+                    return
 
                 self.sprites_list.deleteAllSprites()
         else:
