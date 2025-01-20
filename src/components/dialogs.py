@@ -1100,6 +1100,16 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
         self.cancel_packing = True
 
     def createHorizontalSpriteSheet(self):
+        if os.path.exists(self.main_window.project_folder_path) == False:
+            QtWidgets.QMessageBox.critical(
+                self.main_window,
+                'Missing Project Folder',
+                "The project folder could not be found. It may have been moved or deleted. Please close the current project and either create a new one or re-open the project from its new location.",
+                QtWidgets.QMessageBox.StandardButton.Ok,
+            )
+
+            return
+
         sprites = self.getSpriteImages()
 
         if len(sprites) > 0:
@@ -1156,6 +1166,16 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
             self.accept()
 
     def createReverseHorizontalSpriteSheet(self):
+        if os.path.exists(self.main_window.project_folder_path) == False:
+            QtWidgets.QMessageBox.critical(
+                self.main_window,
+                'Missing Project Folder',
+                "The project folder could not be found. It may have been moved or deleted. Please close the current project and either create a new one or re-open the project from its new location.",
+                QtWidgets.QMessageBox.StandardButton.Ok,
+            )
+
+            return
+
         sprites = self.getSpriteImages()
 
         if len(sprites) > 0:
@@ -1214,6 +1234,16 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
             self.accept()
 
     def createVerticalSpriteSheet(self):
+        if os.path.exists(self.main_window.project_folder_path) == False:
+            QtWidgets.QMessageBox.critical(
+                self.main_window,
+                'Missing Project Folder',
+                "The project folder could not be found. It may have been moved or deleted. Please close the current project and either create a new one or re-open the project from its new location.",
+                QtWidgets.QMessageBox.StandardButton.Ok,
+            )
+
+            return
+
         sprites = self.getSpriteImages()
 
         if len(sprites) > 0:
@@ -1270,6 +1300,16 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
             self.accept()
 
     def createReverseVerticalSpriteSheet(self):
+        if os.path.exists(self.main_window.project_folder_path) == False:
+            QtWidgets.QMessageBox.critical(
+                self.main_window,
+                'Missing Project Folder',
+                "The project folder could not be found. It may have been moved or deleted. Please close the current project and either create a new one or re-open the project from its new location.",
+                QtWidgets.QMessageBox.StandardButton.Ok,
+            )
+
+            return
+
         sprites = self.getSpriteImages()
 
         if len(sprites) > 0:
@@ -1328,6 +1368,16 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
             self.accept()
 
     def createCompactSpriteSheet(self):
+        if os.path.exists(self.main_window.project_folder_path) == False:
+            QtWidgets.QMessageBox.critical(
+                self.main_window,
+                'Missing Project Folder',
+                "The project folder could not be found. It may have been moved or deleted. Please close the current project and either create a new one or re-open the project from its new location.",
+                QtWidgets.QMessageBox.StandardButton.Ok,
+            )
+
+            return
+
         sprites = self.getSpriteImages()
 
         if len(sprites) > 0:
