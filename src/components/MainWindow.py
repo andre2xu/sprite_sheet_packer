@@ -99,9 +99,19 @@ class Menubar(QtWidgets.QMenuBar):
     def exportSpriteSheet(self):
         main_window = self.parent()
 
+        if main_window.temp_folder_path == None:
+            QtWidgets.QMessageBox.critical(
+                main_window,
+                'No Project',
+                "Please open a project first or create a new one.",
+                QtWidgets.QMessageBox.StandardButton.Ok
+            )
+
+            return
+
         sprite_sheet_file = 'spritesheet.png'
 
-        if main_window.temp_folder_path != None and os.path.exists(os.path.join(main_window.temp_folder_path, sprite_sheet_file)):
+        if os.path.exists(os.path.join(main_window.temp_folder_path, sprite_sheet_file)):
             save_data = QtWidgets.QFileDialog.getSaveFileName(
                 main_window,
                 'Choose a destination and file name',
@@ -150,9 +160,19 @@ class Menubar(QtWidgets.QMenuBar):
     def exportDataSheet(self):
         main_window = self.parent()
 
+        if main_window.temp_folder_path == None:
+            QtWidgets.QMessageBox.critical(
+                main_window,
+                'No Project',
+                "Please open a project first or create a new one.",
+                QtWidgets.QMessageBox.StandardButton.Ok
+            )
+
+            return
+
         data_sheet_file = 'datasheet.json'
 
-        if main_window.temp_folder_path != None and os.path.exists(os.path.join(main_window.temp_folder_path, data_sheet_file)):
+        if os.path.exists(os.path.join(main_window.temp_folder_path, data_sheet_file)):
             save_data = QtWidgets.QFileDialog.getSaveFileName(
                 main_window,
                 'Choose a destination and file name',
