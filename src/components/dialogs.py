@@ -1169,14 +1169,26 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
 
                 x += sprite.width
 
-            # save sprite sheet in the temp folder
-            horizontal_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
+            if os.path.exists(self.main_window.temp_folder_path) == False:
+                QtWidgets.QMessageBox.critical(
+                    self.main_window,
+                    'Missing Temp Folder',
+                    "The folder for temporary files could not be found. It may have been moved or deleted.",
+                    QtWidgets.QMessageBox.StandardButton.Ok,
+                )
 
-            # create data sheet
-            self.createDataSheet(data_sheet)
+                # close progress bar dialog
+                self.progress_bar_dialog.accept()
+            else:
+                # save sprite sheet in the temp folder
+                horizontal_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
 
-            # close the dialog
-            self.accept()
+                # create data sheet
+                self.createDataSheet(data_sheet)
+
+                # close the dialogs
+                self.progress_bar_dialog.accept()
+                self.accept()
 
     def createReverseHorizontalSpriteSheet(self):
         if os.path.exists(self.main_window.project_folder_path) == False:
@@ -1237,14 +1249,26 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
 
                 x += sprite.width
 
-            # save sprite sheet in the temp folder
-            reverse_horizontal_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
+            if os.path.exists(self.main_window.temp_folder_path) == False:
+                QtWidgets.QMessageBox.critical(
+                    self.main_window,
+                    'Missing Temp Folder',
+                    "The folder for temporary files could not be found. It may have been moved or deleted.",
+                    QtWidgets.QMessageBox.StandardButton.Ok,
+                )
 
-            # create data sheet
-            self.createDataSheet(data_sheet)
+                # close progress bar dialog
+                self.progress_bar_dialog.accept()
+            else:
+                # save sprite sheet in the temp folder
+                reverse_horizontal_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
 
-            # close the dialog
-            self.accept()
+                # create data sheet
+                self.createDataSheet(data_sheet)
+
+                # close the dialogs
+                self.progress_bar_dialog.accept()
+                self.accept()
 
     def createVerticalSpriteSheet(self):
         if os.path.exists(self.main_window.project_folder_path) == False:
@@ -1303,14 +1327,26 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
 
                 y += sprite.height
 
-            # save sprite sheet in the temp folder
-            vertical_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
+            if os.path.exists(self.main_window.temp_folder_path) == False:
+                QtWidgets.QMessageBox.critical(
+                    self.main_window,
+                    'Missing Temp Folder',
+                    "The folder for temporary files could not be found. It may have been moved or deleted.",
+                    QtWidgets.QMessageBox.StandardButton.Ok,
+                )
 
-            # create data sheet
-            self.createDataSheet(data_sheet)
+                # close progress bar dialog
+                self.progress_bar_dialog.accept()
+            else:
+                # save sprite sheet in the temp folder
+                vertical_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
 
-            # close the dialog
-            self.accept()
+                # create data sheet
+                self.createDataSheet(data_sheet)
+
+                # close the dialogs
+                self.progress_bar_dialog.accept()
+                self.accept()
 
     def createReverseVerticalSpriteSheet(self):
         if os.path.exists(self.main_window.project_folder_path) == False:
@@ -1371,14 +1407,26 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
 
                 y += sprite.height
 
-            # save sprite sheet in the temp folder
-            vertical_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
+            if os.path.exists(self.main_window.temp_folder_path) == False:
+                QtWidgets.QMessageBox.critical(
+                    self.main_window,
+                    'Missing Temp Folder',
+                    "The folder for temporary files could not be found. It may have been moved or deleted.",
+                    QtWidgets.QMessageBox.StandardButton.Ok,
+                )
 
-            # create data sheet
-            self.createDataSheet(data_sheet)
+                # close progress bar dialog
+                self.progress_bar_dialog.accept()
+            else:
+                # save sprite sheet in the temp folder
+                vertical_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
 
-            # close the dialog
-            self.accept()
+                # create data sheet
+                self.createDataSheet(data_sheet)
+
+                # close the dialogs
+                self.progress_bar_dialog.accept()
+                self.accept()
 
     def createCompactSpriteSheet(self):
         if os.path.exists(self.main_window.project_folder_path) == False:
@@ -1507,18 +1555,29 @@ class SpriteSheetLayoutDialog(QtWidgets.QDialog):
                 # update progress bar
                 self.progress_bar_dialog.setValue(((i+1) / len(sprites)) * 100)
 
-            # get rid of excess transparent pixels
-            compact_sprite_sheet = compact_sprite_sheet.crop(compact_sprite_sheet.getbbox(alpha_only=True))
+            if os.path.exists(self.main_window.temp_folder_path) == False:
+                QtWidgets.QMessageBox.critical(
+                    self.main_window,
+                    'Missing Temp Folder',
+                    "The folder for temporary files could not be found. It may have been moved or deleted.",
+                    QtWidgets.QMessageBox.StandardButton.Ok,
+                )
 
-            # save the sprite sheet in the temp folder
-            compact_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
+                # close progress bar dialog
+                self.progress_bar_dialog.accept()
+            else:
+                # get rid of excess transparent pixels
+                compact_sprite_sheet = compact_sprite_sheet.crop(compact_sprite_sheet.getbbox(alpha_only=True))
 
-            # create data sheet
-            self.createDataSheet(data_sheet)
+                # save the sprite sheet in the temp folder
+                compact_sprite_sheet.save(os.path.join(self.main_window.temp_folder_path, 'spritesheet.png'))
 
-            # close the dialogs
-            self.progress_bar_dialog.accept()
-            self.accept()
+                # create data sheet
+                self.createDataSheet(data_sheet)
+
+                # close the dialogs
+                self.progress_bar_dialog.accept()
+                self.accept()
 
     def createDataSheet(self, data: dict):
         with open(os.path.join(self.main_window.temp_folder_path, 'datasheet.json'), 'w+') as json_file:
