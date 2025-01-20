@@ -282,6 +282,8 @@ class FileMenuNewProjectDialog(QtWidgets.QDialog):
         file_dialog_button.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Minimum))
         file_dialog_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         file_dialog_button.clicked.connect(self.getFolderLocationFromUser)
+        file_dialog_button.setAutoDefault(False)
+        file_dialog_button.setDefault(False)
 
         folder_location_field_subcontainer.addWidgets([
             self.folder_location_field,
@@ -350,6 +352,12 @@ class FileMenuNewProjectDialog(QtWidgets.QDialog):
         body_lyt.addWidget(self.submit_button)
 
         layout.addWidget(body)
+
+    def keyPressEvent(self, event):
+        key = event.key()
+
+        if key == QtCore.Qt.Key.Key_Return or key == QtCore.Qt.Key.Key_Enter:
+            self.submit_button.click()
 
     def open(self):
         # reset the default values of the fields
