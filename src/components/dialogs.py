@@ -623,6 +623,8 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         auto_find_bgc_button.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum))
         auto_find_bgc_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         auto_find_bgc_button.clicked.connect(self.autoFindBackgroundColor)
+        auto_find_bgc_button.setAutoDefault(False)
+        auto_find_bgc_button.setDefault(False)
 
         bgc_subcontainer2 = components.shared.VerticalBoxLayout()
         bgc_subcontainer2.lyt.setSpacing(0)
@@ -701,11 +703,11 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
         body_lyt.addWidget(grid_square_dimensions_container)
         body_lyt.addWidget(background_color_container)
 
-        submit_button = QtWidgets.QPushButton('Start Scan')
-        submit_button.setObjectName('SubmitButton')
-        submit_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
-        submit_button.clicked.connect(self.submit)
-        submit_button.setStyleSheet(
+        self.submit_button = QtWidgets.QPushButton('Start Scan')
+        self.submit_button.setObjectName('SubmitButton')
+        self.submit_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+        self.submit_button.clicked.connect(self.submit)
+        self.submit_button.setStyleSheet(
             """
             QPushButton {
                 margin: 40px 10px 15px;
@@ -721,9 +723,15 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
             """
         )
 
-        body_lyt.addWidget(submit_button)
+        body_lyt.addWidget(self.submit_button)
 
         layout.addWidget(body)
+
+    def keyPressEvent(self, event):
+        key = event.key()
+
+        if key == QtCore.Qt.Key.Key_Return or key == QtCore.Qt.Key.Key_Enter:
+            self.submit_button.click()
 
     def open(self, uploadedSpriteSheetPath: str):
         if os.path.exists(uploadedSpriteSheetPath):
