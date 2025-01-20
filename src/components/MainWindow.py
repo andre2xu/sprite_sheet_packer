@@ -132,12 +132,20 @@ class Menubar(QtWidgets.QMenuBar):
 
                     sprite_sheet.save(save_path)
         else:
-            QtWidgets.QMessageBox.critical(
-                main_window,
-                'No Sprite Sheet',
-                "Please create a sprite sheet first by adding sprites and then packing them.",
-                QtWidgets.QMessageBox.StandardButton.Ok
-            )
+            if os.path.exists(main_window.temp_folder_path) == False:
+                QtWidgets.QMessageBox.critical(
+                    main_window,
+                    'Missing Temp Folder',
+                    "The folder for temporary files could not be found. It may have been moved or deleted.",
+                    QtWidgets.QMessageBox.StandardButton.Ok,
+                )
+            else:
+                QtWidgets.QMessageBox.critical(
+                    main_window,
+                    'No Sprite Sheet',
+                    "Please create a sprite sheet first by adding sprites and then packing them.",
+                    QtWidgets.QMessageBox.StandardButton.Ok
+                )
 
     def exportDataSheet(self):
         main_window = self.parent()
@@ -174,12 +182,20 @@ class Menubar(QtWidgets.QMenuBar):
 
                 shutil.copy(os.path.join(main_window.temp_folder_path, data_sheet_file), save_path)
         else:
-            QtWidgets.QMessageBox.critical(
-                main_window,
-                'No Data Sheet',
-                "Please create a sprite sheet first by adding sprites and then packing them. This will generate a data sheet.",
-                QtWidgets.QMessageBox.StandardButton.Ok
-            )
+            if os.path.exists(main_window.temp_folder_path) == False:
+                QtWidgets.QMessageBox.critical(
+                    main_window,
+                    'Missing Temp Folder',
+                    "The folder for temporary files could not be found. It may have been moved or deleted.",
+                    QtWidgets.QMessageBox.StandardButton.Ok,
+                )
+            else:
+                QtWidgets.QMessageBox.critical(
+                    main_window,
+                    'No Data Sheet',
+                    "Please create a sprite sheet first by adding sprites and then packing them. This will generate a data sheet.",
+                    QtWidgets.QMessageBox.StandardButton.Ok
+                )
 
 
 
