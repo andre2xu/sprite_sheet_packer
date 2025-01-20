@@ -899,7 +899,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
                         gsd_height
                     )
 
-                    if len(sprites) > 0 and main_window.sprites_folder_path != None:
+                    if len(sprites) > 0:
                         # save the sprites in the sprite folder
                         for i in range(len(sprites)):
                             sprite = sprites[i]
@@ -907,7 +907,10 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
                             timestamp = datetime.datetime.today().strftime('%d%m%Y%H%M%S%f')
                             new_file_name = f'sprite{i}{i*2}{i*3}{timestamp}' + '.png'
 
-                            sprite.save(os.path.join(main_window.sprites_folder_path, new_file_name))
+                            if os.path.exists(main_window.sprites_folder_path):
+                                sprite.save(os.path.join(main_window.sprites_folder_path, new_file_name))
+                            else:
+                                raise Exception("The sprites folder is missing. It may have been moved or deleted.")
 
                         # reload the sprites list
                         main_window.workspace.sprites_manager.sprites_list.reloadList()
