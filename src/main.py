@@ -343,6 +343,25 @@ class MainWindow(QtWidgets.QMainWindow):
         file_path = sprite_sheet[0]
         format = sprite_sheet[1]
 
+        if os.path.exists(self.project_folder_path) == False:
+            QtWidgets.QMessageBox.critical(
+                self,
+                'Missing Project Folder',
+                "The project folder could not be found. It may have been moved or deleted. Please close the current project and either create a new one or re-open the project from its new location.",
+                QtWidgets.QMessageBox.StandardButton.Ok,
+            )
+
+            return
+        elif os.path.exists(self.temp_folder_path) == False:
+            QtWidgets.QMessageBox.critical(
+                self,
+                'Missing Temp Folder',
+                "The folder for temporary files could not be found. It may have been moved or deleted.",
+                QtWidgets.QMessageBox.StandardButton.Ok,
+            )
+
+            return
+
         if len(file_path) > 0 and len(format) > 0:
             file_name, extension = os.path.splitext(file_path)
             iso_timestamp = datetime.datetime.isoformat(datetime.datetime.today())
