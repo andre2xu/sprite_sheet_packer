@@ -281,36 +281,56 @@ class MainWindow(QtWidgets.QMainWindow):
             # make a copy of each sprite and put them in the sprites subfolder of the project folder
             sprites_folder_paths = []
 
-            for i in range(len(sprites)):
-                sprite_src = sprites[i]
+            try:
+                for i in range(len(sprites)):
+                    sprite_src = sprites[i]
 
-                file_name = os.path.basename(sprite_src)
-                file_path = os.path.join(self.sprites_folder_path, file_name)
+                    file_name = os.path.basename(sprite_src)
+                    file_path = os.path.join(self.sprites_folder_path, file_name)
 
-                if os.path.exists(file_path) == False:
-                    with PIL.Image.open(sprite_src) as sprite:
-                        sprite.save(file_path, 'png')
-                        sprites_folder_paths.append(file_path)
-                else:
-                    # sprite already exists, request permission to replace it
-                    answer = QtWidgets.QMessageBox.warning(
-                        self,
-                        'Sprite Already Exists',
-                        f"\"{file_name}\" already exists in the sprites folder. Would you like to replace it?",
-                        QtWidgets.QMessageBox.StandardButton.No,
-                        QtWidgets.QMessageBox.StandardButton.Yes
-                    )
-
-                    if answer == QtWidgets.QMessageBox.StandardButton.Yes:
+                    if os.path.exists(file_path) == False:
                         with PIL.Image.open(sprite_src) as sprite:
                             sprite.save(file_path, 'png')
+                            sprites_folder_paths.append(file_path)
+                    else:
+                        # sprite already exists, request permission to replace it
+                        answer = QtWidgets.QMessageBox.warning(
+                            self,
+                            'Sprite Already Exists',
+                            f"\"{file_name}\" already exists in the sprites folder. Would you like to replace it?",
+                            QtWidgets.QMessageBox.StandardButton.No,
+                            QtWidgets.QMessageBox.StandardButton.Yes
+                        )
 
-            # update sprites list
-            if len(sprites_folder_paths) > 0:
-                self.workspace.sprites_manager.sprites_list.addSprites(sprites_folder_paths)
+                        if answer == QtWidgets.QMessageBox.StandardButton.Yes:
+                            with PIL.Image.open(sprite_src) as sprite:
+                                sprite.save(file_path, 'png')
 
-            # close sprite input choice dialog
-            self.workspace.sprites_manager.controls.sprite_input_choice_dialog.accept()
+                # update sprites list
+                if len(sprites_folder_paths) > 0:
+                    self.workspace.sprites_manager.sprites_list.addSprites(sprites_folder_paths)
+
+                # close sprite input choice dialog
+                self.workspace.sprites_manager.controls.sprite_input_choice_dialog.accept()
+            except:
+                if os.path.exists(self.project_folder_path) == False:
+                    QtWidgets.QMessageBox.critical(
+                        self,
+                        'Missing Project Folder',
+                        "The project folder could not be found. It may have been moved or deleted. Please close the current project and either create a new one or re-open the project from its new location.",
+                        QtWidgets.QMessageBox.StandardButton.Ok,
+                    )
+
+                    return
+                elif os.path.exists(self.sprites_folder_path) == False:
+                    QtWidgets.QMessageBox.critical(
+                        self,
+                        'Missing Sprites Folder',
+                        "The sprites folder could not be found. It may have been moved or deleted.",
+                        QtWidgets.QMessageBox.StandardButton.Ok,
+                    )
+
+                    return
 
     def uploadSpriteSheet(self):
         sprite_sheet = QtWidgets.QFileDialog.getOpenFileName(
