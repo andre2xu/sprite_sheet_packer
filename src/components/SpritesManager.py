@@ -131,30 +131,37 @@ class SpritesListItemDelegate(QtWidgets.QStyledItemDelegate):
 
     def setModelData(self, editor: QtWidgets.QWidget, model: QtCore.QAbstractItemModel, index: QtCore.QModelIndex | QtCore.QPersistentModelIndex):
         list_widget = model.parent()
+        main_window = list_widget.parent().parent().parent().parent().parent()
 
         try:
             # rename the sprite file
             list_item_edited = list_widget.itemFromIndex(index)
 
-            extension = os.path.splitext(list_item_edited.src)[1]
-            new_filename = f'{editor.text()}{extension}'
+            if os.path.exists(list_item_edited.src):
+                extension = os.path.splitext(list_item_edited.src)[1]
+                new_filename = f'{editor.text()}{extension}'
 
-            sprites_folder = os.path.dirname(list_item_edited.src)
-            new_src = os.path.join(sprites_folder, new_filename)
+                sprites_folder = os.path.dirname(list_item_edited.src)
+                new_src = os.path.join(sprites_folder, new_filename)
 
-            os.rename(list_item_edited.src, new_src)
-            list_item_edited.src = new_src
+                os.rename(list_item_edited.src, new_src)
+                list_item_edited.src = new_src
 
-            # change the list item text
-            super().setModelData(editor, model, index)
+                # change the list item text
+                super().setModelData(editor, model, index)
 
-            # reload list (to re-order sprites by name)
-            sprites_list_class = list_widget.parent()
-            sprites_list_class.reloadList()
+                # reload list (to re-order sprites by name)
+                sprites_list_class = list_widget.parent()
+                sprites_list_class.reloadList()
+            else:
+                QtWidgets.QMessageBox.critical(
+                    main_window,
+                    'Renaming Failed',
+                    "The sprite file could not be found. It may have been moved or deleted. Please try closing and re-opening the current project.",
+                    QtWidgets.QMessageBox.StandardButton.Ok,
+                )
         except:
             # show error and don't make any changes
-            main_window = list_widget.parent().parent().parent().parent().parent()
-
             QtWidgets.QMessageBox.critical(
                 main_window,
                 'Renaming Failed',
