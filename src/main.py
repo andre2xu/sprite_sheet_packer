@@ -337,7 +337,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self,
             'Select sprite sheet',
             '',
-            'Images (*.png *.jpg *.jpeg)'
+            '*.png'
         )
 
         file_path = sprite_sheet[0]
