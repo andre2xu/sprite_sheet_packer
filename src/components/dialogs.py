@@ -776,6 +776,7 @@ class SpriteSheetInfoDialog(QtWidgets.QDialog):
     def autoFindBackgroundColor(self):
         if os.path.exists(self.uploaded_sprite_sheet_path):
             with PIL.Image.open(self.uploaded_sprite_sheet_path) as sprite_sheet:
+                sprite_sheet = sprite_sheet.convert('RGBA')
                 pixels = list(sprite_sheet.getdata())
 
                 # count the no. times each pixel appears
