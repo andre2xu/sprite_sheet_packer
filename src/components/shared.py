@@ -256,7 +256,7 @@ class SpriteSheet():
 
             if (extension == '.png' or extension == '.jpg' or extension == '.jpeg') and (mime_type == 'image/png' or mime_type == 'image/jpg' or mime_type == 'image/jpeg'):
                 self.sprite_sheet = PIL.Image.open(spriteSheetPath)
-                self.sprite_sheet.convert('RGBA')
+                self.sprite_sheet = self.sprite_sheet.convert('RGBA')
                 self.pixels = list(self.sprite_sheet.getdata())
             else:
                 raise Exception("Invalid sprite sheet. Must be a png or jpeg image.")
@@ -266,6 +266,16 @@ class SpriteSheet():
                 self.background_color = backgroundColor
             else:
                 raise Exception("Invalid background color. Must be a tuple with RGBA values between 0 and 255.")
+
+            # change non-transparent background color to transparent
+            transparent_color = (0,0,0,0)
+
+            if self.background_color != transparent_color:
+                pixels = numpy.array(self.pixels, dtype=object)
+                pixels[(pixels == self.background_color).all(axis=1)] = transparent_color
+
+                self.pixels = [tuple(row) for row in pixels]
+                self.background_color = transparent_color
         else:
             raise FileNotFoundError("The sprite sheet could not be found. Please make sure you're passing a valid path to an existing file.")
 
