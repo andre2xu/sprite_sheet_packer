@@ -1,17 +1,17 @@
-This project uses PyInstaller to create the executable. Please make sure you are in the project folder before running the commands below.
+This project uses Python 3.10+ and PyInstaller to create the executable. Please make sure you are in the project folder before running the commands below.
 
 1. Create a virtual environment: python -m venv venv
-2. Run the virtual environment: ./venv/Scripts/activate
+2. Run the virtual environment: ./venv/Scripts/activate   OR   source ./venv/bin/activate
 3. Install the dependencies: pip install -r requirements.txt
 
 (default approach)
-4. Build the project using the following spec file: pyinstaller main.spec
+4. Build the project: pyinstaller main.spec
 5. After the build is complete, go to the 'dist/Sprite Sheet Packer' folder to find the executable
 6. Create a shortcut that points to the executable
 7. Enjoy!
 
 (one file approach)
-4. Build the project using the following spec file: pyinstaller main_single_file.spec
+4. Build the project: pyinstaller main_single_file.spec
 5. After the build is complete, go to the 'dist' folder to find the executable
 6. Move the executable wherever you want
 7. Enjoy!
