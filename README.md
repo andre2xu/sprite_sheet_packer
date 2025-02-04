@@ -1,4 +1,4 @@
-# Sprite Sheet Packer &nbsp;![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=yellow) ![Qt](https://img.shields.io/badge/Qt-white?style=flat&logo=qt)
+# Sprite Sheet Packer &nbsp;![Python](https://img.shields.io/badge/Python%203.10+-3776AB?style=flat&logo=python&logoColor=yellow) ![Qt](https://img.shields.io/badge/Qt-white?style=flat&logo=qt)
 
 A free software for packing your sprites. It also supports (colored) PNG gridded sprite sheets as input.
 <br><br>
